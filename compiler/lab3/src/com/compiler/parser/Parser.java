@@ -48,6 +48,7 @@ public class Parser {
             Map<String, String> context = new HashMap<>();
             context.put("name", "6");
             AstGenerator bytecode = new AstGenerator();
+            AstTransform astTransform = new AstTransform();
             AstExecute execute = new AstExecute(context);
 
             advance();
@@ -58,6 +59,9 @@ public class Parser {
                 Expr expr = parseExpr();
                 System.out.println("字节码:");
                 expr.accept(bytecode);
+                System.out.println("\n四元式:");
+                expr.accept(astTransform);
+                astTransform.print();
                 System.out.println("计算结果:");
                 System.out.println(expr.accept(execute));
                 //System.out.println(expr);
