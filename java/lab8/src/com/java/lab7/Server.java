@@ -4,15 +4,18 @@ import java.net.*;
 
 /*
 
-       1. bw.write(str)  str必须标明以"\n"结尾
-       2. <1> 之后 必须有 bw.flush()
-       3. 别问我为什么知道, fuck!
+   1. bw.write(str)  str必须标明以"\n"结尾
+   2. <1> 之后 必须有 bw.flush()
+   3. 请务必遵循1和2条规则, 否则可能会出现头晕, 眼花, 心跳加速, 内心焦急等不适症状(其实会读不到数据)
+      别问我为什么知道, fuck!
+
+   19/10/21
 
 */
 
 public class Server {
     public static int port = 8888;
-    public static byte[] buff = new byte[1024];
+    //public static byte[] buff = new byte[1024];
     private static String secret = "lambdafate";
 
     public static void run() {
