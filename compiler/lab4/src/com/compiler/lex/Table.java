@@ -18,7 +18,7 @@ public class Table {
     public static final int ELSE = 6;
     public static final int WHILE = 7;
     public static final int FOR = 8;
-    public static final int PRINGTF = 9;
+    public static final int PRINTF = 9;
     public static final int TRUE = 10;
     public static final int FALSE = 11;
 
@@ -70,7 +70,7 @@ public class Table {
         put("ELSE", Table.ELSE);
         put("WHILE", Table.WHILE);
         put("FOR", Table.FOR);
-        put("PRINGTF", Table.PRINGTF);
+        put("PRINTF", Table.PRINTF);
         put("TRUE", Table.TRUE);
         put("FALSE", Table.FALSE);
         put("ID", Table.ID);

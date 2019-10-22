@@ -1,1 +1,2 @@
--1+2*(9+-3);
+double name := -3 + (6/2)*3 + 0x10;
+printf(name);

@@ -1,33 +1,42 @@
 package com.compiler.ast;
 
-
-
 public abstract class Expr implements Node {
+
+
     public static class Literal extends Expr{
         public String kind;
         public String value;
+
+        public String types = "Literal";
+
         public Literal(String value, String kind){
             this.value = value;
             this.kind = kind;
         }
 
         @Override
-        public void accept(Visitor visitor) {
-            visitor.visit(this);
+        public String toString() {
+            return "Literal{" +
+                    "kind='" + kind + '\'' +
+                    ", value='" + value + '\'' +
+                    ", types='" + types + '\'' +
+                    '}';
+        }
+
+        @Override
+        public <R> R accept(Visitor<R> visitor) {
+            return visitor.visit(this);
         }
     }
 
 
     public static class OpBinary extends Expr{
-//        public final static int ADD = 0;
-//        public final static int SUB = 1;
-//        public final static int MUL = 2;
-//        public final static int DIV = 3;
 
         public String op;
         public Expr left;
         public Expr right;
 
+        public String types = "OpBinary";
         public OpBinary(String op, Expr left, Expr right){
             this.op = op;
             this.left = left;
@@ -35,17 +44,57 @@ public abstract class Expr implements Node {
         }
 
         @Override
-        public void accept(Visitor visitor) {
-            visitor.visit(this);
+        public String toString() {
+            return "OpBinary{" +
+                    "op='" + op + '\'' +
+                    ", left=" + left +
+                    ", right=" + right +
+                    ", types='" + types + '\'' +
+                    '}';
         }
+
+        @Override
+        public <R> R accept(Visitor<R> visitor) {
+            return visitor.visit(this);
+        }
+
     }
 
 
-//    @Override
-//    public void accept(Visitor visitor) {
-//        visitor.visit(this);
-//    }
+    public static class Identify extends Expr{
+        public String name;
+        public String types = "Identify";
+        public Identify(String name){
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return "Identify{" +
+                    "name='" + name + '\'' +
+                    ", types='" + types + '\'' +
+                    '}';
+        }
+
+        @Override
+        public <R> R accept(Visitor<R> visitor) {
+            return visitor.visit(this);
+        }
+
+    }
+
+
+    public String types = "Expr";
 }
+
+
+
+
+
+
+
+
+
 
 //class Literal extends Expr {
 //    @Override
