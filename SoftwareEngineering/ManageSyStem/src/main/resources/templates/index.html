@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://java.sun.com/xml/ns/persistence/orm">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <h2>Hello, Spring boot!</h2>
+<div>
+    <table th:each="user:${users}">
+        <tr>
+            <td th:text="${user.username}"></td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
