@@ -12,6 +12,16 @@ public class AstGenerator implements Visitor<Void>{
     }
 
     @Override
+    public Void visit(Expr.Logical node) {
+        return null;
+    }
+
+    @Override
+    public Void visit(Stmt.IfStmt node) {
+        return null;
+    }
+
+    @Override
     public Void visit(Stmt.PrintStmt node) {
         return null;
     }

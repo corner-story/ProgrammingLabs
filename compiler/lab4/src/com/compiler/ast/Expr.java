@@ -84,6 +84,32 @@ public abstract class Expr implements Node {
     }
 
 
+    public static class Logical extends Expr{
+        public Expr left;
+        public Expr right;
+        public String op;
+
+        public Logical(String op, Expr left, Expr right){
+            this.op = op;
+            this.left = left;
+            this.right = right;
+        }
+
+        @Override
+        public String toString() {
+            return "Logical{" +
+                    "left=" + left +
+                    ", right=" + right +
+                    ", op='" + op + '\'' +
+                    '}';
+        }
+
+        @Override
+        public <R> R accept(Visitor<R> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
     public String types = "Expr";
 }
 

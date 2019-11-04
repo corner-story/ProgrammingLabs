@@ -4,6 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AstTransform implements Visitor<String> {
+    @Override
+    public String visit(Stmt.IfStmt node) {
+        return null;
+    }
+
+    @Override
+    public String visit(Expr.Logical node) {
+        return null;
+    }
 
     public final static String tag = "result-";
     public final static int size = 0;

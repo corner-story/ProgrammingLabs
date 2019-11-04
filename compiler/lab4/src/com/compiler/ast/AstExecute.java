@@ -27,6 +27,11 @@ public class AstExecute implements Visitor<Double> {
     }
 
     @Override
+    public Double visit(Expr.Logical node) {
+        return null;
+    }
+
+    @Override
     public Double visit(Expr.OpBinary node) {
         double left = node.left.accept(this);
         double right = node.right.accept(this);
@@ -37,6 +42,11 @@ public class AstExecute implements Visitor<Double> {
             case "*": return left*right;
             case "/": return left/right;
         }
+        return null;
+    }
+
+    @Override
+    public Double visit(Stmt.IfStmt node) {
         return null;
     }
 

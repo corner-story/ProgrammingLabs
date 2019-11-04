@@ -6,8 +6,12 @@ public interface Visitor<R> {
     public abstract R visit(Expr.Literal node);
     public abstract R visit(Expr.OpBinary node);
     public abstract R visit(Expr.Identify node);
+    public abstract R visit(Expr.Logical node);
 
 
     public abstract R visit(Stmt.DefStmt node);
     public abstract R visit(Stmt.PrintStmt node);
+
+    public abstract R visit(Stmt.IfStmt node);
+
 }

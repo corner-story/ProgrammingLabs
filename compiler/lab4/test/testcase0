@@ -1,2 +1,2 @@
-double name := -3 + (6/2)*3 + 0x10;
+double name := -3+(6/2)*3+0x10;
 printf(name);

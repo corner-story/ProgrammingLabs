@@ -1,10 +1,13 @@
 package com.compiler.ast;
 
-import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ExecuteStmt implements Visitor<Object> {
+    @Override
+    public Object visit(Stmt.IfStmt node) {
+        return null;
+    }
 
     public class Value{
         public String types;
@@ -23,6 +26,11 @@ public class ExecuteStmt implements Visitor<Object> {
         public String toString() {
             return value;
         }
+    }
+
+    @Override
+    public Object visit(Expr.Logical node) {
+        return null;
     }
 
     public String types;

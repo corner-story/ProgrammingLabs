@@ -35,11 +35,11 @@ public class Table {
 
     public static final int LT = 200; // <
     public static final int LE = 201;
-    public static final int EQ = 202;
+    public static final int EQ = 202;   // = 判断是否相等
     public static final int NE = 203;
     public static final int GT = 204;
     public static final int GE = 205;
-    public static final int IS = 206;
+    public static final int IS = 206;  // := 赋值
 
     public static final int PL = 300; // +
     public static final int MI = 301; // -

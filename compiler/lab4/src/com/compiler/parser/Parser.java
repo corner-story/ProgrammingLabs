@@ -7,9 +7,7 @@ import com.compiler.ast.*;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Parser {
     private List<Token> tokens;
@@ -55,34 +53,7 @@ public class Parser {
             }
 
             while (cur != null){
-
-                switch (cur.tokenValue){
-
-                    case "int":
-                    case "double":
-                    case "char":
-                    case "string":
-                        String kind = cur.tokenValue;
-                        advance();
-                        String identify = cur.tokenValue; advance();
-                        consume(":=", "except :=!");
-                        Expr expression = parseExpr();
-                        consume(";", "except ; !");
-                        stmts.add(new Stmt.DefStmt(kind, identify, expression)); break;
-
-                    case "printf":
-                        advance(); consume("(", "expect ( !");
-                        Expr expr = parseExpr(); consume(")", "except ) !");
-                        consume(";", "except ; !");
-                        stmts.add(new Stmt.PrintStmt(expr)); break;
-
-                    default:
-
-                        throw new ParserException();
-                }
-
-
-
+                stmts.add(parseStmt());
             }
 
 
@@ -93,6 +64,94 @@ public class Parser {
         return stmts;
     }
 
+    public Stmt parseStmt() throws Exception{
+
+        switch (cur.tokenValue){
+
+            case "int":
+            case "double":
+            case "char":
+            case "string":
+                return parseDefStmt();
+            case "printf":
+                return parsePrintStmt();
+            case "if":
+                return parseIfStmt();
+
+
+
+            default:
+                consume("", "unknowm token '" + cur.tokenValue + "'");
+                return null;
+        }
+    }
+
+    public Stmt parseDefStmt() throws Exception{
+        String kind = cur.tokenValue;
+        advance();
+        String identify = cur.tokenValue; advance();
+        consume(":=", "except := ");
+        Expr expression = parseExpr();
+        consume(";", "except ; ");
+        return new Stmt.DefStmt(kind, identify, expression);
+    }
+
+
+    public Stmt parsePrintStmt() throws Exception{
+
+        advance();
+        consume("(", "expect ( ");
+        Expr expr = parseExpr();
+        consume(")", "except ) ");
+        consume(";", "except ; ");
+        return new Stmt.PrintStmt(expr);
+    }
+
+    public Stmt parseIfStmt() throws Exception{
+        advance();
+        consume("(", "expect a '(' after if");
+
+        Expr condition = parseLogical();
+        consume(")", "expect a ')' after if condition");
+        consume("{", "expect a '{' ");
+        List<Stmt> consequence = new ArrayList<>();
+        List<Stmt> alternayive = new ArrayList<>();
+        while (cur!=null && !cur.tokenValue.equals("}")){
+            consequence.add(parseStmt());
+        }
+        consume("}", "expect a '}' ");
+        if(cur==null || !cur.tokenValue.equals("else")){
+            return new Stmt.IfStmt(condition, consequence, alternayive);
+        }
+        advance();
+        consume("{", "expect a '{' after 'else' ");
+        while(cur!=null && !cur.tokenValue.equals("}")){
+            alternayive.add(parseStmt());
+        }
+        consume("}", "expect a '}' ");
+
+        return new Stmt.IfStmt(condition, consequence, alternayive);
+    }
+
+    public Expr parseLogical() throws Exception{
+        if(cur == null){
+            throw new ParserException();
+        }
+
+        if(cur.tokenId == Table.NOT){
+            advance();
+            Expr res = parseExpr();
+            return new Expr.Logical("!", null, res);
+        }
+        Expr left = parseExpr();
+        if(!((cur.tokenId>=200 && cur.tokenId<=205) || cur.tokenId==Table.AND || cur.tokenId==Table.OR)){
+            throw new ParserException();
+        }
+        String op = cur.tokenValue;
+        advance();
+        Expr right = parseExpr();
+        return new Expr.Logical(op, left, right);
+    }
 
     public Expr parseExpr() throws Exception{
         Expr left = parseTerm();
@@ -161,7 +220,7 @@ public class Parser {
 
 
     public static void main(String[] args) {
-        File f = new File(".\\test\\testcase0");
+        File f = new File(".\\test\\testcase1");
         String path = "";
         try{
             //System.out.println(f.getCanonicalPath());

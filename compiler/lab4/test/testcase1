@@ -1,6 +1,8 @@
-name get
-
-while   if
-    end
-then
-    printf
+int a := 2;
+if(a >= 1){
+    if(a >= 2){
+        printf(a);
+    }
+}else{
+    printf("smaller!");
+}
