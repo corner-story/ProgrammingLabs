@@ -20,23 +20,19 @@ public class Client3 {
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(outputStream));
 
+            //开启读线程
+            new ReadFromServer(br).start();
+
             String servermsg = "";
             String msg = "";
             Scanner scan = new Scanner(System.in);
 
             while(true){
-                System.out.println("输入信息:");
+//                System.out.println("输入信息:");
                 msg = scan.nextLine();
                 bw.write(msg+"\n");
                 bw.flush();
-
-                servermsg = br.readLine();
-                System.out.println(socket.getRemoteSocketAddress()+" :\t"+servermsg);
-
             }
-
-
-
         }catch (Exception e){
             System.out.println(e);
         }
@@ -55,5 +51,34 @@ public class Client3 {
         client3.setConnectPort(8888);
         client3.setConnectAddr("127.0.0.1");
         client3.connect();
+    }
+}
+
+class ReadFromServer extends Thread{
+
+    private BufferedReader br;
+
+    public ReadFromServer(BufferedReader br){
+        this.br = br;
+    }
+
+    @Override
+    public void run(){
+        try{
+            String msg;
+            while((msg = br.readLine()) != null){
+
+                System.out.println(msg);
+            }
+
+        }catch (Exception e){
+            System.out.println(e);
+        }finally {
+            try{
+                if(br != null){ br.close();}
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        }
     }
 }

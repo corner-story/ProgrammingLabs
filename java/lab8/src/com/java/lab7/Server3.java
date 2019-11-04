@@ -1,18 +1,21 @@
 package com.java.lab7;
 
 /*
-    多线程server, 一个server和多个client聊天, server只能返回client发送的数据
-*/
+    多线程server, 一个server和多个client聊天
 
+*/
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Server3 {
     private int port = 0;
     private String servermsg;
+    public static List<SimpleServer> clients = new ArrayList<>();
+
 
     public void setPort(int port) {
         this.port = port;
@@ -31,9 +34,7 @@ public class Server3 {
                 //主进程一直等待client的连接, 连接成功后创建子进程
                 Socket socket = serverSocket.accept();
 
-                String title = "Thead";
-                String client = "Client[" + socket.getRemoteSocketAddress() + "]";
-                new SimpleServer(title, client, socket).start();
+                new SimpleServer(socket).start();
             }
 
         }catch (Exception e){
@@ -59,43 +60,73 @@ public class Server3 {
 
 class SimpleServer extends Thread{
 
-    private String title;
-    private String client;
+    private String clientName;
     private Socket socket;
+    private BufferedReader br;
+    private BufferedWriter bw;
 
-    public SimpleServer(String title, String client, Socket socket){
-        this.title = title;
-        this.client = client;
+    public boolean isConnected;
+
+    public SimpleServer(Socket socket) throws Exception{
         this.socket = socket;
+        br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
+        this.clientName = "Client[" + socket.getRemoteSocketAddress().toString() + "]";
+        this.isConnected = true;
+        Server3.clients.add(this);
+        System.out.println(clientName + " connected !");
     }
 
+    public void send(String msg) throws Exception{
+        String sendMsg = this.clientName + ":\t" + msg;
+        System.out.println(sendMsg);
+        for (SimpleServer client : Server3.clients) {
+
+            if(client != this && client.isConnected){
+                client.getBw().write(sendMsg + "\n");
+                client.getBw().flush();
+            }
+        }
+    }
+
+    public void receive() throws Exception{
+        String clientmsg;
+        if((clientmsg = br.readLine()) != null){
+            send(clientmsg);
+        }
+    }
 
     @Override
     public void run() {
         try {
-            if(socket == null){
-                throw new SocketException();
-            }
-            System.out.println(client+" connected!");
-
-            //获取socket的input、output stream
-            InputStream inputStream = socket.getInputStream();
-            OutputStream outputStream = socket.getOutputStream();
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(outputStream));
-
-            String clientmsg = "";
-            while((clientmsg = br.readLine()) != null){
-                System.out.print("\n"+ Thread.currentThread()+" accept msg ");
-                System.out.println("from Client[" + socket.getRemoteSocketAddress()+"]:\t" + clientmsg);
-
-                bw.write(clientmsg+"\n");
-                bw.flush();
+            while(isConnected){
+                receive();
             }
 
         }catch (Exception e){
-            System.out.println(Thread.currentThread()+" disconnect with "+client);
+            System.out.println(e);
+        }finally {
+            try{
+//                System.out.println(clientName + " exit!");
+                isConnected = false;
+                Server3.clients.remove(this);
+                this.send(clientName + " has exit!");
+
+                if(br != null){ br.close(); }
+                if(bw != null){ bw.close(); }
+                if(socket != null){ socket.close();}
+            }catch (Exception e){
+                System.out.println(e);
+            }
         }
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public BufferedWriter getBw() {
+        return bw;
     }
 }
