@@ -59,9 +59,13 @@ public class Interpreter {
                         case "LOAD_CONST":
                             Value value = null;
                             if(args.get(1).equals("LITERAL_INT")){
-                                value = new Value.IntObject(Integer.valueOf(args.get(0)));
+                                value = new Value<Integer>(Value.INT, Integer.valueOf(args.get(0)));
+                            }else if (args.get(1).equals("LITERAL_DOUBLE")){
+                                value = new Value<Double>(Value.DOUBLE, Double.valueOf(args.get(0)));
                             }else if(args.get(1).equals("LITERAL_STRING")){
-                                value = new Value.StringObject(args.get(0));
+                                value = new Value<String>(Value.STRING, args.get(0));
+                            }else if(args.get(1).equals("LITERAL_CHAR")){
+                                value = new Value<String>(Value.CHAR, args.get(0));
                             }
                             stack.push(value);
                             pc++;
@@ -75,18 +79,64 @@ public class Interpreter {
                             pc++;
                             break;
                         case "BINARY_ADD":
-                            Value left = stack.pop();
                             Value right = stack.pop();
+                            Value left = stack.pop();
 
-                            if(left.type.equals("int")){
-                                stack.push(new Value.IntObject(Integer.valueOf(((Value.IntObject)left).value + ((Value.IntObject)right).value)));
+                            if((left.type == Value.INT || left.type == Value.DOUBLE) && (right.type == Value.INT || right.type == Value.DOUBLE)){
+                                stack.push(new Value<Double>(Value.DOUBLE, Double.valueOf(left.value.toString()) + Double.valueOf(right.value.toString())));
+                            }else if(left.type == Value.STRING && right.type == Value.STRING){
+                                stack.push(new Value<String>(Value.STRING, left.value.toString() + right.value.toString()));
                             }
                             pc++;
                             break;
 
+                        case "BINARY_SUB":
+                            Value right1 = stack.pop();
+                            Value left1 = stack.pop();
+
+                            if((left1.type == Value.INT || left1.type == Value.DOUBLE) && (right1.type == Value.INT || right1.type == Value.DOUBLE)) {
+                                stack.push(new Value<Double>(Value.DOUBLE, Double.valueOf(left1.value.toString()) - Double.valueOf(right1.value.toString())));
+                            }
+                            pc++;
+                            break;
+
+                        case "BINARY_MUL":
+                            Value right2 = stack.pop();
+                            Value left2 = stack.pop();
+
+                            if((left2.type == Value.INT || left2.type == Value.DOUBLE) && (right2.type == Value.INT || right2.type == Value.DOUBLE)) {
+                                stack.push(new Value<Double>(Value.DOUBLE, Double.valueOf(left2.value.toString()) * Double.valueOf(right2.value.toString())));
+                            }
+                            pc++;
+                            break;
+                        case "BINARY_DIV":
+                            Value right3 = stack.pop();
+                            Value left3 = stack.pop();
+
+                            if((left3.type == Value.INT || left3.type == Value.DOUBLE) && (right3.type == Value.INT || right3.type == Value.DOUBLE)) {
+                                stack.push(new Value<Double>(Value.DOUBLE, Double.valueOf(left3.value.toString()) / Double.valueOf(right3.value.toString())));
+                            }
+                            pc++;
+                            break;
+
+                        case "COMPARE_OP":
+                            String op = args.get(0);
+                            if(op.equals("!")){
+                                stack.push(new Value<Boolean>(Value.BOOL, Boolean.valueOf(stack.pop().value.toString())));
+                                pc++;
+                                break;
+                            }
+
+                            Value right4 = stack.pop();
+                            Value left4 = stack.pop();
+                            boolean res = true;
+                            switch (op){
+                            }
+                            pc++;
+                            break;
                         case "CALL_FUNCTION":
                             if(args.get(0).equals("printf")){
-                                System.out.print(stack.get(stack.size()-1));
+                                System.out.print(stack.get(stack.size()-1).value);
                             }
                             pc++;
                             break;
@@ -132,6 +182,7 @@ public class Interpreter {
         String path = "";
         try{
             path = f.getCanonicalPath();
+            System.out.println(Boolean.valueOf("false"));
 
             Interpreter simpleInterpreter = new Interpreter(new InputFile(path).read());
             simpleInterpreter.run();

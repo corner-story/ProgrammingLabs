@@ -3,6 +3,6 @@ double name := -3+(6/2)*3+0x10;
 printf(name);
 */
 
-int test := 2+4;
-string test2 := "Hello, E";
+int test := 2-4;
+string test2 := "Hello, " + "World!";
 printf(test2);
