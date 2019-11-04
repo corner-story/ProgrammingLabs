@@ -5,7 +5,11 @@ import com.compiler.error.*;
 import com.compiler.lex.*;
 import com.compiler.ast.*;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,13 +18,15 @@ public class Parser {
     private Token cur;     //当前token和相应的下标
     private int index = 0;
 
-    List<Expr> res;
-    List<Stmt> stmts;
+    List<Expr> res = new ArrayList<>();
+    List<Stmt> stmts = new ArrayList<>();
 
-    public Parser(String filepath){
-        this.tokens = new Lex(filepath).tokenize();
-        res = new ArrayList<>();
-        stmts = new ArrayList<>();
+    public Parser(String input){
+        this.tokens = new Lex(input).tokenize();
+    }
+
+    public Parser(List<Token> tokens){
+        this.tokens = tokens;
     }
 
     public void advance(){
@@ -230,7 +236,7 @@ public class Parser {
 
         }
 
-        Parser parser = new Parser(path);
+        Parser parser = new Parser(new InputFile(path).read());
         List<Stmt> stmts = parser.parse();
 
         for (Stmt stmt : stmts) {
@@ -238,3 +244,27 @@ public class Parser {
         }
     }
 }
+
+class InputFile {
+    private String filepath;
+
+    public InputFile(String filepath) {
+        this.filepath = filepath;
+    }
+
+    public String read(){
+        StringBuffer scanned = new StringBuffer();
+        try (BufferedReader fuck = new BufferedReader(new FileReader(filepath, StandardCharsets.UTF_8))){
+
+            String line = "";
+            while((line = fuck.readLine()) != null){
+                scanned.append(line + "\n");
+                //System.out.println(line);
+            }
+        }catch (IOException e){
+            System.out.println(e);
+        }
+        return scanned.toString();
+    }
+}
+

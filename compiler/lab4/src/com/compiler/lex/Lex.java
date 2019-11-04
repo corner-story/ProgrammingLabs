@@ -13,8 +13,8 @@ public class Lex {
     private boolean isfinished = false;
     private List<Token> tokens = new ArrayList<>();
 
-    public Lex(String filepath){
-        this.input = new InputFile(filepath).read();
+    public Lex(String input){
+        this.input = input;
     }
 
     //更新当前char, 并前进一个单位
@@ -394,7 +394,7 @@ public class Lex {
             System.exit(0);
         }
 
-        var lex = new Lex(path);
+        var lex = new Lex(new InputFile(path).read());
         var tokens = lex.tokenize();
         tokens.forEach(fuck->{
             System.out.println(fuck);

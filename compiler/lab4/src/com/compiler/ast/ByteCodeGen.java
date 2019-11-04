@@ -15,7 +15,7 @@ public class ByteCodeGen implements Visitor<Void> {
 
     @Override
     public Void visit(Expr.Literal node) {
-        byteCodes.add(new ByteCode("LOAD_CONST", node.value));
+        byteCodes.add(new ByteCode("LOAD_CONST", node.value, node.kind));
         return null;
     }
 
@@ -52,7 +52,7 @@ public class ByteCodeGen implements Visitor<Void> {
     @Override
     public Void visit(Stmt.DefStmt node) {
         node.expression.accept(this);
-        byteCodes.add(new ByteCode("STORE_FAST", node.identify));
+        byteCodes.add(new ByteCode("STORE_FAST", node.identify, node.kind));
         return null;
     }
 

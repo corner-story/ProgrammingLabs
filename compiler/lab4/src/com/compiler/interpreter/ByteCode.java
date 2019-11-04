@@ -17,6 +17,12 @@ public class ByteCode {
         this.args.add(args);
     }
 
+    public ByteCode(String bytecode, String arg1, String arg2) {
+        this.bytecode = bytecode;
+        this.args.add(arg1);
+        this.args.add(arg2);
+    }
+
     public ByteCode(String bytecode, List<String> args) {
         this.bytecode = bytecode;
         this.args = args;
