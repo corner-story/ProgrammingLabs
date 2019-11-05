@@ -20,14 +20,26 @@ public class Interpreter {
         this.source = source;
     }
 
-    public List<Token> lex(String source){
+    public static List<Token> Tokenize(String source){
         return new Lex(source).tokenize();
     }
 
-    public List<Stmt> parse(String source){
+    public static List<Stmt> Parse(String source){
         return new Parser(source).parse();
     }
 
+    public static List<ByteCode> ByteCodes(String source){
+        List<Stmt> stmts = Parse(source);
+        ByteCodeGen byteCodeGen = new ByteCodeGen();
+        for (Stmt stmt : stmts) {
+            stmt.accept(byteCodeGen);
+        }
+        return byteCodeGen.getByteCodes();
+    }
+
+    public static void RunVM(String source){
+        new Interpreter(source).run();
+    }
 
     public void run(){
         try{
@@ -196,7 +208,7 @@ public class Interpreter {
     }
 
     private void init(){
-        List<Stmt> stmts = parse(source);
+        List<Stmt> stmts = Interpreter.Parse(source);
         ByteCodeGen byteCodeGen = new ByteCodeGen();
         for (Stmt stmt : stmts) {
             stmt.accept(byteCodeGen);
@@ -212,9 +224,24 @@ public class Interpreter {
         String path = "";
         try{
             path = f.getCanonicalPath();
+            String source = new InputFile(path).read();
 
-            Interpreter simpleInterpreter = new Interpreter(new InputFile(path).read());
-            simpleInterpreter.run();
+            Interpreter.RunVM(source);
+
+            System.out.println("\n***************Tokens************");
+            for (Token token : Interpreter.Tokenize(source)) {
+                System.out.println(token);
+            }
+
+            System.out.println("\n****************Ast**************");
+            for (Stmt stmt : Interpreter.Parse(source)) {
+                System.out.println(stmt);
+            }
+
+            System.out.println("\n****************bytecode************");
+            for (ByteCode code : Interpreter.ByteCodes(source)) {
+                System.out.println(code.getBytecode() + "\t\t" + code.getArgs());
+            }
         }
         catch(Exception e){
             System.out.println(e);

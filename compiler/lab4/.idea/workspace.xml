@@ -1,48 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="compiler:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="652cac7d-8a39-43ec-8dc0-5e8370ecc429" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../compiler-display/.mvn/wrapper/MavenWrapperDownloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../compiler-display/.mvn/wrapper/MavenWrapperDownloader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lab1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lab1/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lab2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lab2/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lab3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lab3/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstExecute.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstExecute.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstGenerator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstPrint.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstPrint.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstTransform$IR.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstTransform$IR.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstTransform.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstTransform.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/ByteCodeGen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/ByteCodeGen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/ExecuteStmt.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/ExecuteStmt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Stmt.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Stmt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Visitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Visitor.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/interpreter/InputFile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/interpreter/InputFile.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/interpreter/Interpreter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/interpreter/Interpreter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/lex/InputFile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/lex/InputFile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/lex/Lex.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/lex/Lex.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/lex/Table$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/lex/Table$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/lex/Table.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/lex/Table.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/lex/Token.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/lex/Token.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/parser/InputFile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/parser/InputFile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/parser/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/parser/Parser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/compiler/ast/AstExecute.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/compiler/ast/AstExecute.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/compiler/ast/AstGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/compiler/ast/AstGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/compiler/ast/AstPrint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/compiler/ast/AstPrint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/compiler/ast/AstTransform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/compiler/ast/AstTransform.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/compiler/ast/ByteCodeGen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/compiler/ast/ByteCodeGen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/compiler/ast/ExecuteStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/compiler/ast/ExecuteStmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/compiler/ast/Stmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/compiler/ast/Stmt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/compiler/ast/Visitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/compiler/ast/Visitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/compiler/interpreter/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/compiler/interpreter/Interpreter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/compiler/lex/Lex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/compiler/lex/Lex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/compiler/parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/compiler/parser/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testcase0" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcase0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testcase1" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcase1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testcase2" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcase2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testcase3" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcase3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testcase4" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcase4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testcase5" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcase5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testcase6" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcase6" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../java/lab1/src/com/java/lab1/HW1.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/lab1/src/com/java/lab1/HW1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../java/lab1/src/com/java/lab1/HW4.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/lab1/src/com/java/lab1/HW4.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../java/lab1/src/com/java/lab1/HW5.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/lab1/src/com/java/lab1/HW5.java" afterDir="false" />
@@ -70,35 +43,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/compiler/interpreter/Interpreter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="213" column="5" selection-start-line="213" selection-start-column="5" selection-end-line="213" selection-end-column="5" />
+            <state relative-caret-position="1668">
+              <caret line="237" column="29" selection-start-line="237" selection-start-column="29" selection-end-line="237" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#435#436#0" expanded="true" />
                 <element signature="e#471#472#0" expanded="true" />
-                <element signature="method#read#0;class#InputFile#0" />
+                <element signature="e#520#521#0" expanded="true" />
+                <element signature="e#569#570#0" expanded="true" />
+                <element signature="e#624#625#0" expanded="true" />
+                <element signature="e#673#674#0" expanded="true" />
+                <element signature="method#getByteCodes#0;class#Interpreter#0" />
+                <element signature="method#run#0;class#Interpreter#0" />
+                <element signature="class#InputFile#0" />
+                <element signature="e#8328#8329#0" expanded="true" />
+                <element signature="e#8368#8369#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/testcase5">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="18" column="12" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test/testcase6">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="10" column="15" lean-forward="true" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -107,7 +70,7 @@
         <entry file="file://$PROJECT_DIR$/test/testcase4">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="162">
-              <caret line="6" column="17" lean-forward="true" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+              <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -269,8 +232,8 @@
         <option value="$PROJECT_DIR$/src/com/compiler/parser/Parser.java" />
         <option value="$PROJECT_DIR$/test/testcase4" />
         <option value="$PROJECT_DIR$/test/testcase5" />
-        <option value="$PROJECT_DIR$/src/com/compiler/interpreter/Interpreter.java" />
         <option value="$PROJECT_DIR$/test/testcase6" />
+        <option value="$PROJECT_DIR$/src/com/compiler/interpreter/Interpreter.java" />
       </list>
     </option>
   </component>
@@ -280,7 +243,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="85" />
     <option name="y" value="75" />
     <option name="width" value="1355" />
@@ -300,74 +263,6 @@
               <item name="lab4" type="b2602c69:ProjectViewProjectNode" />
               <item name="lab4" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="lab4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lab4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lab4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lab4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="compiler" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lab4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lab4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="compiler" type="462c0819:PsiDirectoryNode" />
-              <item name="ast" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lab4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lab4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="compiler" type="462c0819:PsiDirectoryNode" />
-              <item name="interpreter" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lab4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lab4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="compiler" type="462c0819:PsiDirectoryNode" />
-              <item name="interpreter" type="462c0819:PsiDirectoryNode" />
-              <item name="Interpreter.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
-            </path>
-            <path>
-              <item name="lab4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lab4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="compiler" type="462c0819:PsiDirectoryNode" />
-              <item name="lex" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lab4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lab4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="compiler" type="462c0819:PsiDirectoryNode" />
-              <item name="lex" type="462c0819:PsiDirectoryNode" />
-              <item name="Lex.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
-            </path>
-            <path>
-              <item name="lab4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lab4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="compiler" type="462c0819:PsiDirectoryNode" />
-              <item name="parser" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lab4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lab4" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="compiler" type="462c0819:PsiDirectoryNode" />
-              <item name="parser" type="462c0819:PsiDirectoryNode" />
-              <item name="Parser.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
-            </path>
-            <path>
-              <item name="lab4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lab4" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -378,12 +273,12 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1572943623612" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1572945329352" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../.." />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
@@ -536,18 +431,17 @@
       <workItem from="1572855917151" duration="9103000" />
       <workItem from="1572867819945" duration="7801000" />
       <workItem from="1572920349897" duration="3721000" />
-      <workItem from="1572924927554" duration="14178000" />
+      <workItem from="1572924927554" duration="15543000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="197245000" />
+    <option name="totallyTimeSpent" value="198610000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20844504" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20844504" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -556,7 +450,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32956153" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.7393768" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.9575071" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.54532576" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -993,7 +887,7 @@
     <entry file="file://$PROJECT_DIR$/test/testcase4">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
-          <caret line="6" column="17" lean-forward="true" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -1004,23 +898,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/compiler/interpreter/Interpreter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="213" column="5" selection-start-line="213" selection-start-column="5" selection-end-line="213" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#435#436#0" expanded="true" />
-            <element signature="e#471#472#0" expanded="true" />
-            <element signature="method#read#0;class#InputFile#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/testcase6">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="10" column="15" lean-forward="true" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/compiler/interpreter/Interpreter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1668">
+          <caret line="237" column="29" selection-start-line="237" selection-start-column="29" selection-end-line="237" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#435#436#0" expanded="true" />
+            <element signature="e#471#472#0" expanded="true" />
+            <element signature="e#520#521#0" expanded="true" />
+            <element signature="e#569#570#0" expanded="true" />
+            <element signature="e#624#625#0" expanded="true" />
+            <element signature="e#673#674#0" expanded="true" />
+            <element signature="method#getByteCodes#0;class#Interpreter#0" />
+            <element signature="method#run#0;class#Interpreter#0" />
+            <element signature="class#InputFile#0" />
+            <element signature="e#8328#8329#0" expanded="true" />
+            <element signature="e#8368#8369#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1030,10 +932,12 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
+          <last-edited>compiler:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
