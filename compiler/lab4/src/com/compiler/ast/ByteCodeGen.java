@@ -42,10 +42,13 @@ public class ByteCodeGen implements Visitor<Void> {
 
     @Override
     public Void visit(Expr.Logical node) {
-        node.left.accept(this);
+        if(!node.op.equals("!")){
+            node.left.accept(this);
+        }
         node.right.accept(this);
-
-        byteCodes.add(new ByteCode("COMPARE_OP", node.op));
+        if(!node.op.equals("!")){
+            byteCodes.add(new ByteCode("COMPARE_OP", node.op));
+        }
         return null;
     }
 
@@ -67,7 +70,12 @@ public class ByteCodeGen implements Visitor<Void> {
     @Override
     public Void visit(Stmt.IfStmt node) {
         node.condition.accept(this);
-        byteCodes.add(new ByteCode("POP_JUMP_IF_FALSE"));
+        if(((Expr.Logical)node.condition).op.equals("!")){
+            byteCodes.add(new ByteCode("POP_JUMP_IF_TRUE"));
+        }else{
+            byteCodes.add(new ByteCode("POP_JUMP_IF_FALSE"));
+        }
+
         int conditionID = byteCodes.size() - 1;
 
         for (Stmt stmt : node.consequence) {

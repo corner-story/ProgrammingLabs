@@ -5,15 +5,9 @@ import com.compiler.lex.Lex;
 import com.compiler.lex.Token;
 import com.compiler.parser.*;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 public class Interpreter {
 
@@ -121,19 +115,46 @@ public class Interpreter {
 
                         case "COMPARE_OP":
                             String op = args.get(0);
-                            if(op.equals("!")){
-                                stack.push(new Value<Boolean>(Value.BOOL, Boolean.valueOf(stack.pop().value.toString())));
-                                pc++;
-                                break;
-                            }
 
                             Value right4 = stack.pop();
                             Value left4 = stack.pop();
+                            double lv = Double.valueOf(left4.value.toString());
+                            double rv = Double.valueOf(right4.value.toString());
                             boolean res = true;
                             switch (op){
+                                case "<": res = lv < rv; break;
+                                case ">": res = lv > rv; break;
+                                case "=": res = lv == rv; break;
+
+                                default:
+                                    res = false;
                             }
+                            stack.push(new Value<Boolean>(Value.BOOL, res));
                             pc++;
                             break;
+
+                        case "POP_JUMP_IF_FALSE":
+                            Value topValue = stack.pop();
+                            if(Boolean.valueOf(topValue.value.toString())){
+                                pc++;
+                            }else{
+                                pc = Integer.valueOf(args.get(0));
+                            }
+                            break;
+
+                        case "POP_JUMP_IF_TRUE":
+                            topValue = stack.pop();
+                            if(Boolean.valueOf(topValue.value.toString())){
+                                pc = Integer.valueOf(args.get(0));
+                            }else{
+                                pc++;
+                            }
+                            break;
+
+                        case "JUMP_FORWARD":
+                            pc = Integer.valueOf(args.get(0));
+                            break;
+
                         case "CALL_FUNCTION":
                             if(args.get(0).equals("printf")){
                                 System.out.print(stack.get(stack.size()-1).value);
@@ -182,7 +203,7 @@ public class Interpreter {
         String path = "";
         try{
             path = f.getCanonicalPath();
-            System.out.println(Boolean.valueOf("false"));
+//            System.out.println(!Boolean.valueOf("false"));
 
             Interpreter simpleInterpreter = new Interpreter(new InputFile(path).read());
             simpleInterpreter.run();

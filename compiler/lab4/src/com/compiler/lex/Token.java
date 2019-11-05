@@ -1,5 +1,4 @@
 package com.compiler.lex;
-
 public class Token {
     public String tokenClass;
     public String tokenValue;

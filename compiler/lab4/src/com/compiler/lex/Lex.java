@@ -342,7 +342,11 @@ public class Lex {
             case '{': tokens.add(new Token("LBR", "{", row, clo, clo+1));advance();return;
             case '}': tokens.add(new Token("RBR", "}", row, clo, clo+1));advance();return;
 
-
+            // not
+            case '!':
+                tokens.add(new Token("NOT", "!", row, clo, clo+1));
+                advance();
+                break;
 
             case '\'':
                 //except a char like 'a'

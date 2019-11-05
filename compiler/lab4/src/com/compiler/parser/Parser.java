@@ -146,7 +146,9 @@ public class Parser {
 
         if(cur.tokenId == Table.NOT){
             advance();
-            Expr res = parseExpr();
+            consume("(", "expect a '('");
+            Expr res = parseLogical();
+            consume(")", "expect a ')'");
             return new Expr.Logical("!", null, res);
         }
         Expr left = parseExpr();
@@ -226,7 +228,7 @@ public class Parser {
 
 
     public static void main(String[] args) {
-        File f = new File(".\\test\\testcase1");
+        File f = new File(".\\test\\testcase0");
         String path = "";
         try{
             //System.out.println(f.getCanonicalPath());
