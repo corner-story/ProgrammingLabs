@@ -54,7 +54,7 @@ public class Interpreter {
                             Value value = null;
                             if(args.get(1).equals("LITERAL_INT")){
                                 value = new Value<Integer>(Value.INT, Integer.valueOf(args.get(0)));
-                            }else if (args.get(1).equals("LITERAL_DOUBLE")){
+                            }else if (args.get(1).equals("LITERAL_REAL")){
                                 value = new Value<Double>(Value.DOUBLE, Double.valueOf(args.get(0)));
                             }else if(args.get(1).equals("LITERAL_STRING")){
                                 value = new Value<String>(Value.STRING, args.get(0));
@@ -188,11 +188,6 @@ public class Interpreter {
             stmt.accept(byteCodeGen);
         }
 
-//        for (int i = 0; i < byteCodeGen.getByteCodes().size(); i++) {
-//            System.out.println(i + "\t" + byteCodeGen.getByteCodes().get(i).getBytecode() + "\t\t\t" + String.join(", ", byteCodeGen.getByteCodes().get(i).getArgs()));
-//        }
-//        System.out.println("\n");
-
         Frame main = new Frame(byteCodeGen.getByteCodes());
         this.frames.push(main);
     }
@@ -203,7 +198,6 @@ public class Interpreter {
         String path = "";
         try{
             path = f.getCanonicalPath();
-//            System.out.println(!Boolean.valueOf("false"));
 
             Interpreter simpleInterpreter = new Interpreter(new InputFile(path).read());
             simpleInterpreter.run();
