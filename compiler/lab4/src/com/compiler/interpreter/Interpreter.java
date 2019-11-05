@@ -123,7 +123,9 @@ public class Interpreter {
                             boolean res = true;
                             switch (op){
                                 case "<": res = lv < rv; break;
+                                case "<=": res = lv <= rv; break;
                                 case ">": res = lv > rv; break;
+                                case ">=": res = lv >= rv; break;
                                 case "=": res = lv == rv; break;
 
                                 default:
@@ -158,10 +160,22 @@ public class Interpreter {
                         case "CALL_FUNCTION":
                             if(args.get(0).equals("printf")){
                                 System.out.print(stack.get(stack.size()-1).value);
+                                System.out.println();
                             }
                             pc++;
                             break;
 
+                        case "SETUP_LOOP":
+                            pc++;
+                            break;
+                        case "JUMP_ABSOLUTE":
+                            pc = Integer.valueOf(args.get(0));
+                            break;
+
+                        case "POP_BLOCK":
+                            //循环运行完毕
+                            pc++;
+                            break;
                         case "POP_TOP":
                             stack.pop();
                             pc++;
@@ -194,7 +208,7 @@ public class Interpreter {
 
 
     public static void main(String[] args) {
-        File f = new File(".\\test\\testcase0");
+        File f = new File(".\\test\\testcase6");
         String path = "";
         try{
             path = f.getCanonicalPath();

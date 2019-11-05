@@ -6,6 +6,16 @@ import java.util.Map;
 public class AstExecute implements Visitor<Double> {
     public Map<String, String> context;
 
+    @Override
+    public Double visit(Stmt.ForStmt node) {
+        return null;
+    }
+
+    @Override
+    public Double visit(Stmt.WhileStmt node) {
+        return null;
+    }
+
     public AstExecute(Map<String, String> context){
         this.context = context==null? new HashMap<>() : context;
     }

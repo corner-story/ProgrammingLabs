@@ -388,7 +388,7 @@ public class Lex {
 
         //System.out.println(0.1*0.1*789);
         //System.out.println(1.0*26/10/10/1);
-        File f = new File(".\\test\\testcase0");
+        File f = new File(".\\test\\testcase3");
         String path = "";
         try{
             //System.out.println(f.getCanonicalPath());

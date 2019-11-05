@@ -29,6 +29,16 @@ public class ExecuteStmt implements Visitor<Object> {
     }
 
     @Override
+    public Object visit(Stmt.ForStmt node) {
+        return null;
+    }
+
+    @Override
+    public Object visit(Stmt.WhileStmt node) {
+        return null;
+    }
+
+    @Override
     public Object visit(Expr.Logical node) {
         return null;
     }

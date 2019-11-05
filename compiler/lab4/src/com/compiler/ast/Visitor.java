@@ -13,5 +13,7 @@ public interface Visitor<R> {
     public abstract R visit(Stmt.PrintStmt node);
 
     public abstract R visit(Stmt.IfStmt node);
+    public abstract R visit(Stmt.WhileStmt node);
+    public abstract R visit(Stmt.ForStmt node);
 
 }

@@ -10,6 +10,16 @@ public class AstTransform implements Visitor<String> {
     }
 
     @Override
+    public String visit(Stmt.WhileStmt node) {
+        return null;
+    }
+
+    @Override
+    public String visit(Stmt.ForStmt node) {
+        return null;
+    }
+
+    @Override
     public String visit(Expr.Logical node) {
         return null;
     }

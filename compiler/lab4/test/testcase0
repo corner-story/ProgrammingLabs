@@ -1,8 +1,11 @@
 /*
-double name := -3+(6/2)*3+0x10;
-printf(name);
+    测试赋值
 */
 
-int test := 2-4;
-string test2 := "Hello, " + "World!";
+double test1:= -3 + (6/2) * 3 + 0x10;
+int test2 := 5;
+test2 := test2 - 7;
+
+string test3 := "Hello, " + "World!";
+
 printf(test2);

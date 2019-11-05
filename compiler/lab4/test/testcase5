@@ -1,4 +1,19 @@
-"aaa""bbb""ccc"
-'a''b''c'
+/*
+    测试各种数据类型
+*/
 
-"error
+int test1 := 10;        //十进制
+int test2 := 0x20;      //十六进制
+int test3 := 020;       //八进制
+
+double test4 := 123.45e-2;  //科学计数法
+
+string test5 := "Hello, World!";
+char test6 := 'a';
+
+printf(test1);
+printf(test2);
+printf(test3);
+printf(test4);
+printf(test5);
+printf(test6);

@@ -1,3 +1,9 @@
-256    7.89
+/*
+    测试 ！
+*/
+int test1 := 5;
+int test2 := 6;
 
-123.4E-2
+if(!(test1 > test2)){
+    printf("Hello, World!");
+}

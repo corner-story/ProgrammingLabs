@@ -83,25 +83,83 @@ public class Parser {
                 return parsePrintStmt();
             case "if":
                 return parseIfStmt();
-
+            case "while":
+                return parseWhileStmt();
+            case "for":
+                return parseForStmt();
 
 
             default:
+                if(cur.tokenId == Table.ID){
+                    return parseDefStmt();
+                }
+
+
                 consume("", "unknowm token '" + cur.tokenValue + "'");
                 return null;
         }
     }
 
-    public Stmt parseDefStmt() throws Exception{
-        String kind = cur.tokenValue;
-        advance();
+
+
+    public Stmt parseDefStmt(boolean flag) throws Exception{
+        String kind = "unknown";
+        if(cur.tokenId != Table.ID){
+            kind = cur.tokenValue;
+            advance();
+        }
         String identify = cur.tokenValue; advance();
         consume(":=", "except := ");
         Expr expression = parseExpr();
-        consume(";", "except ; ");
+
+        if(flag){
+            consume(";", "except ; ");
+        }
         return new Stmt.DefStmt(kind, identify, expression);
     }
 
+    public Stmt parseDefStmt() throws Exception{
+        return parseDefStmt(true);
+    }
+
+
+    public Stmt parseWhileStmt() throws Exception{
+        advance();
+        consume("(", "expected a '(' after 'while'");
+        Expr condition = parseLogical();
+        consume(")", "expected a ')'");
+        consume("{", "expected a '{'");
+        List<Stmt> body = new ArrayList<>();
+        while(cur != null && !cur.tokenValue.equals("}")){
+            body.add(parseStmt());
+        }
+        if(cur == null){
+            throw new ParserException();
+        }
+        advance();
+
+        return new Stmt.WhileStmt(condition, body);
+    }
+
+    public Stmt parseForStmt() throws Exception{
+        advance();
+        consume("(", "expected a '(' after 'for'");
+        Stmt init = parseDefStmt();
+        Expr condition = parseLogical();
+        Stmt alter = parseDefStmt(false);
+
+        consume(")", "expected a ')'");
+        consume("{", "expected a '{'");
+        List<Stmt> body = new ArrayList<>();
+        while(cur != null && !cur.tokenValue.equals("}")){
+            body.add(parseStmt());
+        }
+        if(cur == null){
+            throw new ParserException();
+        }
+        advance();
+        return new Stmt.ForStmt(init, condition, alter, body);
+    }
 
     public Stmt parsePrintStmt() throws Exception{
 
@@ -228,7 +286,7 @@ public class Parser {
 
 
     public static void main(String[] args) {
-        File f = new File(".\\test\\testcase0");
+        File f = new File(".\\test\\testcase3");
         String path = "";
         try{
             //System.out.println(f.getCanonicalPath());
