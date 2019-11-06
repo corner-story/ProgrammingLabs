@@ -1,72 +1,80 @@
 package com.se.device.entity;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "device_borrow")
+@EntityListeners(AuditingEntityListener.class)
 public class DeviceBorrow {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    private Integer id;
 
     @Column(name = "device_id")
-    int device_id;
+    private Integer device_id;
 
     @Column(name = "dp_id")
-    int dp_id;
+    private Integer dp_id;
 
     @Column(name = "user_id")
-    int user_id;
+    private Integer user_id;
 
     @Column(name = "do_what", length = 600)
-    String do_what;
+    private String do_what;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "back_time")
-    Date back_time;
+    private Date back_time;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "return_time")
-    Date return_time;
+    private Date return_time;
 
+    @Temporal(TemporalType.DATE)
+    @CreatedDate
     @Column(name = "create_time")
-    Date create_time;
+    private Date create_time;
 
     @Column(name = "backup")
-    String backup;
+    private String backup;
 
     public DeviceBorrow() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getDevice_id() {
+    public Integer getDevice_id() {
         return device_id;
     }
 
-    public void setDevice_id(int device_id) {
+    public void setDevice_id(Integer device_id) {
         this.device_id = device_id;
     }
 
-    public int getDp_id() {
+    public Integer getDp_id() {
         return dp_id;
     }
 
-    public void setDp_id(int dp_id) {
+    public void setDp_id(Integer dp_id) {
         this.dp_id = dp_id;
     }
 
-    public int getUser_id() {
+    public Integer getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(Integer user_id) {
         this.user_id = user_id;
     }
 

@@ -1,68 +1,74 @@
 package com.se.device.entity;
 
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "device_broken")
+@EntityListeners(AuditingEntityListener.class)
 public class DeviceBroken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    private Integer id;
 
     @Column(name = "device_id")
-    int device_id;
+    private Integer device_id;
 
     @Column(name = "authorize_id")
-    int authorize_id;
+    private Integer authorize_id;
 
     @Column(name = "user_id")
-    int user_id;
+    private Integer user_id;
 
     @Column(name = "handle_way", length = 600)
-    String handle_way;
+    private String handle_way;
 
+    @Temporal(TemporalType.DATE)
+    @CreatedDate
     @Column(name = "create_time")
-    Date create_time;
+    private Date create_time;
 
     @Column(name = "backup")
-    String backup;
+    private String backup;
 
     public DeviceBroken() {
     }
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getDevice_id() {
+    public Integer getDevice_id() {
         return device_id;
     }
 
-    public void setDevice_id(int device_id) {
+    public void setDevice_id(Integer device_id) {
         this.device_id = device_id;
     }
 
-    public int getAuthorize_id() {
+    public Integer getAuthorize_id() {
         return authorize_id;
     }
 
-    public void setAuthorize_id(int authorize_id) {
+    public void setAuthorize_id(Integer authorize_id) {
         this.authorize_id = authorize_id;
     }
 
-    public int getUser_id() {
+    public Integer getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(Integer user_id) {
         this.user_id = user_id;
     }
 

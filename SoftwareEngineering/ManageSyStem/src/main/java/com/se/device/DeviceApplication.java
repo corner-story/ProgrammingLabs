@@ -2,10 +2,11 @@ package com.se.device;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-@EnableJpaRepositories("com.se.device.service")
+
 @SpringBootApplication
+@EnableJpaAuditing
 public class DeviceApplication {
 
     public static void main(String[] args) {

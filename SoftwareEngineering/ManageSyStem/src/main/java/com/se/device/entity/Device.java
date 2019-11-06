@@ -1,49 +1,55 @@
 package com.se.device.entity;
 
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "device")
+@EntityListeners(AuditingEntityListener.class)
 public class Device {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    private Integer id;
 
     @Column(name = "name")
-    String name;
+    private String name;
 
     @Column(name = "model")
-    String model;
+    private String model;
 
     @Column(name = "type")
-    String type;
+    private String type;
 
     @Column(name = "inside_number")
-    int inside_number;
+    private Integer inside_number;
 
     @Column(name = "belong_dp_id")
-    int belong_dp_id;
+    private Integer belong_dp_id;
 
     @Column(name = "location")
-    String location;
+    private String location;
 
+    @Temporal(TemporalType.DATE)
+    @CreatedDate
     @Column(name = "create_time")
-    Date create_time;
+    private java.util.Date create_time;
 
     @Column(name = "backup")
-    String backup;
+    private String backup;
 
     public Device() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -71,19 +77,19 @@ public class Device {
         this.type = type;
     }
 
-    public int getInside_number() {
+    public Integer getInside_number() {
         return inside_number;
     }
 
-    public void setInside_number(int inside_number) {
+    public void setInside_number(Integer inside_number) {
         this.inside_number = inside_number;
     }
 
-    public int getBelong_dp_id() {
+    public Integer getBelong_dp_id() {
         return belong_dp_id;
     }
 
-    public void setBelong_dp_id(int belong_dp_id) {
+    public void setBelong_dp_id(Integer belong_dp_id) {
         this.belong_dp_id = belong_dp_id;
     }
 
@@ -125,4 +131,7 @@ public class Device {
                 ", backup='" + backup + '\'' +
                 '}';
     }
+
+
+
 }

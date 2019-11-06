@@ -1,34 +1,40 @@
 package com.se.device.entity;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "role")
+@EntityListeners(AuditingEntityListener.class)
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    private Integer id;
 
     @Column(name = "name")
-    String name;
+    private String name;
 
+    @Temporal(TemporalType.DATE)
+    @CreatedDate
     @Column(name = "create_time")
-    Date create_time;
+    private java.util.Date create_time;
 
     @Column(name = "backup")
-    String backup;
+    private String backup;
 
 
     public Role() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

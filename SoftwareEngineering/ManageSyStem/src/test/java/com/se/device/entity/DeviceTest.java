@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -20,8 +21,9 @@ public class DeviceTest {
     @Test
     public void test1(){
         System.out.println("test device!");
+
         Device device = new Device();
-        device.name = "大型机器";
+        device.setName("大型机器");
 
         deviceService.save(device);
         List<Device> devices = deviceService.findAll();
