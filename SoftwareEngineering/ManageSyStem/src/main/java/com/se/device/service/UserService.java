@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface UserService extends JpaRepository<User, Integer> {
 
-    @Query(value = "select * from user where id=?1", nativeQuery = true)
-    public List<User> findById(int id);
+    @Query(value = "select * from user where username=?1 and password=?2", nativeQuery = true)
+    public List<User> findUserByUsernameAndPassword(String username, String password);
 
 
     @Transactional
