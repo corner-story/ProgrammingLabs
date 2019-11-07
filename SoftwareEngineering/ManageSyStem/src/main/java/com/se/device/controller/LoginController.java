@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+
 import java.util.*;
 
 /*
@@ -33,7 +34,7 @@ public class LoginController {
         if(username == null){
             return "redirect:/login";
         }
-        return "redirect:/admin";
+        return "redirect:/index";
     }
 
     @GetMapping("/login")
