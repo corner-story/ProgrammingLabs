@@ -19,6 +19,9 @@ public class DeviceFault {
     @Column(name = "device_id")
     private Integer device_id;
 
+    @Column(name = "device_name")
+    private String device_name;
+
     @Column(name = "fault_state", length = 600)
     private String fault_state;
 
@@ -33,6 +36,9 @@ public class DeviceFault {
     @Column(name = "leader_id")
     private Integer leader_id;
 
+    @Column(name = "leader_name")
+    private String leader_name;
+
     @Column(name = "result", length = 600)
     private String result;
 
@@ -45,6 +51,22 @@ public class DeviceFault {
     private String backup;
 
     public DeviceFault() {
+    }
+
+    public String getDevice_name() {
+        return device_name;
+    }
+
+    public void setDevice_name(String device_name) {
+        this.device_name = device_name;
+    }
+
+    public String getLeader_name() {
+        return leader_name;
+    }
+
+    public void setLeader_name(String leader_name) {
+        this.leader_name = leader_name;
     }
 
     public Integer getId() {
@@ -124,10 +146,12 @@ public class DeviceFault {
         return "DeviceFault{" +
                 "id=" + id +
                 ", device_id=" + device_id +
+                ", device_name='" + device_name + '\'' +
                 ", fault_state='" + fault_state + '\'' +
                 ", begin_time=" + begin_time +
                 ", end_time=" + end_time +
                 ", leader_id=" + leader_id +
+                ", leader_name='" + leader_name + '\'' +
                 ", result='" + result + '\'' +
                 ", create_time=" + create_time +
                 ", backup='" + backup + '\'' +

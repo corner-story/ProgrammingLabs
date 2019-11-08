@@ -18,6 +18,18 @@ public class Department {
     @Column(name = "name")
     private String name;
 
+
+    public Integer getParent_dp_id() {
+        return parent_dp_id;
+    }
+
+    public void setParent_dp_id(Integer parent_dp_id) {
+        this.parent_dp_id = parent_dp_id;
+    }
+
+    @Column(name = "parent_dp_id")
+    private Integer parent_dp_id;
+
     @Temporal(TemporalType.DATE)
     @CreatedDate
     @Column(name = "create_time")

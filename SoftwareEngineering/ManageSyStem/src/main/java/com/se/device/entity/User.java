@@ -24,8 +24,14 @@ public class User {
     @Column(name = "role_id")
     private Integer role_id;
 
+    @Column(name = "role_name")
+    private String role_name;
+
     @Column(name = "dp_id")
     private Integer dp_id;
+
+    @Column(name = "dp_name")
+    private String dp_name;
 
     @Temporal(TemporalType.DATE)
     @CreatedDate
@@ -38,6 +44,21 @@ public class User {
     public User() {
     }
 
+    public String getRole_name() {
+        return role_name;
+    }
+
+    public void setRole_name(String role_name) {
+        this.role_name = role_name;
+    }
+
+    public String getDp_name() {
+        return dp_name;
+    }
+
+    public void setDp_name(String dp_name) {
+        this.dp_name = dp_name;
+    }
 
     public Integer getId() {
         return id;
@@ -102,11 +123,11 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", role_id=" + role_id +
+                ", role_name='" + role_name + '\'' +
                 ", dp_id=" + dp_id +
+                ", dp_name='" + dp_name + '\'' +
                 ", create_time=" + create_time +
                 ", backup='" + backup + '\'' +
                 '}';
     }
-
-
 }

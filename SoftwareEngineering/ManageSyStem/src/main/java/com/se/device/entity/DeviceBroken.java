@@ -19,11 +19,20 @@ public class DeviceBroken {
     @Column(name = "device_id")
     private Integer device_id;
 
+    @Column(name = "device_name")
+    private String device_name;
+
     @Column(name = "authorize_id")
     private Integer authorize_id;
 
+    @Column(name = "authorize_name")
+    private String authorize_name;
+
     @Column(name = "user_id")
     private Integer user_id;
+
+    @Column(name = "user_name")
+    private String user_name;
 
     @Column(name = "handle_way", length = 600)
     private String handle_way;
@@ -96,13 +105,40 @@ public class DeviceBroken {
         this.backup = backup;
     }
 
+    public String getDevice_name() {
+        return device_name;
+    }
+
+    public void setDevice_name(String device_name) {
+        this.device_name = device_name;
+    }
+
+    public String getAuthorize_name() {
+        return authorize_name;
+    }
+
+    public void setAuthorize_name(String authorize_name) {
+        this.authorize_name = authorize_name;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
     @Override
     public String toString() {
         return "DeviceBroken{" +
                 "id=" + id +
                 ", device_id=" + device_id +
+                ", device_name='" + device_name + '\'' +
                 ", authorize_id=" + authorize_id +
+                ", authorize_name='" + authorize_name + '\'' +
                 ", user_id=" + user_id +
+                ", user_name='" + user_name + '\'' +
                 ", handle_way='" + handle_way + '\'' +
                 ", create_time=" + create_time +
                 ", backup='" + backup + '\'' +

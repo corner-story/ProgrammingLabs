@@ -18,11 +18,44 @@ public class DeviceBorrow {
     @Column(name = "device_id")
     private Integer device_id;
 
+    @Column(name = "device_name")
+    private String device_name;
+
     @Column(name = "dp_id")
     private Integer dp_id;
 
+    public String getDevice_name() {
+        return device_name;
+    }
+
+    public void setDevice_name(String device_name) {
+        this.device_name = device_name;
+    }
+
+    public String getDp_name() {
+        return dp_name;
+    }
+
+    public void setDp_name(String dp_name) {
+        this.dp_name = dp_name;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    @Column(name = "dp_name")
+    private String dp_name;
+
     @Column(name = "user_id")
     private Integer user_id;
+
+    @Column(name = "user_name")
+    private String user_name;
 
     @Column(name = "do_what", length = 600)
     private String do_what;
@@ -123,8 +156,11 @@ public class DeviceBorrow {
         return "DeviceBorrow{" +
                 "id=" + id +
                 ", device_id=" + device_id +
+                ", device_name='" + device_name + '\'' +
                 ", dp_id=" + dp_id +
+                ", dp_name='" + dp_name + '\'' +
                 ", user_id=" + user_id +
+                ", user_name='" + user_name + '\'' +
                 ", do_what='" + do_what + '\'' +
                 ", back_time=" + back_time +
                 ", return_time=" + return_time +

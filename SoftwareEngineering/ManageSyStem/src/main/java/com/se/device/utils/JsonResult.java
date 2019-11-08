@@ -5,6 +5,7 @@ public class JsonResult<T> {
     private T data;
     private String code;
     private String msg;
+    private String count;
 
     /**
      * 若没有数据返回，默认状态码为 0，提示信息为“操作成功！”
@@ -12,6 +13,7 @@ public class JsonResult<T> {
     public JsonResult() {
         this.code = "200";
         this.msg = "操作成功！";
+
     }
 
     /**
@@ -22,6 +24,7 @@ public class JsonResult<T> {
     public JsonResult(String code, String msg) {
         this.code = code;
         this.msg = msg;
+
     }
 
     /**
@@ -32,6 +35,7 @@ public class JsonResult<T> {
         this.data = data;
         this.code = "200";
         this.msg = "操作成功！";
+
     }
 
     /**
@@ -43,6 +47,7 @@ public class JsonResult<T> {
         this.data = data;
         this.code = "200";
         this.msg = msg;
+
     }
     // 省略 get 和 set 方法
 
@@ -69,6 +74,14 @@ public class JsonResult<T> {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
     }
 
     @Override

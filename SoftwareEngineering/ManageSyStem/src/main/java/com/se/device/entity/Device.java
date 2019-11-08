@@ -31,6 +31,9 @@ public class Device {
     @Column(name = "belong_dp_id")
     private Integer belong_dp_id;
 
+    @Column(name = "belong_dp_name")
+    private String belong_dp_name;
+
     @Column(name = "location")
     private String location;
 
@@ -43,6 +46,14 @@ public class Device {
     private String backup;
 
     public Device() {
+    }
+
+    public String getBelong_dp_name() {
+        return belong_dp_name;
+    }
+
+    public void setBelong_dp_name(String belong_dp_name) {
+        this.belong_dp_name = belong_dp_name;
     }
 
     public Integer getId() {
@@ -117,6 +128,7 @@ public class Device {
         this.backup = backup;
     }
 
+
     @Override
     public String toString() {
         return "Device{" +
@@ -126,12 +138,10 @@ public class Device {
                 ", type='" + type + '\'' +
                 ", inside_number=" + inside_number +
                 ", belong_dp_id=" + belong_dp_id +
+                ", belong_dp_name='" + belong_dp_name + '\'' +
                 ", location='" + location + '\'' +
                 ", create_time=" + create_time +
                 ", backup='" + backup + '\'' +
                 '}';
     }
-
-
-
 }
