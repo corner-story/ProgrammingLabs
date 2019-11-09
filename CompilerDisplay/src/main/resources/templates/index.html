@@ -1,10 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>a little interpreter!</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>a little compiler!</title>
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.5/css/layui.css">
+
+    <style>
+        #sourcebox {
+            margin: 40px 200px;
+        }
+
+        .layui-textarea {
+            height: 400px;
+        }
+    </style>
+
 </head>
-<body>
+
+<body class="layui-layout-body">
+
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">a little compiler!</div>
+            <ul class="layui-nav layui-layout-left" id="nav-top">
+                    <li class="layui-nav-item"><a href="javascript:;" value="1">词法分析</a></li>
+                    <li class="layui-nav-item"><a href="javascript:;" value="2">语法分析</a></li>
+                    <li class="layui-nav-item"><a href="javascript:;" value="3">获取AST</a></li>
+                    <li class="layui-nav-item"><a href="javascript:;" value="4">获取Bytecode</a></li>
+                    <li class="layui-nav-item"><a href="javascript:;" value="5">在虚拟机中运行</a></li>
+            </ul>
+        </div>
+
+
+
+    </div>
+
+    <div class="layui-layout-body">
+        <form class="layui-form layui-form-pane" action="">
+            <div class="layui-form-item layui-form-text" id="sourcebox">
+                <label class="layui-form-label">Source Code</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入代码" class="layui-textarea" style="font-size: 16px;" id="source"></textarea>
+                </div>
+            </div>
+        </form>
+        <div id="result">
+
+        </div>
+    </div>
+
 
 </body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/layer/2.3/layer.js"></script>
+<script src="https://www.layuicdn.com/layui-v2.5.5/layui.js"></script>
+
+<script>
+
+    var mapurl = {
+        "1": "/api/tokens",
+        "2": "/api/parser",
+        "3": "/api/ast",
+        "4": "/api/bytecode",
+        "5": "/api/run"
+    }
+
+    var getresult = (url, data) => {
+        
+        $.ajax({
+            url: url,
+            type: "post",
+            data, data,
+            dataType: "json",
+            async: true,
+            success: function(res){
+                console.log(res)
+                var tokens = res.data
+                $("#source").val("")
+                tokens.forEach((token) => {
+                    var temp = token.tokenClass + token.tokenValue
+                    console.log(temp)
+                    var temp2 = $("#source").val() + "\n" + JSON.stringify(token)
+                    $("#source").val(temp2)
+                });
+                    
+            },
+            error: function(e){
+                console.log(e)
+                layer.msg("发生错误, 请检查网络!")
+            }
+        })
+    }
+    
+    layui.use("element", function(){
+
+    })
+    
+    $("#nav-top").on("click", "li a", function(data){
+        var url = mapurl[$(this).attr("value")]
+        layer.msg(url)
+        var data = $("#source").val()
+        if(data == null || data == ""){
+            layer.msg("请输入代码!")
+            return false
+        }
+
+        getresult(url, {"source": data})
+    })
+</script>
+
 </html>
