@@ -81,7 +81,7 @@ class SimpleServer extends Thread{
     public void send(String msg) throws Exception{
         String sendMsg = this.clientName + ":\t" + msg;
         System.out.println(sendMsg);
-        for (SimpleServer client : Server3.clients) {
+        for (SimpleServer client : Server3.clients){
 
             if(client != this && client.isConnected){
                 client.getBw().write(sendMsg + "\n");
