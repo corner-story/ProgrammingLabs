@@ -136,5 +136,25 @@ public abstract class Stmt implements Node{
         }
     }
 
+    public static class BreakOrContinueStmt extends Stmt{
+        public String name;
+        public BreakOrContinueStmt(String name){
+            this.name = name;
+        }
+
+        @Override
+        public <R> R accept(Visitor<R> visitor) {
+            return visitor.visit(this);
+        }
+
+        @Override
+        public String toString() {
+            return "BreakOrContinueStmt{" +
+                    "name='" + name + '\'' +
+                    '}';
+        }
+    }
+
+
     public String types = "Stmt";
 }

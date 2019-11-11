@@ -192,9 +192,12 @@ public class Interpreter {
                             stack.pop();
                             pc++;
                             break;
+                        case "BREAK_LOOP":
+                            pc = Integer.valueOf(args.get(0));
+                            break;
 
                         default:
-                            throw new Exception("error!");
+                            throw new Exception("unknown bytecode '"+bytecode.getBytecode()+"'");
                     }
 
 
@@ -220,7 +223,9 @@ public class Interpreter {
 
 
     public static void main(String[] args) {
-        File f = new File(".\\test\\testcase6");
+
+
+        File f = new File(".\\test\\testcase7");
         String path = "";
         try{
             path = f.getCanonicalPath();

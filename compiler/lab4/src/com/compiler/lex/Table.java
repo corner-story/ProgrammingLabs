@@ -17,6 +17,8 @@ public class Table {
     public static final int PRINTF = 9;
     public static final int TRUE = 10;
     public static final int FALSE = 11;
+    public static final int CONTINUE = 12;
+    public static final int BREAK = 13;
 
 
     public static final int ID = 100;   //标识符
@@ -69,6 +71,8 @@ public class Table {
         put("PRINTF", Table.PRINTF);
         put("TRUE", Table.TRUE);
         put("FALSE", Table.FALSE);
+        put("CONTINUE", Table.CONTINUE);
+        put("BREAK", Table.BREAK);
         put("ID", Table.ID);
         put("LITERAL_INT", Table.LITERAL_INT);
         put("LITERAL_OCTAL", Table.LITERAL_OCTAL);
@@ -105,7 +109,7 @@ public class Table {
     //关键字
     public static String[] KeyWords = {
             "int","double", "string", "char", "if", "else", "while", "for",
-            "printf", "true", "false"
+            "printf", "true", "false", "continue", "break"
     };
 
 

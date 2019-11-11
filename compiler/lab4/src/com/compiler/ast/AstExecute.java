@@ -12,6 +12,11 @@ public class AstExecute implements Visitor<Double> {
     }
 
     @Override
+    public Double visit(Stmt.BreakOrContinueStmt node) {
+        return null;
+    }
+
+    @Override
     public Double visit(Stmt.WhileStmt node) {
         return null;
     }

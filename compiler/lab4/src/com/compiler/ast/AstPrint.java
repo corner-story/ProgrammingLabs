@@ -15,6 +15,11 @@ public class AstPrint implements Visitor<Void> {
     }
 
     @Override
+    public Void visit(Stmt.BreakOrContinueStmt node) {
+        return null;
+    }
+
+    @Override
     public Void visit(Stmt.ForStmt node) {
         return null;
     }

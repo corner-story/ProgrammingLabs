@@ -1,8 +1,6 @@
 package com.compiler.ast;
 
 import com.compiler.interpreter.ByteCode;
-
-import javax.lang.model.element.NestingKind;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,6 +119,9 @@ public class ByteCodeGen implements Visitor<Void> {
 
         int nextID = byteCodes.size();
         byteCodes.get(decideID).getArgs().add(String.valueOf(nextID));
+
+        //check break and continue
+        checkBreakAndContinue(decideID, nextID, conditionID);
         return null;
     }
 
@@ -137,6 +138,7 @@ public class ByteCodeGen implements Visitor<Void> {
         for (Stmt stmt : node.body) {
             stmt.accept(this);
         }
+
         node.alter.accept(this);
 
         byteCodes.add(new ByteCode("JUMP_ABSOLUTE", String.valueOf(conditionID)));
@@ -144,7 +146,51 @@ public class ByteCodeGen implements Visitor<Void> {
 
         int nextID = byteCodes.size();
         byteCodes.get(decideID).getArgs().add(String.valueOf(nextID));
+
+        //check break and continue
+        checkBreakAndContinue(decideID, nextID, conditionID);
         return null;
+    }
+
+    @Override
+    public Void visit(Stmt.BreakOrContinueStmt node) {
+
+        if(node.name.equals("continue")){
+            byteCodes.add(new ByteCode("JUMP_ABSOLUTE", ""));
+        }else{
+            byteCodes.add(new ByteCode("BREAK_LOOP", ""));
+        }
+
+        return null;
+    }
+
+
+
+    private void checkBreakAndContinue(int decideID, int nextID, int conditionID){
+        //检查 break 和 continue
+        int i;
+        for(i = decideID+1; i != (nextID-1); i++){
+            if(byteCodes.get(i).getBytecode().equals("SETUP_LOOP")){
+                break;
+            }
+            if(byteCodes.get(i).getBytecode().equals("JUMP_ABSOLUTE")){
+                byteCodes.get(i).getArgs().set(0, String.valueOf(conditionID));
+            }else if(byteCodes.get(i).getBytecode().equals("BREAK_LOOP")){
+                byteCodes.get(i).getArgs().set(0, String.valueOf(nextID));
+            }
+        }
+        if(i != (nextID - 1)){
+            for(i = (nextID-2); i > decideID; i--){
+                if(byteCodes.get(i).getBytecode().equals("POP_BLOCK")){
+                    break;
+                }
+                if(byteCodes.get(i).getBytecode().equals("JUMP_ABSOLUTE")){
+                    byteCodes.get(i).getArgs().set(0, String.valueOf(conditionID));
+                }else if(byteCodes.get(i).getBytecode().equals("BREAK_LOOP")){
+                    byteCodes.get(i).getArgs().set(0, String.valueOf(nextID));
+                }
+            }
+        }
     }
 
     public List<ByteCode> getByteCodes() {

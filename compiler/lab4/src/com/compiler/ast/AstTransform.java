@@ -15,6 +15,11 @@ public class AstTransform implements Visitor<String> {
     }
 
     @Override
+    public String visit(Stmt.BreakOrContinueStmt node) {
+        return null;
+    }
+
+    @Override
     public String visit(Stmt.ForStmt node) {
         return null;
     }

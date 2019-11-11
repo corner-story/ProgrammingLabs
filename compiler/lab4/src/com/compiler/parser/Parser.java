@@ -90,8 +90,14 @@ public class Parser {
 
 
             default:
+
+                // test = 1;
                 if(cur.tokenId == Table.ID){
                     return parseDefStmt();
+                }
+                // continue or break;
+                if(cur.tokenId == 12 || cur.tokenId == 13){
+                    return parseBreakOrContinueStmt();
                 }
 
 
@@ -122,6 +128,12 @@ public class Parser {
         return parseDefStmt(true);
     }
 
+    public Stmt parseBreakOrContinueStmt() throws Exception{
+        Stmt res = new Stmt.BreakOrContinueStmt(cur.tokenValue);
+        advance();
+        consume(";", "expect ';' after " + cur.tokenValue);
+        return res;
+    }
 
     public Stmt parseWhileStmt() throws Exception{
         advance();
@@ -286,7 +298,7 @@ public class Parser {
 
 
     public static void main(String[] args) {
-        File f = new File(".\\test\\testcase3");
+        File f = new File(".\\test\\testcase7");
         String path = "";
         try{
             //System.out.println(f.getCanonicalPath());

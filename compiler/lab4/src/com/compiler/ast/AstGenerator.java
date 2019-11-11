@@ -7,6 +7,11 @@ public class AstGenerator implements Visitor<Void>{
     public List<String> res = new ArrayList<>();
 
     @Override
+    public Void visit(Stmt.BreakOrContinueStmt node) {
+        return null;
+    }
+
+    @Override
     public Void visit(Stmt.DefStmt node) {
         return null;
     }
