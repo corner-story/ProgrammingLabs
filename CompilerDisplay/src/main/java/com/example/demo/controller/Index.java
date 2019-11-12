@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,13 +32,18 @@ public class Index {
     @ResponseBody
     public Object tokens(@RequestParam String source){
         HashMap<String, Object> res = new HashMap<>();
+        List<Token> tokens = new ArrayList<>();
+        res.put("code", "200");
+        res.put("error", "");
         try{
-            List<Token> tokens = Interpreter.Tokenize(source);
 
-            res.put("code", "200");
-            res.put("data", tokens);
+            tokens = Interpreter.Tokenize(source + "\n");
+
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println("\nerror" + e + "\n");
+            res.replace("error", e.toString());
+        }finally {
+            res.put("data", tokens);
         }
 
         return res;

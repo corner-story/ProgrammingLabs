@@ -18,7 +18,7 @@
     </style>
 
 </head>
-
+.0
 <body class="layui-layout-body">
 
     <div class="layui-layout layui-layout-admin">
@@ -76,16 +76,18 @@
             dataType: "json",
             async: true,
             success: function(res){
-                console.log(res)
+                if(res.error !== ""){
+                    layer.msg(res.error);
+                    return false;
+                }
+
                 var tokens = res.data
                 $("#source").val("")
+                var result = "";
                 tokens.forEach((token) => {
-                    var temp = token.tokenClass + token.tokenValue
-                    console.log(temp)
-                    var temp2 = $("#source").val() + "\n" + JSON.stringify(token)
-                    $("#source").val(temp2)
+                    result = result + JSON.stringify(token) + "\n"
                 });
-                    
+                $("#source").val(result)
             },
             error: function(e){
                 console.log(e)
@@ -97,7 +99,9 @@
     layui.use("element", function(){
 
     })
-    
+
+
+    //顶部导航栏的点击事件
     $("#nav-top").on("click", "li a", function(data){
         var url = mapurl[$(this).attr("value")]
         layer.msg(url)
