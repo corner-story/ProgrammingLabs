@@ -14,7 +14,7 @@ public class Lex {
     private List<Token> tokens = new ArrayList<>();
 
     public Lex(String input){
-        this.input = input;
+        this.input = input + "\n";
     }
 
     //更新当前char, 并前进一个单位
@@ -91,7 +91,10 @@ public class Lex {
     public void tokenAlpha(){
         //当前字符是字母, 接着识别字母, 数字, '_'(这样的话会识别所有的标识符和保留字)
         String token = "";
-        while (Character.isAlphabetic(cur) || Character.isDigit(cur) || cur == '_'){
+        //这里一开始并没有判断isfinished, finish后cur不会改变, 所以 这里可能造成无限循环
+        //可以加上isfinish判断
+        //最好在input source后面加一个 \n 辅助分析
+        while (!isfinished && (Character.isAlphabetic(cur) || Character.isDigit(cur) || cur == '_')){
             token += String.valueOf(cur);
             advance();
         }
@@ -398,7 +401,7 @@ public class Lex {
             System.exit(0);
         }
 
-        var lex = new Lex(new InputFile(path).read());
+        var lex = new Lex("int main");
         var tokens = lex.tokenize();
         tokens.forEach(fuck->{
             System.out.println(fuck);

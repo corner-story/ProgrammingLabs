@@ -1,6 +1,6 @@
 package com.compiler.ast;
 
-import com.compiler.interpreter.ByteCode;
+import com.compiler.compiler.ByteCode;
 import java.util.ArrayList;
 import java.util.List;
 

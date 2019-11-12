@@ -1,4 +1,4 @@
-package com.compiler.interpreter;
+package com.compiler.compiler;
 
 import com.compiler.ast.*;
 import com.compiler.lex.Lex;
@@ -9,14 +9,14 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-public class Interpreter {
+public class Compiler {
 
     private String source;
     private List<ByteCode> bytecodes = new ArrayList<>();
     private Stack<Frame> frames = new Stack<>();
 
 
-    public Interpreter(String source){
+    public Compiler(String source){
         this.source = source;
     }
 
@@ -38,7 +38,7 @@ public class Interpreter {
     }
 
     public static void RunVM(String source){
-        new Interpreter(source).run();
+        new Compiler(source).run();
     }
 
     public void run(){
@@ -211,7 +211,7 @@ public class Interpreter {
     }
 
     private void init(){
-        List<Stmt> stmts = Interpreter.Parse(source);
+        List<Stmt> stmts = Compiler.Parse(this.source);
         ByteCodeGen byteCodeGen = new ByteCodeGen();
         for (Stmt stmt : stmts) {
             stmt.accept(byteCodeGen);
@@ -231,20 +231,20 @@ public class Interpreter {
             path = f.getCanonicalPath();
             String source = new InputFile(path).read();
 
-            Interpreter.RunVM(source);
+            Compiler.RunVM(source);
 
             System.out.println("\n***************Tokens************");
-            for (Token token : Interpreter.Tokenize(source)) {
+            for (Token token : Compiler.Tokenize(source)) {
                 System.out.println(token);
             }
 
             System.out.println("\n****************Ast**************");
-            for (Stmt stmt : Interpreter.Parse(source)) {
+            for (Stmt stmt : Compiler.Parse(source)) {
                 System.out.println(stmt);
             }
 
             System.out.println("\n****************bytecode************");
-            for (ByteCode code : Interpreter.ByteCodes(source)) {
+            for (ByteCode code : Compiler.ByteCodes(source)) {
                 System.out.println(code.getBytecode() + "\t\t" + code.getArgs());
             }
         }

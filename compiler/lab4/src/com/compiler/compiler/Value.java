@@ -1,4 +1,4 @@
-package com.compiler.interpreter;
+package com.compiler.compiler;
 
 public class Value<T>{
     public int type;
