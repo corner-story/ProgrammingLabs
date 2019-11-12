@@ -9,6 +9,12 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+/*
+
+    多个frame共用一个stack, 但有各自的context
+    context构成简单的environments链, 从而构成简单的作用域!
+
+*/
 public class Compiler {
 
     private String source;
