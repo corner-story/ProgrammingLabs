@@ -1,11 +1,30 @@
 /*
     测试赋值
 */
+int testfunc(int num){
 
-double test1:= -3 + (6/2) * 3 + 0x10;
-int test2 := 5;
-test2 := test2 - 7;
+    if(num = 1){
+        return num;
+    }else{
+        return num + testfunc(num-1);
+    }
 
-string test3 := "Hello, " + "World!";
+}
 
-printf(test2);
+
+int main(){
+
+    double test1:= -3 + (6/2) * 3 + 0x10;
+    int test2 := 5;
+    test2 := test2 - 7;
+
+    string test3 := "Hello, " + "World!";
+
+    printf(test1);
+    printf(test2);
+    printf(test3);
+
+    double result := testfunc(100);
+    printf(result);
+}
+

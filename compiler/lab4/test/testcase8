@@ -1,0 +1,5 @@
+/*
+    测试函数, return
+*/
+
+int test := 1+test(2,"Hello") * 10;
