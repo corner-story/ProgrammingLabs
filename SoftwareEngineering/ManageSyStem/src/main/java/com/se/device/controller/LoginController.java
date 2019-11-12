@@ -18,6 +18,9 @@ import java.util.*;
     前端: JSON.stringify(data)
     后端接收: @RequestBody
     后端发送: JsonResult
+
+    前端: data {key: value}
+    后端: @RequestParm String key
 */
 
 

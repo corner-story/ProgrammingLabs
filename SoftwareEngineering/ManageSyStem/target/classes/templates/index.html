@@ -11,16 +11,16 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">layui 后台布局</div>
+        <div class="layui-logo">设备管理系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item">
                 <a href="">控制台</a>
             </li>
-            <li class="layui-nav-item">
-                <a href="">商品管理</a>
-            </li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
+            <!--<li class="layui-nav-item">-->
+                <!--<a href="">商品管理</a>-->
+            <!--</li>-->
+            <!--<li class="layui-nav-item"><a href="">用户</a></li>-->
             <li class="layui-nav-item">
                 <a href="javascript:;">其它系统</a>
                 <dl class="layui-nav-child">
@@ -41,7 +41,7 @@
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="">退了</a></li>
+            <li class="layui-nav-item"><a href="">logout</a></li>
         </ul>
     </div>
 
@@ -49,44 +49,129 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="left-nav">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a href="javascript:;" data-url="#">
-                        <i class="fa fa-cubes" aria-hidden="true" data-icon="fa-cubes"></i>
-                        <cite>基本元素</cite>
-                        <span class="layui-nav-more"></span>
-                    </a>
-                    <dl class="layui-nav-child">
-                        <dd title="按钮">
-                            <a href="javascript:;" data-url="https://www.baidu.com">
-                                <i class="layui-icon" data-icon=""></i>
-                                <cite>按钮</cite>
-                            </a>
-                        </dd>
-                        <dd title="表单">
-                            <a href="javascript:;" data-url="https://www.bilibili.com/">
-                                <i class="layui-icon" data-icon=""></i>
-                                <cite>表单</cite>
-                            </a>
-                        </dd>
-
-                    </dl>
-                </li>
-
-                <li class="layui-nav-item">
+                <!--设备管理-->
+                <li class="layui-nav-item  layui-nav-itemed">
                     <a href="javascript:;" data-url="#">
                         <i class="fa fa-cubes" aria-hidden="true" data-icon="fa-cubes"></i>
                         <cite>设备管理</cite>
                         <span class="layui-nav-more"></span>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd title="按钮">
+                        <dd title="所有设备">
                             <a href="javascript:;" data-url="/devices">
                                 <i class="layui-icon" data-icon=""></i>
                                 <cite>所有设备</cite>
                             </a>
                         </dd>
+
+                        <dd title="设备申请">
+                            <a href="javascript:;" data-url="/devices">
+                                <i class="layui-icon" data-icon=""></i>
+                                <cite>设备申请</cite>
+                            </a>
+                        </dd>
+
+                        <dd title="设备申请审批">
+                            <a href="javascript:;" data-url="/devices">
+                                <i class="layui-icon" data-icon=""></i>
+                                <cite>设备申请审批</cite>
+                            </a>
+                        </dd>
+
+                        <dd title="设备损坏">
+                            <a href="javascript:;" data-url="/devices">
+                                <i class="layui-icon" data-icon=""></i>
+                                <cite>设备损坏</cite>
+                            </a>
+                        </dd>
+
+                        <dd title="设备损坏审批">
+                            <a href="javascript:;" data-url="/devices">
+                                <i class="layui-icon" data-icon=""></i>
+                                <cite>设备损坏审批</cite>
+                            </a>
+                        </dd>
+
+                        <dd title="设备报废">
+                            <a href="javascript:;" data-url="/devices">
+                                <i class="layui-icon" data-icon=""></i>
+                                <cite>设备报废</cite>
+                            </a>
+                        </dd>
+
+                        <dd title="设备报废">
+                            <a href="javascript:;" data-url="/devices">
+                                <i class="layui-icon" data-icon=""></i>
+                                <cite>设备报废审批</cite>
+                            </a>
+                        </dd>
+
                     </dl>
                 </li>
+
+                <!--系统管理-->
+                <li class="layui-nav-item">
+                    <a href="javascript:;" data-url="#">
+                        <i class="fa fa-cubes" aria-hidden="true" data-icon="fa-cubes"></i>
+                        <cite>系统管理</cite>
+                        <span class="layui-nav-more"></span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd title="用户管理">
+                            <a href="javascript:;" data-url="/system/users">
+                                <i class="layui-icon" data-icon=""></i>
+                                <cite>用户管理</cite>
+                            </a>
+                        </dd>
+
+                        <dd title="角色管理">
+                            <a href="javascript:;" data-url="/system/roles">
+                                <i class="layui-icon" data-icon=""></i>
+                                <cite>角色管理</cite>
+                            </a>
+                        </dd>
+
+                        <dd title="部门管理">
+                            <a href="javascript:;" data-url="/system/dps">
+                                <i class="layui-icon" data-icon=""></i>
+                                <cite>部门管理</cite>
+                            </a>
+                        </dd>
+
+                        <dd title="权限管理">
+                            <a href="javascript:;" data-url="/system/authority">
+                                <i class="layui-icon" data-icon=""></i>
+                                <cite>权限管理</cite>
+                            </a>
+                        </dd>
+
+                    </dl>
+                </li>
+
+                <!--其他示例-->
+                <li class="layui-nav-item">
+                    <a href="javascript:;" data-url="#">
+                        <i class="fa fa-cubes" aria-hidden="true" data-icon="fa-cubes"></i>
+                        <cite>基本元素</cite>
+                        <span class="layui-nav-more"></span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd title="百度">
+                            <a href="javascript:;" data-url="https://www.baidu.com">
+                                <i class="layui-icon" data-icon=""></i>
+                                <cite>百度</cite>
+                            </a>
+                        </dd>
+                        <dd title="bilibili">
+                            <a href="javascript:;" data-url="https://www.bilibili.com/">
+                                <i class="layui-icon" data-icon=""></i>
+                                <cite>bilibili!</cite>
+                            </a>
+                        </dd>
+
+                    </dl>
+                </li>
+
             </ul>
         </div>
     </div>
@@ -185,6 +270,13 @@
         layer.msg(title + " url: " + url)
     }
 
+    //查看是否重复出现tab
+    var isrepeat = (title) => {
+        var layid = $("#navigation").find("li:contains('"+ title +"')").attr("lay-id")
+        if(layid){
+            active.tabDelete(layid)
+        }
+    }
 
 </script>
 <script type="text/javascript">
@@ -217,6 +309,7 @@
             var title = $(data).find("cite").text()
             var url = $(data).attr("data-url")
 
+            // isrepeat(title)
             addbyurl(url, title)
         }
     });
@@ -232,8 +325,11 @@
 </script>
 
 <script type="text/javascript">
+
     $(document).ready(function(){
         layer.msg("Hello, admin!")
+
+
     })
 </script>
 </body>

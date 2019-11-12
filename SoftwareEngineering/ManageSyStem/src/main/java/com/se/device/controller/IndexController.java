@@ -4,12 +4,9 @@ package com.se.device.controller;
 import com.se.device.entity.Device;
 import com.se.device.service.DeviceService;
 import com.se.device.utils.JsonResult;
-import net.bytebuddy.TypeCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
