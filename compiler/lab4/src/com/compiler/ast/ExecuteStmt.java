@@ -29,7 +29,32 @@ public class ExecuteStmt implements Visitor<Object> {
     }
 
     @Override
+    public Object visit(Stmt.ReturnStmt node) {
+        return null;
+    }
+
+    @Override
     public Object visit(Stmt.BreakOrContinueStmt node) {
+        return null;
+    }
+
+    @Override
+    public Object visit(Expr.DoNothing node) {
+        return null;
+    }
+
+    @Override
+    public Object visit(Expr.CallExpr node) {
+        return null;
+    }
+
+    @Override
+    public Object visit(Stmt.FuncStmt node) {
+        return null;
+    }
+
+    @Override
+    public Object visit(Stmt.CallStmt node) {
         return null;
     }
 

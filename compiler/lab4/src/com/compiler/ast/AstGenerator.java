@@ -7,8 +7,37 @@ public class AstGenerator implements Visitor<Void>{
     public List<String> res = new ArrayList<>();
 
     @Override
+    public Void visit(Expr.DoNothing node) {
+        return null;
+    }
+
+    @Override
+    public Void visit(Expr.CallExpr node) {
+        return null;
+    }
+
+    @Override
+    public Void visit(Stmt.ReturnStmt node) {
+        return null;
+    }
+
+    @Override
     public Void visit(Stmt.BreakOrContinueStmt node) {
         return null;
+    }
+
+    @Override
+    public Void visit(Stmt.FuncStmt node) {
+        return null;
+    }
+
+    @Override
+    public Void visit(Stmt.CallStmt node) {
+        return null;
+    }
+
+    public AstGenerator(List<String> res) {
+        this.res = res;
     }
 
     @Override

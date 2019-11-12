@@ -78,6 +78,7 @@ public class Parser {
             case "double":
             case "char":
             case "string":
+
                 return parseDefStmt();
             case "printf":
                 return parsePrintStmt();
@@ -87,6 +88,9 @@ public class Parser {
                 return parseWhileStmt();
             case "for":
                 return parseForStmt();
+            case "return":
+                return parseReturnStmt();
+
 
 
             default:
@@ -106,7 +110,70 @@ public class Parser {
         }
     }
 
+    //function define
+    private Stmt parseFuncStmt(String kind, String identify) throws Exception{
+        List<Stmt> args = new ArrayList<>();
+        List<Stmt> body = new ArrayList<>();
 
+        while(cur != null && cur.tokenId != Table.RB){
+            if(cur.tokenId > 4){
+                throw new ParserException("function args define error in '" + identify + "'");
+            }
+            String t = cur.tokenValue;
+            advance();
+            if(cur.tokenId != Table.ID){
+                throw new ParserException("function args define error in '" + identify + "'");
+            }
+            args.add(new Stmt.DefStmt(t, cur.tokenValue, null));
+            advance();
+
+            if(cur != null && cur.tokenId==Table.CM){
+                advance();
+            }
+        }
+        if(cur == null){
+            throw new ParserException("function args define error in '" + identify + "'");
+        }
+        consume(")", "expect a ')' ");
+        consume("{", "expect a '{' ");
+
+        while(cur!=null && cur.tokenId!=Table.RBR){
+            body.add(parseStmt());
+        }
+        if(cur == null){
+            throw new ParserException("error in function '" + identify + "'");
+        }
+        advance();
+
+        return new Stmt.FuncStmt(kind, identify, args, body);
+    }
+
+    //function call;
+    // test(1,2);
+    private Stmt parseCallStmt(String funcname) throws Exception{
+        List<Expr> args = new ArrayList<>();
+
+        while (cur!=null && cur.tokenId!=Table.RB){
+            args.add(parseExpr());
+            if(cur != null && cur.tokenId==Table.CM){
+                advance();
+            }
+        }
+        if(cur == null){
+            throw new ParserException("error in function '" + funcname + "'");
+        }
+        advance();
+        consume(";", "expect a ';' after function call !");
+        return new Stmt.CallStmt(funcname, args);
+    }
+
+    //return stmt
+    private Stmt parseReturnStmt() throws Exception{
+        advance();
+        Expr expression = parseExpr();
+        consume(";", "expected a ';' after 'return' ");
+        return new Stmt.ReturnStmt(expression);
+    }
 
     public Stmt parseDefStmt(boolean flag) throws Exception{
         String kind = "unknown";
@@ -114,7 +181,19 @@ public class Parser {
             kind = cur.tokenValue;
             advance();
         }
+
         String identify = cur.tokenValue; advance();
+
+        //判断是函数声明还是简单变量声明
+        //cur 为 "(" 则为函数定义
+        if(cur != null && cur.tokenId == Table.LB){
+            advance();
+            if(kind.equals("unknown")){
+                return parseCallStmt(identify);
+            }
+            return parseFuncStmt(kind, identify);
+        }
+
         consume(":=", "except := ");
         Expr expression = parseExpr();
 
@@ -290,15 +369,34 @@ public class Parser {
         }else if(cur.tokenId == Table.ID){
             String name = cur.tokenValue;
             advance();
+            if(cur != null && cur.tokenId == Table.LB){
+                advance();
+                return parseCallExpr(name);
+            }
             return new Expr.Identify(name);
         }
 
         throw new SyntaxException();
     }
 
+    private Expr parseCallExpr(String funcname) throws Exception{
+        List<Expr> args = new ArrayList<>();
+        while (cur!=null && cur.tokenId != Table.RB){
+            if(cur.tokenId == Table.CM){
+                advance();
+            }
+            args.add(parseExpr());
+        }
+        if(cur == null){
+            throw new ParserException("error in function call of '" + funcname + "'");
+        }
+        advance();
+
+        return new Expr.CallExpr(funcname, args);
+    }
 
     public static void main(String[] args) {
-        File f = new File(".\\test\\testcase7");
+        File f = new File(".\\test\\testcase8");
         String path = "";
         try{
             //System.out.println(f.getCanonicalPath());

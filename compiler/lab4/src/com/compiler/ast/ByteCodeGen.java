@@ -59,7 +59,9 @@ public class ByteCodeGen implements Visitor<Void> {
 
     @Override
     public Void visit(Stmt.DefStmt node) {
-        node.expression.accept(this);
+        if(node.expression != null){
+            node.expression.accept(this);
+        }
         byteCodes.add(new ByteCode("STORE_FAST", node.identify, node.kind));
         return null;
     }
@@ -193,7 +195,63 @@ public class ByteCodeGen implements Visitor<Void> {
         }
     }
 
+
+
+    @Override
+    public Void visit(Stmt.FuncStmt node) {
+        //参数
+        if(!node.funcname.equals("main")) {
+            for (int i = node.args.size() - 1; i >= 0; i--) {
+                node.args.get(i).accept(this);
+            }
+        }
+        //函数体
+        for (Stmt stmt : node.body) {
+            stmt.accept(this);
+        }
+        return null;
+    }
+
+    @Override
+    public Void visit(Stmt.CallStmt node) {
+        //参数
+        for (Expr arg : node.args) {
+            arg.accept(this);
+        }
+        //call_function funcname argsize
+        byteCodes.add(new ByteCode("CALL_FUNCTION", node.funcname, String.valueOf(node.args.size())));
+
+        return null;
+    }
+
+    @Override
+    public Void visit(Stmt.ReturnStmt node) {
+        node.expression.accept(this);
+        return null;
+    }
+
+    @Override
+    public Void visit(Expr.DoNothing node) {
+        return null;
+    }
+
+    @Override
+    public Void visit(Expr.CallExpr node) {
+        //先为参数创建字节码
+        for (int i = node.args.size() - 1; i >= 0; i--) {
+            node.args.get(i).accept(this);
+        }
+
+        byteCodes.add(new ByteCode("CALL_FUNCTION", node.funcname, String.valueOf(node.args.size())));
+        return null;
+    }
+
     public List<ByteCode> getByteCodes() {
+        if(byteCodes.size()>0 && byteCodes.get(0).getId() == 0){
+            for (int i = 0; i < byteCodes.size(); i++) {
+                byteCodes.get(i).setId(i+1);
+            }
+        }
         return byteCodes;
     }
 }

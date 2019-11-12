@@ -391,7 +391,7 @@ public class Lex {
 
         //System.out.println(0.1*0.1*789);
         //System.out.println(1.0*26/10/10/1);
-        File f = new File(".\\test\\testcase7");
+        File f = new File(".\\test\\testcase8");
         String path = "";
         try{
             //System.out.println(f.getCanonicalPath());
@@ -401,7 +401,7 @@ public class Lex {
             System.exit(0);
         }
 
-        var lex = new Lex("int main");
+        var lex = new Lex(new InputFile(path).read());
         var tokens = lex.tokenize();
         tokens.forEach(fuck->{
             System.out.println(fuck);

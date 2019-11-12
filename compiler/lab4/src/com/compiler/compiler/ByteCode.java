@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ByteCode {
-    private int id;
+    private int id = 0;
     private String bytecode;
     private List<String> args = new ArrayList<>();
 
@@ -47,5 +47,9 @@ public class ByteCode {
                 ", bytecode='" + bytecode + '\'' +
                 ", args='" + args + '\'' +
                 '}';
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -7,6 +7,31 @@ public class AstExecute implements Visitor<Double> {
     public Map<String, String> context;
 
     @Override
+    public Double visit(Stmt.ReturnStmt node) {
+        return null;
+    }
+
+    @Override
+    public Double visit(Expr.DoNothing node) {
+        return null;
+    }
+
+    @Override
+    public Double visit(Expr.CallExpr node) {
+        return null;
+    }
+
+    @Override
+    public Double visit(Stmt.FuncStmt node) {
+        return null;
+    }
+
+    @Override
+    public Double visit(Stmt.CallStmt node) {
+        return null;
+    }
+
+    @Override
     public Double visit(Stmt.ForStmt node) {
         return null;
     }

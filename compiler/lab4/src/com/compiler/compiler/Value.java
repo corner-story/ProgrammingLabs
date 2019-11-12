@@ -21,6 +21,7 @@ public class Value<T>{
     public static int CHAR = 3;
 
     public static int BOOL = 4;
+    public static int FUNCTION = 5;
 
 }
 

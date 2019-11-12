@@ -1,5 +1,8 @@
 package com.compiler.ast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Expr implements Node {
 
 
@@ -63,16 +66,22 @@ public abstract class Expr implements Node {
 
     public static class Identify extends Expr{
         public String name;
+        public String kind;
         public String types = "Identify";
         public Identify(String name){
             this.name = name;
+        }
+
+        public Identify(String kind, String name) {
+            this.name = name;
+            this.kind = kind;
         }
 
         @Override
         public String toString() {
             return "Identify{" +
                     "name='" + name + '\'' +
-                    ", types='" + types + '\'' +
+                    ", kind='" + kind + '\'' +
                     '}';
         }
 
@@ -110,51 +119,54 @@ public abstract class Expr implements Node {
         }
     }
 
+
+    public static class DoNothing extends Expr{
+        public DoNothing(){
+            this.types = "DoNothing";
+        }
+
+        @Override
+        public <R> R accept(Visitor<R> visitor) {
+            return visitor.visit(this);
+        }
+
+        @Override
+        public String toString() {
+            return "DoNothing{}";
+        }
+    }
+
+    public static class CallExpr extends Expr{
+        public String funcname;
+        public List<Expr> args;
+
+        public CallExpr(String funcname, List<Expr> args) {
+            this.funcname = funcname;
+            this.args = args;
+            this.types = "CallExpr";
+        }
+
+        public CallExpr(String funcname) {
+            this.funcname = funcname;
+            this.args = new ArrayList<>();
+            this.types = "CallExpr";
+        }
+
+        @Override
+        public <R> R accept(Visitor<R> visitor) {
+            return visitor.visit(this);
+        }
+
+        @Override
+        public String toString() {
+            return "CallExpr{" +
+                    "funcname='" + funcname + '\'' +
+                    ", args=" + args +
+                    '}';
+        }
+    }
+
     public String types = "Expr";
 }
 
 
-
-
-
-
-
-
-
-
-//class Literal extends Expr {
-//    @Override
-//    public void accept(Visitor visitor){
-//        visitor.visit(this);
-//    }
-//}
-//
-//class VisitExpr implements Visitor{
-//
-//    @Override
-//    public void visit(Node node) {
-//        System.out.println("visit Node!");
-//    }
-//
-//    public void visit(Expr expr) {
-//        System.out.println("visit Expr!");
-//    }
-//
-//    public void visit(Literal literal) {
-//        System.out.println("visit literal!");
-//    }
-//}
-//
-//class Test{
-//    public static void main(String[] args) {
-//        VisitExpr vs = new VisitExpr();
-//        Node[] nodes = {new Expr(), new Literal(), new Expr()};
-//        for (int i = 0; i < nodes.length; i++) {
-//            nodes[i].accept(vs);
-//        }
-//
-//        System.out.println("****");
-//        Node t = new Literal();
-//        t.accept(vs);
-//    }
-//}

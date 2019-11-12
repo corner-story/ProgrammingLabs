@@ -10,7 +10,32 @@ public class AstPrint implements Visitor<Void> {
     }
 
     @Override
+    public Void visit(Stmt.ReturnStmt node) {
+        return null;
+    }
+
+    @Override
+    public Void visit(Expr.DoNothing node) {
+        return null;
+    }
+
+    @Override
+    public Void visit(Expr.CallExpr node) {
+        return null;
+    }
+
+    @Override
     public Void visit(Stmt.WhileStmt node) {
+        return null;
+    }
+
+    @Override
+    public Void visit(Stmt.FuncStmt node) {
+        return null;
+    }
+
+    @Override
+    public Void visit(Stmt.CallStmt node) {
         return null;
     }
 

@@ -15,7 +15,32 @@ public class AstTransform implements Visitor<String> {
     }
 
     @Override
+    public String visit(Stmt.ReturnStmt node) {
+        return null;
+    }
+
+    @Override
+    public String visit(Expr.DoNothing node) {
+        return null;
+    }
+
+    @Override
+    public String visit(Expr.CallExpr node) {
+        return null;
+    }
+
+    @Override
     public String visit(Stmt.BreakOrContinueStmt node) {
+        return null;
+    }
+
+    @Override
+    public String visit(Stmt.FuncStmt node) {
+        return null;
+    }
+
+    @Override
+    public String visit(Stmt.CallStmt node) {
         return null;
     }
 

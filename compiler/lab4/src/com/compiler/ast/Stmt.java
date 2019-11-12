@@ -1,5 +1,6 @@
 package com.compiler.ast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Stmt implements Node{
@@ -155,6 +156,99 @@ public abstract class Stmt implements Node{
         }
     }
 
+
+    //函数定义和调用
+    public static class FuncStmt extends Stmt{
+        public String returntype;
+        public String funcname;
+        public List<Stmt> args;
+        public List<Stmt> body;
+
+
+
+        public FuncStmt(String returntype, String funcname, List<Stmt> body) {
+            this.returntype = returntype;
+            this.funcname = funcname;
+            this.body = body;
+            this.args = new ArrayList<>();
+            this.types = "FuncStmt";
+        }
+
+        public FuncStmt(String returntype, String funcname, List<Stmt> args, List<Stmt> body) {
+            this.returntype = returntype;
+            this.funcname = funcname;
+            this.args = args;
+            this.body = body;
+            this.types = "FuncStmt";
+        }
+
+        @Override
+        public <R> R accept(Visitor<R> visitor) {
+            return visitor.visit(this);
+        }
+
+        @Override
+        public String toString() {
+            return "FuncStmt{" +
+                    "returntype='" + returntype + '\'' +
+                    ", funcname='" + funcname + '\'' +
+                    ", args=" + args +
+                    ", body=" + body +
+                    '}';
+        }
+    }
+
+    public static class CallStmt extends Stmt{
+        public String funcname;
+        public List<Expr> args;
+
+        public CallStmt(String funcname, List<Expr> args) {
+            this.funcname = funcname;
+            this.args = args;
+            this.types = "CallStmt";
+        }
+
+        public CallStmt(String funcname) {
+            this.funcname = funcname;
+            this.args = new ArrayList<>();
+            this.types = "CallStmt";
+        }
+
+        @Override
+        public <R> R accept(Visitor<R> visitor) {
+            return visitor.visit(this);
+        }
+
+        @Override
+        public String toString() {
+            return "CallStmt{" +
+                    "funcname='" + funcname + '\'' +
+                    ", args=" + args +
+                    '}';
+        }
+    }
+
+
+    public static class ReturnStmt extends Stmt{
+        public Expr expression;
+
+        public ReturnStmt(Expr expression) {
+            this.expression = expression;
+            this.types = "ReturnStmt";
+        }
+
+        @Override
+        public <R> R accept(Visitor<R> visitor) {
+            return visitor.visit(this);
+        }
+
+        @Override
+        public String toString() {
+            return "ReturnStmt{" +
+                    "expression=" + expression +
+                    '}';
+        }
+    }
 
     public String types = "Stmt";
 }
