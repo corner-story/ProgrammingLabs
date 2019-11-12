@@ -242,7 +242,7 @@
         ,tabChange: function(layid){
             //切换到指定Tab项
             element.tabChange('test', layid);
-            resize.resize()
+            // resize.resize()
         },
         tabAdd: function(data){
             //新增一个Tab项
@@ -250,7 +250,7 @@
             data.id = layid
             element.tabAdd('test', data)
             active.tabChange(layid)
-            resize.resize()
+            // resize.resize()
         }
     };
 
@@ -274,8 +274,10 @@
     var isrepeat = (title) => {
         var layid = $("#navigation").find("li:contains('"+ title +"')").attr("lay-id")
         if(layid){
-            active.tabDelete(layid)
+            active.tabChange(layid)
+            return true
         }
+        return false
     }
 
 </script>
@@ -309,8 +311,9 @@
             var title = $(data).find("cite").text()
             var url = $(data).attr("data-url")
 
-            // isrepeat(title)
-            addbyurl(url, title)
+            if(!isrepeat(title)){
+                addbyurl(url, title)
+            }
         }
     });
 
