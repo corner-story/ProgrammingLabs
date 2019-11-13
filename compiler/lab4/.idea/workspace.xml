@@ -10,49 +10,6 @@
       <change beforePath="$PROJECT_DIR$/../../CompilerDisplay/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../CompilerDisplay/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../CompilerDisplay/src/main/java/com/example/demo/controller/Index.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CompilerDisplay/src/main/java/com/example/demo/controller/Index.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../CompilerDisplay/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../CompilerDisplay/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/META-INF/compiler.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstExecute.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstExecute.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstGenerator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstPrint.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstPrint.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstTransform$IR.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstTransform$IR.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstTransform.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/AstTransform.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/ByteCodeGen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/ByteCodeGen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/ExecuteStmt.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/ExecuteStmt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Expr$Identify.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Expr$Identify.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Expr$Literal.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Expr$Literal.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Expr$Logical.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Expr$Logical.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Expr$OpBinary.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Expr$OpBinary.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Expr.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Expr.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Stmt$BreakOrContinueStmt.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Stmt$BreakOrContinueStmt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Stmt$DefStmt.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Stmt$DefStmt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Stmt$ForStmt.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Stmt$ForStmt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Stmt$IfStmt.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Stmt$IfStmt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Stmt$PrintStmt.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Stmt$PrintStmt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Stmt$WhileStmt.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Stmt$WhileStmt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Stmt.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Stmt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Visitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/ast/Visitor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/compiler/ByteCode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/compiler/ByteCode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/compiler/Compiler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/compiler/Compiler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/compiler/Frame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/compiler/Frame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/compiler/InputFile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/compiler/InputFile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/compiler/Value.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/compiler/Value.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/lex/Lex.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/lex/Lex.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/lex/Table$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/lex/Table$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/lex/Table.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/lex/Table.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/parser/InputFile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/parser/InputFile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiler/com/compiler/parser/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler/com/compiler/parser/Parser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/compiler/ast/ByteCodeGen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/compiler/ast/ByteCodeGen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/compiler/compiler/Compiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/compiler/compiler/Compiler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testcase0" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcase0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testcase1" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcase1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testcase2" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcase2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testcase3" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcase3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testcase4" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcase4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testcase5" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcase5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testcase6" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcase6" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testcase7" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcase7" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testcase8" beforeDir="false" afterPath="$PROJECT_DIR$/test/testcase8" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -63,24 +20,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/compiler/compiler/Compiler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="284" column="6" selection-start-line="284" selection-start-column="6" selection-end-line="284" selection-end-column="6" />
+            <state relative-caret-position="5643">
+              <caret line="284" column="2" lean-forward="true" selection-start-line="284" selection-start-column="2" selection-end-line="284" selection-end-column="2" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="class#InputFile#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test/testcase9">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -180,7 +128,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="280" />
     <option name="width" value="1355" />
     <option name="height" value="770" />
@@ -232,7 +180,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573637045977" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573637159539" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../.." />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -395,12 +343,12 @@
       <workItem from="1573439221345" duration="6297000" />
       <workItem from="1573525737511" duration="2105000" />
       <workItem from="1573621295918" duration="945000" />
-      <workItem from="1573629099311" duration="6350000" />
+      <workItem from="1573629099311" duration="6656000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="214953000" />
+    <option name="totallyTimeSpent" value="215259000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -415,7 +363,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32956153" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.39518413" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.39518413" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.5679887" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -886,21 +834,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test/testcase9">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="2" column="2" lean-forward="true" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/compiler/compiler/Compiler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="284" column="6" selection-start-line="284" selection-start-column="6" selection-end-line="284" selection-end-column="6" />
+        <state relative-caret-position="5643">
+          <caret line="284" column="2" lean-forward="true" selection-start-line="284" selection-start-column="2" selection-end-line="284" selection-end-column="2" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="class#InputFile#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/testcase9">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
         </state>
       </provider>
     </entry>
