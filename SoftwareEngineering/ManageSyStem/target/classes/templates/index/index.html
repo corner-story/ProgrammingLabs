@@ -34,14 +34,14 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    贤心
+                    <span th:text="${username}"/>
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="">基本资料</a></dd>
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="">logout</a></li>
+            <li class="layui-nav-item"><a href="/logout">logout</a></li>
         </ul>
     </div>
 
@@ -58,49 +58,49 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd title="所有设备">
-                            <a href="javascript:;" data-url="/devices">
+                            <a href="javascript:;" data-url="/device">
                                 <i class="layui-icon" data-icon=""></i>
                                 <cite>所有设备</cite>
                             </a>
                         </dd>
 
                         <dd title="设备申请">
-                            <a href="javascript:;" data-url="/devices">
+                            <a href="javascript:;" data-url="/device">
                                 <i class="layui-icon" data-icon=""></i>
                                 <cite>设备申请</cite>
                             </a>
                         </dd>
 
                         <dd title="设备申请审批">
-                            <a href="javascript:;" data-url="/devices">
+                            <a href="javascript:;" data-url="/device">
                                 <i class="layui-icon" data-icon=""></i>
                                 <cite>设备申请审批</cite>
                             </a>
                         </dd>
 
                         <dd title="设备损坏">
-                            <a href="javascript:;" data-url="/devices">
+                            <a href="javascript:;" data-url="/device">
                                 <i class="layui-icon" data-icon=""></i>
                                 <cite>设备损坏</cite>
                             </a>
                         </dd>
 
                         <dd title="设备损坏审批">
-                            <a href="javascript:;" data-url="/devices">
+                            <a href="javascript:;" data-url="/device">
                                 <i class="layui-icon" data-icon=""></i>
                                 <cite>设备损坏审批</cite>
                             </a>
                         </dd>
 
                         <dd title="设备报废">
-                            <a href="javascript:;" data-url="/devices">
+                            <a href="javascript:;" data-url="/device">
                                 <i class="layui-icon" data-icon=""></i>
                                 <cite>设备报废</cite>
                             </a>
                         </dd>
 
                         <dd title="设备报废">
-                            <a href="javascript:;" data-url="/devices">
+                            <a href="javascript:;" data-url="/device">
                                 <i class="layui-icon" data-icon=""></i>
                                 <cite>设备报废审批</cite>
                             </a>
@@ -203,16 +203,17 @@
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 
 <script type="text/javascript">
-    var gethtml = (url) => {
-        var html = "";
+    var gethtml = (data, url) => {
+
         $.ajax({
             url: url,
             type: "get",
-            dataType:"html",
-            async: false,
+            dataType:"html", //期望后端返回的数据类型
+            async: true,
             success: function(res){
                 layer.msg(url + " 获取成功!")
-                html = res
+                data.content = res
+                active.tabAdd(data)
             },
             error: function(xhr, status, error){
                 console.log(xhr)
@@ -220,7 +221,7 @@
                 console.log(error)
             }
         });
-        return html
+
     }
     //tab操作监听
     var layer = layui.layer
@@ -256,18 +257,18 @@
 
     var addbyurl = (url, title) => {
         var content = ''
-        //确定外部http还是本域http
-        if(url.length >= 4 && url.substr(0, 4) === "http"){
-            content = '<iframe src="' + url + '" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>'
-        }else{
-            content =  gethtml(url)
-        }
         var data = {
             title: '<cite>' + title +'</cite>'+ "<i class=\"layui-icon layui-unselect layui-tab-close\">ဆ</i>" //用于演示
             ,content: content
         }
-        active.tabAdd(data)
-        layer.msg(title + " url: " + url)
+        //确定外部http还是本域http
+        if(url.length >= 4 && url.substr(0, 4) === "http"){
+            content = '<iframe src="' + url + '" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>'
+            data.content = content
+            active.tabAdd(data)
+            return
+        }
+        gethtml(data, url)
     }
 
     //查看是否重复出现tab
@@ -326,7 +327,10 @@
     //添加控制面板
     addbyurl("/about", "Device")
 </script>
+<script type="text/javascript">
+    <!--一些点击事件绑定-->
 
+</script>
 <script type="text/javascript">
 
     $(document).ready(function(){

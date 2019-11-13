@@ -1,13 +1,13 @@
 package com.se.device.controller;
 
 
-import com.se.device.entity.Device;
 import com.se.device.service.DeviceService;
-import com.se.device.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 /*
     index中的大部分请求, 请求html页面
@@ -21,21 +21,26 @@ public class IndexController {
     private DeviceService deviceService;
 
     @RequestMapping("/index")
-    public String index(){
-        return "index";
+    public String index(Model model, HttpSession session){
+        Object username = session.getAttribute("username");
+        if(username == null){
+            return "redirect:/login";
+        }
+        model.addAttribute("username", username.toString());
+        return "index/index";
     }
 
 
     @GetMapping("/about")
     public String about(){
-        return "about";
+        return "index/about";
     }
 
 
-    @GetMapping("/devices")
+    //访问device.html
+    @GetMapping("/device")
     public String devices(){
-        return "devices";
+        return "index/device";
     }
-
 
 }

@@ -18,7 +18,6 @@ import java.util.List;
 */
 
 @Controller
-@RequestMapping("/api")
 public class DeviceController {
 
     @Autowired

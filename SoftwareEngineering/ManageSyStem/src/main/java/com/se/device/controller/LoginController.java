@@ -36,7 +36,7 @@ public class LoginController {
 
     @RequestMapping("/")
     public String index(HttpSession session){
-        String username = (String) session.getAttribute("username");
+        Object username = session.getAttribute("username");
         if(username == null){
             return "redirect:/login";
         }
@@ -44,8 +44,12 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String login(){
-        return "login";
+    public String login(HttpSession session){
+        Object username = session.getAttribute("username");
+        if(username != null){
+            return "redirect:/index";
+        }
+        return "login/login";
     }
 
     @PostMapping("/login")
@@ -81,16 +85,14 @@ public class LoginController {
 
 
     @RequestMapping("/logout")
-    @ResponseBody
     public Object logout(HttpSession session){
-        String username = session.getAttribute("username").toString();
-        Map<String, String> res = new HashMap<>();
-        res.put("code", "200");
-        res.put("msg", username + " logout successful!");
-        res.put("url", "/index");
+        Object username = session.getAttribute("username");
 
-        session.invalidate();
-        return res;
+        if(username != null){
+            session.invalidate();
+        }
+
+        return "redirect:/login";
     }
 
 
