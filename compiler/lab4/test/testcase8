@@ -2,4 +2,17 @@
     测试函数, return
 */
 
-int test := 1+test(2,"Hello") * 10;
+int main(){
+    int a := 3;
+    int b := 4;
+    printf(square(a, b));
+}
+
+int add(int a, int b){
+    return a+b;
+}
+
+//平方
+int square(int a, int b){
+    return add(a*a, b*b);
+}

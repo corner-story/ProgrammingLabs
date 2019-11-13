@@ -1,9 +1,13 @@
 /*
-    测试 ！
+    测试 判断条件！
 */
-int test1 := 5;
-int test2 := 6;
 
-if(!(test1 > test2)){
-    printf("Hello, World!");
+int main(){
+    int test1 := 5;
+    int test2 := 6;
+
+    if(!(test1 > test2)){
+        printf("Hello, World!");
+    }
+
 }

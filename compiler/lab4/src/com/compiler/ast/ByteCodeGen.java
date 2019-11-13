@@ -227,6 +227,7 @@ public class ByteCodeGen implements Visitor<Void> {
     @Override
     public Void visit(Stmt.ReturnStmt node) {
         node.expression.accept(this);
+        byteCodes.add(new ByteCode("RETURN"));
         return null;
     }
 

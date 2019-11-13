@@ -1,11 +1,18 @@
 /*
-    测试 for
+    测试 for循环
+    计算100 * (1到100之和)
 */
+int main(){
+    int sum := 0;
 
-int sum := 0;
+    for(int i := 1; i <= 100; i := i + 1){
+        int j := 1;
+        while(j <= 100){
+            sum := sum + j;
+            j := j + 1;
+        }
+    }
 
-for(int i := 1; i <= 100; i := i + 1){
-    sum := sum + i;
+    printf(sum);
 }
 
-printf(sum);

@@ -1,0 +1,47 @@
+/*
+    函数测试, 递归
+*/
+
+int main(){
+    int num1 := 100;
+    int num2 := 5;
+
+    printf("1-100递归相加:");
+    printf(sum(num1));
+
+    printf("1-5递归相乘:");
+    printf(factorial(num2));
+
+    printf("打印小于100的斐波那契数:");
+    printfib(0, 1, 100);
+
+}
+
+
+//从1-n递归相加
+int sum(int n){
+    if(n <= 1){
+        return n;
+    }
+    return n + sum(n-1);
+}
+
+//阶乘
+int factorial(int n){
+    if(n = 1){
+        return n;
+    }
+    return n * factorial(n-1);
+}
+
+//打印斐波那契数列
+int printfib(int first, int second, int max){
+    if(second >= max){
+        return second;
+    }
+    printf(second);
+    int temp := second;
+    second := temp + first;
+    first := temp;
+    printfib(first, second, max);
+}

@@ -263,6 +263,10 @@ public class Compiler {
                     pc = Integer.valueOf(args.get(0));
                     break;
 
+                case "RETURN":
+                    pc = bytecodes.size();
+                    break;
+
                 default:
                     throw new Exception("unknown bytecode '"+bytecode.getBytecode()+"'");
             }
@@ -278,7 +282,7 @@ public class Compiler {
     public static void main(String[] args) {
 
 
-        File f = new File(".\\test\\testcase0");
+        File f = new File(".\\test\\testcase9");
         String path = "";
         try{
             path = f.getCanonicalPath();
