@@ -9,6 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+/*
+    index中的大部分请求, 请求html页面
+
+*/
+
 @Controller
 public class IndexController {
 
@@ -33,17 +38,4 @@ public class IndexController {
     }
 
 
-    @PostMapping("/api/device")
-    @ResponseBody
-    public JsonResult getAllDevices(@RequestParam int page, @RequestParam int limit){
-        //I should build service, but it's late
-        int begin = (page-1)*limit;
-        int end = limit;
-        String count = String.valueOf(deviceService.count());
-        List<Device> devices = deviceService.findAllByPage(begin, end);
-        JsonResult<List<Device>> jsonResult = new JsonResult(devices);
-        jsonResult.setCount(count);
-        jsonResult.setCode("0");
-        return jsonResult;
-    }
 }

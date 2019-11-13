@@ -9,9 +9,10 @@ import java.util.List;
 
 public interface DeviceService extends JpaRepository<Device, Integer> {
 
-    @Query(value = "select * from device limit ?1, ?2", nativeQuery = true)
+    @Query(value = "select * from device limit ?1, ?2 order by create_time desc", nativeQuery = true)
     public List<Device> findAllByPage(int begin, int end);
 
-
+    @Query(value = "select * from device where id=?1", nativeQuery = true)
+    public Device findOneById(int id);
 
 }

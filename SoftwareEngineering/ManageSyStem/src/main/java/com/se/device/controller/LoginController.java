@@ -23,7 +23,10 @@ import java.util.*;
     后端: @RequestParm String key
 */
 
+/*
+    用户登录登出处理
 
+*/
 
 @Controller
 public class LoginController {
@@ -65,14 +68,32 @@ public class LoginController {
 
             //存储session
             session.setAttribute("username", user.get(0).getUsername());
-            session.setAttribute("password", user.get(0).getPassword());
+            //session.setAttribute("password", user.get(0).getPassword());
             session.setAttribute("roleid", user.get(0).getRole_id());
             session.setAttribute("dpid", user.get(0).getDp_id());
+            session.setAttribute("rolename", user.get(0).getRole_name());
+            session.setAttribute("dpname", user.get(0).getDp_name());
         }
 
         jsonResult.setData(res);
         return jsonResult;
     }
+
+
+    @RequestMapping("/logout")
+    @ResponseBody
+    public Object logout(HttpSession session){
+        String username = session.getAttribute("username").toString();
+        Map<String, String> res = new HashMap<>();
+        res.put("code", "200");
+        res.put("msg", username + " logout successful!");
+        res.put("url", "/index");
+
+        session.invalidate();
+        return res;
+    }
+
+
 
 
 }
