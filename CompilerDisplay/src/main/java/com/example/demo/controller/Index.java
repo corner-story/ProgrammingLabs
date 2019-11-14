@@ -6,6 +6,7 @@ import com.compiler.compiler.Compiler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -110,5 +111,55 @@ public class Index {
         return res;
 
     }
+
+
+    @RequestMapping("/api/run")
+    @ResponseBody
+    public Object rumVM(@RequestParam String source){
+        HashMap<String, Object> res = new HashMap<>();
+        String runvm = "";
+        res.put("code", "200");
+        res.put("error", "");
+        try {
+            //一次性创建PrintStream输出流
+            PrintStream ps=new PrintStream(new FileOutputStream("runvm.txt"));
+            //将标准输出重定向到PS输出流
+            System.setOut(ps);
+
+            Compiler.RunVM(source);
+
+            StringBuilder result = new StringBuilder();
+            BufferedReader br = new BufferedReader(new FileReader("runvm.txt"));//构造一个BufferedReader类来读取文件
+            String s = null;
+            while((s = br.readLine())!=null){//使用readLine方法，一次读一行
+                result.append(s);
+                result.append("\n");
+            }
+            runvm = result.toString();
+
+
+            File file=new File("runvm.txt");
+            if(file.exists()&&file.isFile())
+                file.delete();
+
+        }catch (SyntaxException e) {
+            System.out.println("\nrun error:\t" + e + "\n");
+            res.put("error", e.toString());
+        } catch (ParserException e){
+            System.out.println("\nrun error:\t" + e + "\n");
+            res.put("error", e.toString());
+        }catch (Exception e){
+            System.out.println("\nrun error:\t" + e + "\n");
+            res.put("error", e.toString());
+        }finally {
+            res.put("data", runvm);
+        }
+
+        return res;
+    }
+
+
+
+
 
 }

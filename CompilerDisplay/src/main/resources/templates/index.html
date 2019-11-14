@@ -22,7 +22,7 @@
 
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <div class="layui-logo" href="https://github.com/lambdafate/ProgrammingLabs/tree/master/compiler">A little Compiler!</div>
+            <a class="layui-logo" href="https://github.com/lambdafate/ProgrammingLabs/tree/master/compiler" target="_blank" title="github: a little compiler!">A little Compiler!</a>
             <ul class="layui-nav layui-layout-left" id="nav-top">
                 <li class="layui-nav-item"><a href="javascript:;" value="1">词法分析</a></li>
                 <li class="layui-nav-item"><a href="javascript:;" value="2">语法分析</a></li>
@@ -36,9 +36,17 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">Testcase</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="">赋值测试</a></dd>
-                        <dd><a href="">if-else测试</a></dd>
-                        <dd><a href="">while测试</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('0')">赋值测试</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('1')">if-else测试</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('2')">while测试</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('3')">for赋值</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('4')">判断条件测试</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('5')">数据类型测试</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('6')">一个小例子</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('7')">continue-break测试</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('8')">function-return测试</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('9')">递归-what it can do!</a></dd>
+
                     </dl>
                 </li>
                 <li class="layui-nav-item"><a href="">About</a></li>
@@ -90,6 +98,25 @@
         });
     }
 
+    function testcase(id){
+        var url = "/testcase/" + id
+        $.ajax({
+            url: url,
+            type: "get",
+            dataType: "json",
+            async: true,
+            success: function(res){
+                console.log(res)
+                layer.msg("request success: " + url)
+                $("#source").val(res.data)
+            },
+            error: function(e){
+
+                console.log(e)
+                layer.msg("request testcase("+url+"): 发生错误, 请检查网络!")
+            }
+        })
+    }
 </script>
 
 
@@ -154,7 +181,14 @@
         layopen(info.title, result)
     }
 
-    var runcall = (res, info) => {}
+    var runcall = (res, info) => {
+        if(res.error !== ""){
+            layer.msg(res.error);
+            return false
+        }
+        result = "<div>" + res.data.replace(/\n/g, "<br>") + "</div>"
+        layopen(info.title, result)
+    }
 
 
     var mapurl = {
@@ -212,8 +246,8 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-
-        layopen("Hello, little Compiler!", "这里是compiler的简介!")
+        var content = "<br><center>a little compiler: 一个基于栈式虚拟机的little compiler！</center>"
+        layopen("Hello, little Compiler!", content, 4)
     })
 </script>
 </html>
