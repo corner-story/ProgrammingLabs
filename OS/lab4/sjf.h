@@ -10,6 +10,54 @@
 */
 
 
+//查找当前current_time未执行的最短作业,若无返回-1
+//返回-1代表没有可执行作业, 可以结束
+int findjob_sjf(job jobs[],int count, int current_time)
+{
+	int minjob=-1;//=jobs[i].need_time;
+	int minloc=-1;
+
+	
+	//先在 阻塞中,当前到达的进程里 查找最短作业
+	for(int i=0;i<count;i++)
+	{
+		if(minloc == -1){
+			if(jobs[i].visited==0 && jobs[i].reach_time <= current_time){
+				minjob = jobs[i].need_time;
+				minloc = i;
+			}
+		}else if(jobs[i].visited==0 && jobs[i].reach_time<=current_time && jobs[i].need_time < minjob){
+			minjob = jobs[i].need_time;
+			minloc = i;
+		}	
+	}
+
+	if(minloc != -1){
+		return minloc;
+	}
+
+	//在 未来最近到达的进程中 查找最短作业
+	int reach_time = -1;
+	for(int i=0;i<count;i++)
+	{
+		if(minloc==-1){
+			if(jobs[i].visited==0){
+			minjob=jobs[i].need_time;
+			minloc=i;
+			reach_time=jobs[i].reach_time;
+			}
+		}
+		else if(jobs[i].visited==0 && jobs[i].reach_time <= reach_time && jobs[i].need_time < minjob)
+		{
+			minjob=jobs[i].need_time;
+			minloc=i;
+			reach_time=jobs[i].reach_time;
+		}
+	}
+	return minloc;
+}
+
+
 //短作业优先作业调度
 void SJF()
 {
@@ -19,7 +67,7 @@ void SJF()
 	int total_waitime=0;
 	int total_roundtime=0;
 
-    loc = findminjob2(jobs, quantity, current_time);
+    loc = findjob_sjf(jobs, quantity, current_time);
     if(loc != -1){
         current_time = jobs[loc].reach_time;
     }
@@ -53,13 +101,17 @@ void SJF()
         jobs[loc].wait_time+jobs[loc].need_time);
 
         //执行下一个进程
-        loc = findminjob2(jobs, quantity, current_time);
+        loc = findjob_sjf(jobs, quantity, current_time);
     }
 
     printf("总等待时间:%-8d 总周转时间:%-8d\n",total_waitime,total_roundtime); 
 	printf("平均等待时间: %4.2f 平均周转时间: %4.2f\n",(float)total_waitime/(quantity),(float)total_roundtime/(quantity)); 
 
 }
+
+
+
+
 
 
 #endif  

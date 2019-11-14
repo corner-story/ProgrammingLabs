@@ -9,6 +9,7 @@ int main(int argc, char* argv[]){
 
     initial_jobs(); 
 	readJobdata();
+
     //先来先服务调度 
 	FCFS();
     reset_jinfo();

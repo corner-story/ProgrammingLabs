@@ -9,6 +9,30 @@
     先来先服务(FCFS)调度算法
 */
 
+//查找最早到达作业，若全部到达返回-1.
+//返回-1代表没有可执行作业, FCFS算法模拟结束
+int findjob_fcfs(job jobs[],int count)
+{
+	int rearlyloc=-1;
+	int rearlyjob=-1;
+	for(int i=0;i<count;i++)
+	{
+		if(rearlyloc==-1){
+			if(jobs[i].visited==0){
+			rearlyloc=i;
+			rearlyjob=jobs[i].reach_time;
+			}
+		}
+		else if(rearlyjob>jobs[i].reach_time&&jobs[i].visited==0)
+		{
+			rearlyjob=jobs[i].reach_time;
+			rearlyloc=i;
+		}
+	}
+	return rearlyloc;
+}
+
+
 
 //FCFS
 void FCFS() 
@@ -19,7 +43,7 @@ void FCFS()
 	int total_waitime=0;
 	int total_roundtime=0;
 	//获取最近到达的作业
-	loc=findrearlyjob(jobs,quantity);
+	loc=findjob_fcfs(jobs,quantity);
 	//输出作业流
 	printf("\n\nFCFS算法作业流\n");
 	printf("------------------------------------------------------------------------\n"); 
@@ -45,7 +69,7 @@ void FCFS()
 		total_waitime+=jobs[loc].wait_time; 
 		total_roundtime=total_roundtime+jobs[loc].wait_time+jobs[loc].need_time;
 		//获取剩余作业中最近到达作业
-		loc=findrearlyjob(jobs,quantity);
+		loc=findjob_fcfs(jobs,quantity);
 	} 
 	printf("总等待时间:%-8d 总周转时间:%-8d\n",total_waitime,total_roundtime); 
 	printf("平均等待时间: %4.2f 平均周转时间: %4.2f\n",(float)total_waitime/(quantity),(float)total_roundtime/(quantity)); 
