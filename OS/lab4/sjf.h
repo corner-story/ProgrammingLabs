@@ -5,8 +5,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include "job.h"
+
 /*
     短作业优先(SJF)调度算法
+    只有在多个作业可以同时运行的时候, SJF才是最优的
 */
 
 
@@ -18,19 +20,22 @@ int findjob_sjf(job jobs[],int count, int current_time)
 	int minloc=-1;
 
 	
-	//先在 阻塞中,当前到达的进程里 查找最短作业
-	for(int i=0;i<count;i++)
-	{
-		if(minloc == -1){
-			if(jobs[i].visited==0 && jobs[i].reach_time <= current_time){
-				minjob = jobs[i].need_time;
-				minloc = i;
-			}
-		}else if(jobs[i].visited==0 && jobs[i].reach_time<=current_time && jobs[i].need_time < minjob){
-			minjob = jobs[i].need_time;
-			minloc = i;
-		}	
-	}
+	//先在 当前就绪的进程里 查找最短作业
+    if(current_time > 0){
+        for(int i=0;i<count;i++)
+        {
+            if(minloc == -1){
+                if(jobs[i].visited==0 && jobs[i].reach_time <= current_time){
+                    minjob = jobs[i].need_time;
+                    minloc = i;
+                }
+            }else if(jobs[i].visited==0 && jobs[i].reach_time<=current_time && jobs[i].need_time < minjob){
+                minjob = jobs[i].need_time;
+                minloc = i;
+            }	
+        }
+    }
+
 
 	if(minloc != -1){
 		return minloc;
