@@ -7,6 +7,7 @@ import com.compiler.parser.*;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLOutput;
 import java.util.*;
 
 /*
@@ -276,34 +277,65 @@ public class Compiler {
 
 
     public static void main(String[] args) {
-        System.out.println("Hello, little compiler!");
+        if(args.length == 0){
+            USAGE.print();
+            return;
+        }
+        Boolean istoken = false;
+        Boolean isast = false;
+        Boolean isbytecode = false;
+        String filepath = null;
 
-//        File f = new File(".\\test\\testcase9");
-//        String path = "";
-//        try{
-//            path = f.getCanonicalPath();
-//            String source = new InputFile(path).read();
-//
-//            Compiler.RunVM(source);
+        for (int i = 0; i < args.length; i++) {
+            if(args[i].equals("--token")){
+                istoken = true;
+            }else if(args[i].equals("--isast")){
+                isast = true;
+            }else if(args[i].equals("--isbytecode")){
+                isbytecode = true;
+            }else{
+                filepath = args[i];
+            }
+        }
+        if(filepath == null){
+            USAGE.print();
+            return;
+        }
 
-//            System.out.println("\n***************Tokens************");
-//            for (Token token : Compiler.Tokenize(source)) {
-//                System.out.println(token);
-//            }
-//
-//            System.out.println("\n****************Ast**************");
-//            for (Stmt stmt : Compiler.Parse(source)) {
-//                System.out.println(stmt);
-//            }
-//
-//            System.out.println("\n****************bytecode************");
-//            for (ByteCode code : Compiler.ByteCodes(source)) {
-//                System.out.println(code.getBytecode() + "\t\t" + code.getArgs());
-//            }
-//        }
-//        catch(Exception e){
-//            System.out.println(e);
-//        }
+        try{
+            File f = new File(filepath);
+            String path = "";
+            path = f.getCanonicalPath();
+            String source = new InputFile(path).read();
+
+            System.out.println("run result:");
+            Compiler.RunVM(source);
+
+            if(istoken){
+                System.out.println("\n***************Tokens************");
+                for (Token token : Compiler.Tokenize(source)) {
+                    System.out.println(token);
+                }
+            }
+
+            if(isast){
+                System.out.println("\n****************Ast**************");
+                for (Stmt stmt : Compiler.Parse(source)) {
+                    System.out.println(stmt);
+                }
+            }
+
+            if(isbytecode){
+                System.out.println("\n****************bytecode************");
+                for (ByteCode code : Compiler.ByteCodes(source)) {
+                    System.out.println(code);
+                }
+            }
+
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
 
 
     }
@@ -311,6 +343,16 @@ public class Compiler {
 
 }
 
+class USAGE{
+    public static void print(){
+        System.out.println("Hello, little compiler!");
+        System.out.println("please input source file!");
+        System.out.println("USAGE:");
+        System.out.println("\t--tokens \tdisplay tokens");
+        System.out.println("\t--ast \tdisplay ast");
+        System.out.println("\t--bytecode \tdisplay bytecode");
+    }
+}
 
 
 class InputFile {

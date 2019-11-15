@@ -43,5 +43,5 @@ int printfib(int first, int second, int max){
     int temp := second;
     second := temp + first;
     first := temp;
-    printfib(first, second, max);
+    return printfib(first, second, max);
 }
