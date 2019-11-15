@@ -239,8 +239,8 @@ public class ByteCodeGen implements Visitor<Void> {
     @Override
     public Void visit(Expr.CallExpr node) {
         //先为参数创建字节码
-        for (int i = node.args.size() - 1; i >= 0; i--) {
-            node.args.get(i).accept(this);
+        for (Expr arg : node.args) {
+            arg.accept(this);
         }
 
         byteCodes.add(new ByteCode("CALL_FUNCTION", node.funcname, String.valueOf(node.args.size())));
