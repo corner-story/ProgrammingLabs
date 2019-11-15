@@ -289,9 +289,9 @@ public class Compiler {
         for (int i = 0; i < args.length; i++) {
             if(args[i].equals("--token")){
                 istoken = true;
-            }else if(args[i].equals("--isast")){
+            }else if(args[i].equals("--ast")){
                 isast = true;
-            }else if(args[i].equals("--isbytecode")){
+            }else if(args[i].equals("--bytecode")){
                 isbytecode = true;
             }else{
                 filepath = args[i];
