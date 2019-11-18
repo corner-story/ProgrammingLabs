@@ -2,6 +2,7 @@ package com.java;
 
 
 
+
 //过山洞
 public class Main {
     public static void main(String[] args) throws Exception{
@@ -11,6 +12,9 @@ public class Main {
         }
         for(int i=0; i<10; i++){
             people[i].start();
+        }
+
+        for (int i = 0; i < 10; i++) {
             people[i].join();
         }
 
@@ -36,8 +40,15 @@ class PassHole{
 
     public static synchronized void pass(String name){
 
-        for(int i=0; i<100000; i++){ }
-        System.out.println(name + "\t穿过山洞...");
+        try{
+            System.out.println("\n"+name + "\t即将穿过山洞...");
+            Thread.sleep(1000);
+            System.out.println(name + "\t穿过山洞\n");
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
 
     }
 }
