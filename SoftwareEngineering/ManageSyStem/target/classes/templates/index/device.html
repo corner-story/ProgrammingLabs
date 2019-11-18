@@ -29,8 +29,9 @@
 <script>
 
 
-    layui.use('table', function(){
+    layui.use(['table', 'layer'], function(){
         var table = layui.table;
+
 
         table.render({
             elem: '#devices'
@@ -80,14 +81,32 @@
 
             if(layEvent === 'detail'){ //查看
                 layer.msg("查看")
+                console.log(data)
+
             } else if(layEvent === 'del'){ //删除
-                layer.confirm('真的删除行么', function(index){
+                layer.confirm('真的删除行', function(index){
                     obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                     layer.close(index);
                     //向服务端发送删除指令
                 });
             } else if(layEvent === 'edit'){ //编辑
-                //do something
+
+                $.ajax({
+                    url: "/device/" + data.id,
+                    type: "get",
+                    dataType: "json", //期望后端返回的数据类型
+                    async: true,
+                    success: function(res){
+                        layer.open({
+
+                        })
+                    },
+                    error: function(xhr, status, error){
+                        console.log(xhr)
+                        console.log(status)
+                        console.log(error)
+                    }
+                });
 
                 //同步更新缓存对应的值
                 obj.update({

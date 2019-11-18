@@ -74,9 +74,22 @@ public class DeviceController {
     //更新一个device
     @RequestMapping(value = "/devices/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public Object updateOneDevice(@PathVariable Integer id, @RequestBody Device device){
-        return null;
+    public Object updateOneDevice(@RequestBody Device device){
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("code", "200");
+        res.put("msg", "update success!");
+        try{
+            deviceService.save(device);
+            deviceService.flush();
+        }catch (Exception e){
+            System.out.println(e);
+            res.put("msg", "update error!");
+        }
+
+        return res;
     }
+
+
 
     //新增一个device
     @RequestMapping(value = "/devices", method = RequestMethod.POST)
