@@ -22,7 +22,6 @@
 
     </script>
 
-
 </div>
 
 
@@ -92,14 +91,20 @@
             } else if(layEvent === 'edit'){ //编辑
 
                 $.ajax({
-                    url: "/device/" + data.id,
+                    url: "/updatedevice/" + data.id,
                     type: "get",
-                    dataType: "json", //期望后端返回的数据类型
+                    dataType: "html", //期望后端返回的数据类型
                     async: true,
                     success: function(res){
                         layer.open({
-
-                        })
+                            type: 1,
+                            title: '编辑',
+                            shadeClose: true,
+                            shade: false,
+                            maxmin: true, //开启最大化最小化按钮
+                            area: '700px',
+                            content: res
+                        });
                     },
                     error: function(xhr, status, error){
                         console.log(xhr)
@@ -108,11 +113,7 @@
                     }
                 });
 
-                //同步更新缓存对应的值
-                obj.update({
-                    username: '123'
-                    ,title: 'xxx'
-                });
+
             } else if(layEvent === 'LAYTABLE_TIPS'){
 
                 layer.alert('Hi，头部工具栏扩展的右侧图标。');

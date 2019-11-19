@@ -6,16 +6,19 @@ import com.se.device.utils.JsonResult;
 import org.hibernate.mapping.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 
 /*
+
     device的crud
     这里所有的url参照restful风格
 
 */
+
 
 @Controller
 public class DeviceController {
@@ -71,8 +74,9 @@ public class DeviceController {
         return res;
     }
 
+
     //更新一个device
-    @RequestMapping(value = "/devices/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/devices", method = RequestMethod.PUT)
     @ResponseBody
     public Object updateOneDevice(@RequestBody Device device){
         HashMap<String, Object> res = new HashMap<>();
@@ -107,5 +111,15 @@ public class DeviceController {
         return res;
     }
 
+
+
+    //获取update-device页面html
+    @RequestMapping(value = "/updatedevice/{id}")
+    public String updatedevice(@PathVariable Integer id, Model model){
+        Device device = deviceService.findOneById(id);
+
+        model.addAttribute("device", device);
+        return "index/updatedevice";
+    }
 
 }

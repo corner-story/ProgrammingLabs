@@ -15,7 +15,7 @@ import java.util.*;
 /*
     前后端传输数据: ajax + json
 
-    前端: JSON.stringify(data)
+    前端: JSON.stringify(data), 注意 contentType: "application/json;charset=UTF-8"
     后端接收: @RequestBody
     后端发送: JsonResult
 

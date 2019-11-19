@@ -1,0 +1,161 @@
+<head>
+    <style>
+        #device{
+            margin-top: 20px;
+            margin-left: 10px;
+            margin-right: 30px;
+        }
+    </style>
+</head>
+
+<div id="device">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">设备名称</label>
+            <div class="layui-input-block">
+                <input type="text" id="title" placeholder="请输入设备名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型</label>
+            <div class="layui-input-block">
+                <input type="text" id="type"  placeholder="请输入设备类型" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">设备型号</label>
+            <div class="layui-input-block">
+                <input type="text" id="model"  placeholder="请输入设备型号" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择框</label>
+            <div class="layui-input-block">
+                <select name="city" lay-verify="required">
+                    <option value=""></option>
+                    <option value="0">北京</option>
+                    <option value="1">上海</option>
+                    <option value="2">广州</option>
+                    <option value="3">深圳</option>
+                    <option value="4">杭州</option>
+                </select>
+            </div>
+        </div>
+
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">内部编码</label>
+            <div class="layui-input-block">
+                <input type="text" id="insidenumber" placeholder="请输入设备内部编码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">存放位置</label>
+            <div class="layui-input-block">
+                <input type="text" id="location" placeholder="请输入设备存放位置" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">创建时间</label>
+            <div class="layui-input-block">
+                <input type="text" id="createtime" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea id="backup" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" id="update_device">更新数据</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+
+<script>
+    var init = (data)=>{
+        $("#title").val(data.name)
+        $("#type").val(data.type)
+        $("#model").val(data.model)
+
+        $("#insidenumber").val(data.inside_number)
+        $("#location").val(data.location)
+        $("#createtime").val(data.create_time)
+        $("#backup").val(data.backup)
+
+    }
+    var update = (data)=>{
+        data.name = $("#title").val()
+        data.type = $("#type").val()
+        data.model = $("#model").val()
+
+        data.inside_number = $("#insidenumber").val()
+        data.location = $("#location").val()
+        data.create_time = $("#createtime").val()
+        data.backup = $("#backup").val()
+
+        return data
+    }
+
+</script>
+<script th:inline="javascript">
+    layui.use('form', function(){
+        //fuck, 这里必须加载layui的资源form表单中的select才会渲染出来
+        //以后我tm再用layui我tm直播吃屎
+        //真tm麻烦
+        var form = layui.form;
+        form.render()
+
+    });
+
+    var device = [[${device}]]
+    var id = device.id
+
+
+
+    init(device)
+
+    $("#update_device").click(function () {
+        var data = update(device)
+
+
+        $.ajax({
+            url: "/devices",
+            type: "put",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json", //期望后端返回的数据类型
+            data: JSON.stringify(data),
+            async: true,
+            success: function(res){
+                console.log("更新")
+                console.log(res)
+                layer.msg(res.msg)
+            },
+            error: function(xhr, status, error){
+                console.log(xhr)
+                console.log(status)
+                console.log(error)
+            }
+        });
+
+    })
+
+
+
+</script>
