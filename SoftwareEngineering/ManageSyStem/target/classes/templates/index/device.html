@@ -83,10 +83,29 @@
                 console.log(data)
 
             } else if(layEvent === 'del'){ //删除
-                layer.confirm('真的删除行', function(index){
+                layer.confirm('确定要删除该设备吗?', function(index){
                     obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                     layer.close(index);
+
                     //向服务端发送删除指令
+                    $.ajax({
+                        url: "/devices/" + data.id,
+                        type: "delete",
+                        dataType: "json", //期望后端返回的数据类型
+                        async: true,
+                        success: function(res){
+                            layer.msg(res.msg)
+                        },
+                        error: function(xhr, status, error){
+                            console.log(xhr)
+                            console.log(status)
+                            console.log(error)
+                        }
+                    });
+
+
+
+
                 });
             } else if(layEvent === 'edit'){ //编辑
 
@@ -103,7 +122,13 @@
                             shade: false,
                             maxmin: true, //开启最大化最小化按钮
                             area: '700px',
-                            content: res
+                            content: res,
+                            end: function () {
+                                //编辑弹窗被关闭, 重新渲染table
+                                console.log("重新渲染device table")
+
+                                table.render();
+                            }
                         });
                     },
                     error: function(xhr, status, error){

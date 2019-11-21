@@ -66,10 +66,10 @@ public class DeviceController {
         if(id > 0){
             deviceService.deleteById(id);
             res.put("code", "200");
-            res.put("msg", "操作成功");
+            res.put("msg", "删除成功");
         }else{
             res.put("code", "204");       //no content
-            res.put("msg", "操作失败,ID错误!");
+            res.put("msg", "删除失败,ID错误!");
         }
         return res;
     }
