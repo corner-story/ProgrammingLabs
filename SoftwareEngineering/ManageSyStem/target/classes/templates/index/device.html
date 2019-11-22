@@ -81,8 +81,33 @@
             }
 
             if(layEvent === 'detail'){ //查看
-                layer.msg("查看")
-                console.log(data)
+                $.ajax({
+                    url: "/detailsdevice/" + data.id,
+                    type: "get",
+                    dataType: "html", //期望后端返回的数据类型
+                    async: true,
+                    success: function(res){
+                        layer.open({
+                            type: 1,
+                            title: '查看',
+                            shadeClose: true,
+                            shade: false,
+                            maxmin: true, //开启最大化最小化按钮
+                            area: '700px',
+                            anim:6,
+                            content: res,
+                            end: function () {
+
+                            }
+                        });
+                    },
+                    error: function(xhr, status, error){
+                        console.log(xhr)
+                        console.log(status)
+                        console.log(error)
+                    }
+                });
+
 
             } else if(layEvent === 'del'){ //删除
                 layer.confirm('确定要删除该设备吗?', function(index){
@@ -105,9 +130,6 @@
                         }
                     });
 
-
-
-
                 });
             } else if(layEvent === 'edit'){ //编辑
 
@@ -124,6 +146,7 @@
                             shade: false,
                             maxmin: true, //开启最大化最小化按钮
                             area: '700px',
+                            anim:4,
                             content: res,
                             end: function () {
                                 //编辑弹窗被关闭, 重新渲染table

@@ -102,7 +102,7 @@ public class DeviceController {
         HashMap<String, Object> res = new HashMap<>();
         try {
             deviceService.save(device);
-            res.put("code", "201");
+            res.put("code", "200");
             res.put("msg", "insert device successful!");
         }catch (Exception e){
             res.put("code", "500");
@@ -119,7 +119,16 @@ public class DeviceController {
         Device device = deviceService.findOneById(id);
 
         model.addAttribute("device", device);
-        return "index/updatedevice";
+        return "index/update_device";
     }
 
+
+    //获取details_device页面html
+    @GetMapping(value = "/detailsdevice/{id}")
+    public String detailsDevice(@PathVariable Integer id, Model model){
+        Device device = deviceService.findOneById(id);
+
+        model.addAttribute("device", device);
+        return "index/details_device";
+    }
 }

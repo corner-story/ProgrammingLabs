@@ -61,7 +61,7 @@
             <label class="layui-form-label">所属部门</label>
             <div class="layui-input-block">
                 <select name="belong_dp_id" lay-verify="dps" id="dps">
-                    <option value="0">111</option>
+                    <option value="0">请选择设备所属部门</option>
 
                 </select>
             </div>
@@ -94,37 +94,27 @@
         var form = layui.form;
         form.render();
 
-
-        var isadd = false
-
-        form.on('select()', function(data){
-            layer.msg("Hello")
-            if(isadd){
-                return;
-            }
-
-            $.ajax({
-                url: "/system/dps",
-                type: "post",
-                dataType: "json", //期望后端返回的数据类型
-                async: false,
-                success: function(res){
-                    console.log(res)
-                    var options = ""
-                    for(var i=0; i< res.data.length; i++){
-                        options = options + '<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>'
-                    }
-
-                    $("#dps").append(options)
-                },
-                error: function(xhr, status, error){
-                    console.log(xhr)
-                    console.log(status)
-                    console.log(error)
+        $.ajax({
+            url: "/system/dps",
+            type: "post",
+            dataType: "json", //期望后端返回的数据类型
+            async: false,
+            success: function(res){
+                console.log(res)
+                var options = ""
+                for(var i=0; i< res.data.length; i++){
+                    options = options + '<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>'
                 }
-            });
-            isadd = true
 
+                $("#dps").append(options)
+                //重新render
+                form.render()
+            },
+            error: function(xhr, status, error){
+                console.log(xhr)
+                console.log(status)
+                console.log(error)
+            }
         });
 
         //监听提交
@@ -133,8 +123,29 @@
             var device = data.field
             device.belong_dp_name = $("#dps").find("option:selected").text()
 
-            console.log(device)
-            layer.msg(JSON.stringify(device));
+            //检查device的部门信息
+            if(device.belong_dp_id === "" || device.belong_dp_id === "0"){
+                layer.msg("请选择该设备所属部门!")
+                return false
+            }
+
+            $.ajax({
+                url: "devices",
+                type: "post",
+                dataType: "json", //期望后端返回的数据类型
+                contentType: "application/json;charset=UTF-8",
+                data: JSON.stringify(device),
+                async: false,
+                success: function(res){
+                    console.log(res)
+                    layer.msg(res.msg)
+                },
+                error: function(xhr, status, error){
+                    console.log(xhr)
+                    console.log(status)
+                    console.log(error)
+                }
+            });
             return false;
         });
     });

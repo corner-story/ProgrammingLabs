@@ -1,0 +1,209 @@
+<head>
+    <style>
+        #device{
+            margin-top: 20px;
+            margin-left: 10px;
+            margin-right: 30px;
+        }
+    </style>
+</head>
+
+<div id="device">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">设备名称</label>
+            <div class="layui-input-block">
+                <input type="text" id="name" name="name" required lay-verify="required" placeholder="请输入设备名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型</label>
+            <div class="layui-input-block">
+                <input type="text" id="type" name="type" required lay-verify="required" placeholder="请输入设备类型" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">设备型号</label>
+            <div class="layui-input-block">
+                <input type="text" id="model" name="model" required lay-verify="required" placeholder="请输入设备型号" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">设备状态</label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" value="在库" title="在库" checked>
+                <input type="radio" name="status" value="借出" title="借出">
+                <input type="radio" name="status" value="损坏" title="损坏">
+                <input type="radio" name="status" value="报废" title="报废">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">所属部门</label>
+            <div class="layui-input-block">
+                <select name="belong_dp_id" lay-verify="dps" id="dps">
+                    <!--<option value="0" selected>请选择设备所属部门</option>-->
+                </select>
+            </div>
+        </div>
+
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">内部编码</label>
+            <div class="layui-input-block">
+                <input type="text" id="inside_number" name="inside_number" required lay-verify="required" placeholder="请输入设备内部编码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">存放位置</label>
+            <div class="layui-input-block">
+                <input type="text" id="location" name="location" required lay-verify="required" placeholder="请输入设备存放位置" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">创建时间</label>
+            <div class="layui-input-block">
+                <input type="text" id="create_time" name="create_time" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea id="backup" name="backup" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo" id="update_device">更新数据</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<script th:inline="javascript">
+    var device = [[${device}]]
+    var id = device.id
+    var form = null
+
+    var init = (data)=>{
+        $("#name").val(data.name)
+        $("#type").val(data.type)
+        $("#model").val(data.model)
+
+        $("#inside_number").val(data.inside_number)
+        $("#location").val(data.location)
+        $("#create_time").val(data.create_time)
+        $("#backup").val(data.backup)
+
+        //部门
+        //$("#dps").val(data.belong_dp_id)
+
+        //状态
+        $("input:radio[value='" + data.status +"']").attr('checked','true');
+    }
+
+
+    layui.use('form', function(){
+        //fuck, 这里必须加载layui的资源form表单中的select才会渲染出来
+        //以后我tm再用layui我tm直播吃屎
+        //真tm麻烦
+        form = layui.form;
+        form.render();
+
+
+
+        $.ajax({
+            url: "/system/dps",
+            type: "post",
+            dataType: "json", //期望后端返回的数据类型
+            async: true,
+            success: function(res){
+                // console.log(res)
+                // layer.msg(res.msg)
+                var options = ""
+                for(var i=0; i< res.data.length; i++){
+                    options = options + '<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>'
+                }
+
+                //更新select中的opptions
+                $("select").html(options)
+
+                //部门
+                $("#dps").val(device.belong_dp_id)
+
+                //这里要重新render
+                form.render()
+
+
+            },
+            error: function(xhr, status, error){
+                console.log(xhr)
+                console.log(status)
+                console.log(error)
+            }
+        });
+
+
+        init(device)
+
+
+
+
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            var new_device = data.field
+            new_device.belong_dp_name = $("#dps").find("option:selected").text()
+
+            //检查device的部门信息
+            if(new_device.belong_dp_id === "" || new_device.belong_dp_id === "0"){
+                layer.msg("请选择该设备所属部门!")
+                return false
+            }
+            new_device.id = device.id
+
+            console.log(new_device)
+            $.ajax({
+                url: "/devices",
+                type: "put",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json", //期望后端返回的数据类型
+                data: JSON.stringify(new_device),
+                async: true,
+                success: function(res){
+                    // console.log("更新")
+                    // console.log(res)
+                    layer.msg(res.msg)
+
+                    //settimeout
+                    // var timeout = setTimeout(function(){
+                    //     var index = parent.layer.getFrameIndex(window.name);
+                    //     parent.layer.close(index);
+                    // }, 1600);
+
+                },
+                error: function(xhr, status, error){
+                    console.log(xhr)
+                    console.log(status)
+                    console.log(error)
+                }
+            });
+
+
+            //这里必须返回false, 防止页面跳转
+            return false;
+
+        });
+
+    });
+
+</script>
