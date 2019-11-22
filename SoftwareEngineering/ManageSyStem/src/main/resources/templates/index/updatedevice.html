@@ -77,10 +77,16 @@
             </div>
         </div>
 
+        <div class="layui-form-item layui-form-text" hidden>
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea id="" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" id="update_device">更新数据</button>
+                <button class="layui-btn" lay-submit lay-filter="formDemo" id="update_device">更新数据</button>
             </div>
         </div>
     </form>
@@ -115,47 +121,51 @@
 
 </script>
 <script th:inline="javascript">
+
+
+    var device = [[${device}]]
+    var id = device.id
+
+    init(device)
+
+
     layui.use('form', function(){
         //fuck, 这里必须加载layui的资源form表单中的select才会渲染出来
         //以后我tm再用layui我tm直播吃屎
         //真tm麻烦
         var form = layui.form;
-        form.render()
+        form.render();
+
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            data = update(device)
+            $.ajax({
+                url: "/devices",
+                type: "put",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json", //期望后端返回的数据类型
+                data: JSON.stringify(data),
+                async: true,
+                success: function(res){
+                    console.log("更新")
+                    console.log(res)
+                    layer.msg(res.msg)
+
+                },
+                error: function(xhr, status, error){
+                    console.log(xhr)
+                    console.log(status)
+                    console.log(error)
+                }
+            });
+
+
+        });
 
     });
 
-    var device = [[${device}]]
-    var id = device.id
 
 
-
-    init(device)
-
-    $("#update_device").click(function () {
-        var data = update(device)
-
-
-        $.ajax({
-            url: "/devices",
-            type: "put",
-            contentType: "application/json;charset=UTF-8",
-            dataType: "json", //期望后端返回的数据类型
-            data: JSON.stringify(data),
-            async: true,
-            success: function(res){
-                console.log("更新")
-                console.log(res)
-                layer.msg(res.msg)
-
-            },
-            error: function(xhr, status, error){
-                console.log(xhr)
-                console.log(status)
-                console.log(error)
-            }
-        });
-
-    })
 
 
 
