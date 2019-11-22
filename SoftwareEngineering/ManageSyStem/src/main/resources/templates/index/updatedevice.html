@@ -33,7 +33,7 @@
 
 
         <div class="layui-form-item">
-            <label class="layui-form-label">选择框</label>
+            <label class="layui-form-label">所属部门</label>
             <div class="layui-input-block">
                 <select name="city" lay-verify="required">
                     <option value=""></option>
@@ -147,9 +147,15 @@
                 data: JSON.stringify(data),
                 async: true,
                 success: function(res){
-                    console.log("更新")
-                    console.log(res)
+                    // console.log("更新")
+                    // console.log(res)
                     layer.msg(res.msg)
+
+                    //settimeout
+                    // var timeout = setTimeout(function(){
+                    //     var index = parent.layer.getFrameIndex(window.name);
+                    //     parent.layer.close(index);
+                    // }, 1600);
 
                 },
                 error: function(xhr, status, error){
@@ -159,6 +165,9 @@
                 }
             });
 
+
+            //这里必须返回false, 防止页面跳转
+            return false;
 
         });
 

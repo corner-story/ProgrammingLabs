@@ -31,8 +31,7 @@
     layui.use(['table', 'layer'], function(){
         var table = layui.table;
 
-
-        table.render({
+        var options = {
             elem: '#devices'
             ,url:'/devices'
             ,method: "get"
@@ -65,7 +64,9 @@
                 ,last: false //不显示尾页
             }
 
-    });
+        }
+
+        var tablens = table.render(options);
 
 
         //监听工具条
@@ -126,8 +127,9 @@
                             end: function () {
                                 //编辑弹窗被关闭, 重新渲染table
                                 console.log("重新渲染device table")
+                                tablens.reload(options)
+                                return false
 
-                                table.render();
                             }
                         });
                     },

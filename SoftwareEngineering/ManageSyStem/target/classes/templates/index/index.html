@@ -273,7 +273,16 @@
 
     //查看是否重复出现tab
     var isrepeat = (title) => {
-        var layid = $("#navigation").find("li:contains('"+ title +"')").attr("lay-id")
+        var list = $("#navigation").find("li")
+        var layid = ""
+        for(var i=0; i< list.size(); i++){
+            var text = $(list[i]).text()
+            if(text.substring(0, text.length-1) === title){
+                layid = $(list[i]).attr("lay-id")
+                break
+            }
+        }
+
         if(layid){
             active.tabChange(layid)
             return true
