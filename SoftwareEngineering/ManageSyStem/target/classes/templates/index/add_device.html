@@ -1,0 +1,141 @@
+<head>
+    <style>
+        #add-device{
+            margin-top: 40px;
+            margin-left: 40px;
+            margin-right: 40px;
+        }
+    </style>
+</head>
+
+
+<div id="add-device">
+
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">设备名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" required lay-verify="required" placeholder="请输入设备名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">设备类型</label>
+            <div class="layui-input-block">
+                <input type="text" name="type" required lay-verify="required" placeholder="请输入设备名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">型号</label>
+            <div class="layui-input-block">
+                <input type="text" name="model" required lay-verify="required" placeholder="请输入设备名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">内部编号(设备数量)</label>
+            <div class="layui-input-block">
+                <input type="text" name="inside_number" required lay-verify="required" placeholder="请输入设备名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">存放位置</label>
+            <div class="layui-input-block">
+                <input type="text" name="location" required lay-verify="required" placeholder="请输入设备名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">设备状态</label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" value="在库" title="在库" checked>
+                <input type="radio" name="status" value="借出" title="借出">
+                <input type="radio" name="status" value="损坏" title="损坏">
+                <input type="radio" name="status" value="报废" title="报废">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">所属部门</label>
+            <div class="layui-input-block">
+                <select name="belong_dp_id" lay-verify="dps" id="dps">
+                    <option value="0">111</option>
+
+                </select>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea name="backup" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+
+
+<script>
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+        form.render();
+
+
+        var isadd = false
+
+        form.on('select()', function(data){
+            layer.msg("Hello")
+            if(isadd){
+                return;
+            }
+
+            $.ajax({
+                url: "/system/dps",
+                type: "post",
+                dataType: "json", //期望后端返回的数据类型
+                async: false,
+                success: function(res){
+                    console.log(res)
+                    var options = ""
+                    for(var i=0; i< res.data.length; i++){
+                        options = options + '<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>'
+                    }
+
+                    $("#dps").append(options)
+                },
+                error: function(xhr, status, error){
+                    console.log(xhr)
+                    console.log(status)
+                    console.log(error)
+                }
+            });
+            isadd = true
+
+        });
+
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+
+            var device = data.field
+            device.belong_dp_name = $("#dps").find("option:selected").text()
+
+            console.log(device)
+            layer.msg(JSON.stringify(device));
+            return false;
+        });
+    });
+</script>

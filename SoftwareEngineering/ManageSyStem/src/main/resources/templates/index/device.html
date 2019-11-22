@@ -47,6 +47,7 @@
                     ,{field:'name',  title: '设备名称'}
                     ,{field:'type',  title: '类型', sort: true}
                     ,{field:'model',  title: '型号'}
+                    ,{field:'status',  title: '状态'}
                     ,{field:'inside_number', title: '内部编码'}
                     ,{field:'location', title: '存放位置', sort: true}
                     ,{field:'belong_dp_id',  title: '所属部门ID', sort: true, hide: true}
@@ -128,7 +129,7 @@
                                 //编辑弹窗被关闭, 重新渲染table
                                 console.log("重新渲染device table")
                                 tablens.reload(options)
-                                return false
+                                return
 
                             }
                         });

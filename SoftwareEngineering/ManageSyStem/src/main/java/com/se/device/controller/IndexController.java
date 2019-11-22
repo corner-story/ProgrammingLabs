@@ -43,4 +43,12 @@ public class IndexController {
         return "index/device";
     }
 
+
+
+    //添加设备
+    @GetMapping("/adddevice")
+    public String addDeviec(){
+        return "index/add_device";
+    }
+
 }

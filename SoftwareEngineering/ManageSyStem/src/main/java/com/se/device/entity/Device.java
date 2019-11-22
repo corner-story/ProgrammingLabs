@@ -37,6 +37,11 @@ public class Device {
     @Column(name = "location")
     private String location;
 
+    //设备状态, 完好, 借出, 损坏, 报废
+    @Column(name = "status")
+    private String status;
+
+
     @Temporal(TemporalType.DATE)
     @CreatedDate
     @Column(name = "create_time")
@@ -128,6 +133,13 @@ public class Device {
         this.backup = backup;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     @Override
     public String toString() {

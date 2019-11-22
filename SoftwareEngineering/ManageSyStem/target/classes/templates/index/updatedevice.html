@@ -31,12 +31,17 @@
             </div>
         </div>
 
+        <div class="layui-form-item">
+            <label class="layui-form-label">设备状态</label>
+            <div class="layui-input-block">
+                <input type="text" id="status" placeholder="请输入设备状态" autocomplete="off" class="layui-input">
+            </div>
+        </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">所属部门</label>
             <div class="layui-input-block">
                 <select name="city" lay-verify="required" id="dps">
-
                 </select>
             </div>
         </div>
@@ -121,10 +126,15 @@
         $("#type").val(data.type)
         $("#model").val(data.model)
 
+        $("#status").val(data.status)
+
         $("#insidenumber").val(data.inside_number)
         $("#location").val(data.location)
         $("#createtime").val(data.create_time)
         $("#backup").val(data.backup)
+
+        //部门
+        $("#dps").val(data.belong_dp_id)
 
     }
     var update = (data)=>{
@@ -132,10 +142,16 @@
         data.type = $("#type").val()
         data.model = $("#model").val()
 
+        data.status = $("#status").val()
+
         data.inside_number = $("#insidenumber").val()
         data.location = $("#location").val()
         data.create_time = $("#createtime").val()
         data.backup = $("#backup").val()
+
+        //部门
+        data.belong_dp_id = $("#dps").val()
+        data.belong_dp_name = $("#dps").find("option:selected").text()
 
         return data
     }
