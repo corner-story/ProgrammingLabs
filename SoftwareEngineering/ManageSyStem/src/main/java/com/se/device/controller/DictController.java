@@ -4,15 +4,25 @@ package com.se.device.controller;
     数据字典管理
 */
 
+import com.se.device.entity.Department;
+import com.se.device.service.DepartmentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.List;
 
 
 @Controller
 @RequestMapping("/system")
 public class DictController {
 
+    @Autowired
+    DepartmentService departmentService;
 
 
     @GetMapping("/users")
@@ -33,6 +43,19 @@ public class DictController {
     @GetMapping("/authority")
     public String authority(){
         return "dict/authority";
+    }
+
+
+
+    @PostMapping("/dps")
+    @ResponseBody
+    public Object getAlldps(){
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("code", "200");
+        List<Department> dps = departmentService.findAll();
+        res.put("data", dps);
+        res.put("msg", "操作成功");
+        return res;
     }
 
 

@@ -35,13 +35,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">所属部门</label>
             <div class="layui-input-block">
-                <select name="city" lay-verify="required">
-                    <option value=""></option>
-                    <option value="0">北京</option>
-                    <option value="1">上海</option>
-                    <option value="2">广州</option>
-                    <option value="3">深圳</option>
-                    <option value="4">杭州</option>
+                <select name="city" lay-verify="required" id="dps">
+
                 </select>
             </div>
         </div>
@@ -93,8 +88,34 @@
 
 </div>
 
+<script>
+
+    $.ajax({
+        url: "/system/dps",
+        type: "post",
+        dataType: "json", //期望后端返回的数据类型
+        async: false,
+        success: function(res){
+            console.log(res)
+            layer.msg(res.msg)
+            var options = ""
+            for(var i=0; i< res.data.length; i++){
+                options = options + '<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>'
+            }
+
+            $("#dps").html(options)
+        },
+        error: function(xhr, status, error){
+            console.log(xhr)
+            console.log(status)
+            console.log(error)
+        }
+    });
+
+</script>
 
 <script>
+
     var init = (data)=>{
         $("#title").val(data.name)
         $("#type").val(data.type)
@@ -172,10 +193,5 @@
         });
 
     });
-
-
-
-
-
 
 </script>
