@@ -72,6 +72,7 @@ public class LoginController {
 
             //存储session
             session.setAttribute("username", user.get(0).getUsername());
+            session.setAttribute("id", user.get(0).getId());
             //session.setAttribute("password", user.get(0).getPassword());
             session.setAttribute("roleid", user.get(0).getRole_id());
             session.setAttribute("dpid", user.get(0).getDp_id());

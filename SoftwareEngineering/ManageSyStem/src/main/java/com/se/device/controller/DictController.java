@@ -5,7 +5,9 @@ package com.se.device.controller;
 */
 
 import com.se.device.entity.Department;
+import com.se.device.entity.Role;
 import com.se.device.service.DepartmentService;
+import com.se.device.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +24,10 @@ import java.util.List;
 public class DictController {
 
     @Autowired
-    DepartmentService departmentService;
+    private DepartmentService departmentService;
 
+    @Autowired
+    private RoleService roleService;
 
     @GetMapping("/users")
     public String users(){
@@ -54,6 +58,18 @@ public class DictController {
         res.put("code", "200");
         List<Department> dps = departmentService.findAll();
         res.put("data", dps);
+        res.put("msg", "操作成功");
+        return res;
+    }
+
+
+    @PostMapping("/roles")
+    @ResponseBody
+    public Object getAllRoles(){
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("code", "200");
+        List<Role> roles = roleService.findAll();
+        res.put("data", roles);
         res.put("msg", "操作成功");
         return res;
     }

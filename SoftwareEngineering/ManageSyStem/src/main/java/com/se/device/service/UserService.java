@@ -14,6 +14,10 @@ public interface UserService extends JpaRepository<User, Integer> {
     public List<User> findUserByUsernameAndPassword(String username, String password);
 
 
+    @Query(value = "select * from user where id=?1", nativeQuery = true)
+    public User findOneById(String id);
+
+
     @Transactional
     @Modifying
     @Query(value = "insert into user(username, password) values(?1, ?2)", nativeQuery = true)
