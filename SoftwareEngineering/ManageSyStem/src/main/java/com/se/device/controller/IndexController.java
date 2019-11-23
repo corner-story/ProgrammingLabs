@@ -1,7 +1,9 @@
 package com.se.device.controller;
 
 
+import com.se.device.entity.DeviceBorrow;
 import com.se.device.entity.User;
+import com.se.device.service.BollowService;
 import com.se.device.service.DeviceService;
 import com.se.device.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /*
     index中的大部分请求, 请求html页面
@@ -25,6 +28,9 @@ public class IndexController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private BollowService bollowService;
 
     @RequestMapping("/index")
     public String index(Model model, HttpSession session){
@@ -71,5 +77,25 @@ public class IndexController {
         return "index/device_bollow";
     }
 
+
+    //设备申请的结果
+    @GetMapping("/bollowresult")
+    public String bollowResult(HttpSession session, Model model){
+        Object id = session.getAttribute("id");
+        if(id == null){
+            return "redirect:/login";
+        }
+        return "index/bollow_result";
+    }
+
+    //设备申请审查html
+    @GetMapping("/bollowcheck")
+    public String bollowCheck(HttpSession session, Model model){
+        Object id = session.getAttribute("id");
+        if(id == null){
+            return "redirect:/login";
+        }
+        return "index/bollow_check";
+    }
 
 }

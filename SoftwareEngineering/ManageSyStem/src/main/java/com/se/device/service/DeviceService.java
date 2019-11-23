@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface DeviceService extends JpaRepository<Device, Integer> {
 
-    @Query(value = "select * from device order by create_time desc, id limit ?1, ?2", nativeQuery = true)
+    @Query(value = "select * from device order by create_time desc, id desc limit ?1, ?2", nativeQuery = true)
     public List<Device> findAllByPage(int begin, int end);
 
     @Query(value = "select * from device where id=?1", nativeQuery = true)

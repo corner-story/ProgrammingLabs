@@ -143,8 +143,8 @@ public class DeviceController {
         if(device.getStatus().equals("借出")){
             deviceBorrows = bollowService.findAllByDeviceId(id);
 
-            model.addAttribute("borrow", deviceBorrows);
-            return "device/details_borrow_device";
+            model.addAttribute("bollows", deviceBorrows);
+            return "device/details_bollow_device";
         }
 
 

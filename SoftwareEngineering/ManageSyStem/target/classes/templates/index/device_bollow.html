@@ -5,7 +5,6 @@
             margin-right: 20px;
             margin-top: 30px;
         }
-
         #bollow-form{
             margin: 40px;
         }
@@ -23,10 +22,12 @@
         {{#  if(d.status === "在库"){ }}
             <a class="layui-btn layui-btn-sm" lay-event="bollow">转借申请</a>
         {{#  } else { }}
-            <a class="layui-btn layui-btn-disabled layui-btn-sm" lay-event="bollow">转借申请</a>
+            <a class="layui-btn layui-btn-disabled layui-btn-sm" lay-event="bollow">无法转借</a>
         {{#  } }}
 
     </script>
+
+
 
     <div id="bollow-form">
         <h2 style="text-align: center;margin-bottom: 20px">设备申请</h2>
@@ -117,15 +118,15 @@
             elem: '#devicebollow'
             ,url:'/devices'
             ,method: "get"
-            ,limit: 10
-            ,limits: [10, 20, 30, 40]
+            ,limit: 6
+            ,limits: [6, 10, 20, 30, 40]
             ,loading: true
             ,cellMinWidth: 80
             ,page: true
             ,cols: [
                 [
-                    {type:'checkbox'}
-                    ,{field:'id',title: 'ID', sort: true}
+                    {type:'checkbox', hide: true}
+                    ,{field:'id',title: 'ID',sort: true}
                     ,{field:'name',  title: '设备名称'}
                     ,{field:'type',  title: '类型', sort: true}
                     ,{field:'model',  title: '型号'}

@@ -42,7 +42,7 @@ public class Device {
     private String status;
 
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @CreatedDate
     @Column(name = "create_time")
     private java.util.Date create_time;

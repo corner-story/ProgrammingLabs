@@ -1,5 +1,6 @@
 package com.se.device.entity;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -33,6 +34,17 @@ public class DeviceBorrow {
     @Column(name = "user_name")
     private String user_name;
 
+    //申请设备的批准人员
+    @Column(name = "authorize_id")
+    private Integer authorize_id;
+
+    @Column(name = "authorize_name")
+    private String authorize_name;
+
+
+    @Column(name = "authorize_result")
+    private String authorize_result = "等待审核";
+
     @Column(name = "do_what", length = 600)
     private String do_what;
 
@@ -50,9 +62,6 @@ public class DeviceBorrow {
     private Date return_time;
 
 
-
-
-
     @Temporal(TemporalType.DATE)
     @CreatedDate
     @Column(name = "create_time")
@@ -61,13 +70,9 @@ public class DeviceBorrow {
     @Column(name = "backup")
     private String backup;
 
-
-
+    
     public DeviceBorrow() {
     }
-
-
-
 
     public Integer getId() {
         return id;
@@ -171,6 +176,30 @@ public class DeviceBorrow {
 
     public void setStart_time(Date start_time) {
         this.start_time = start_time;
+    }
+
+    public Integer getAuthorize_id() {
+        return authorize_id;
+    }
+
+    public void setAuthorize_id(Integer authorize_id) {
+        this.authorize_id = authorize_id;
+    }
+
+    public String getAuthorize_name() {
+        return authorize_name;
+    }
+
+    public void setAuthorize_name(String authorize_name) {
+        this.authorize_name = authorize_name;
+    }
+
+    public String getAuthorize_result() {
+        return authorize_result;
+    }
+
+    public void setAuthorize_result(String authorize_result) {
+        this.authorize_result = authorize_result;
     }
 
     @Override
