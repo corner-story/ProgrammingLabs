@@ -24,30 +24,6 @@ public class DeviceBorrow {
     @Column(name = "dp_id")
     private Integer dp_id;
 
-    public String getDevice_name() {
-        return device_name;
-    }
-
-    public void setDevice_name(String device_name) {
-        this.device_name = device_name;
-    }
-
-    public String getDp_name() {
-        return dp_name;
-    }
-
-    public void setDp_name(String dp_name) {
-        this.dp_name = dp_name;
-    }
-
-    public String getUser_name() {
-        return user_name;
-    }
-
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
-    }
-
     @Column(name = "dp_name")
     private String dp_name;
 
@@ -60,6 +36,11 @@ public class DeviceBorrow {
     @Column(name = "do_what", length = 600)
     private String do_what;
 
+    //管理人员同意设备转借的时间
+    @Temporal(TemporalType.DATE)
+    @Column(name = "start_time")
+    private Date start_time;
+
     @Temporal(TemporalType.DATE)
     @Column(name = "back_time")
     private Date back_time;
@@ -67,6 +48,10 @@ public class DeviceBorrow {
     @Temporal(TemporalType.DATE)
     @Column(name = "return_time")
     private Date return_time;
+
+
+
+
 
     @Temporal(TemporalType.DATE)
     @CreatedDate
@@ -76,8 +61,13 @@ public class DeviceBorrow {
     @Column(name = "backup")
     private String backup;
 
+
+
     public DeviceBorrow() {
     }
+
+
+
 
     public Integer getId() {
         return id;
@@ -151,6 +141,38 @@ public class DeviceBorrow {
         this.backup = backup;
     }
 
+    public String getDevice_name() {
+        return device_name;
+    }
+
+    public void setDevice_name(String device_name) {
+        this.device_name = device_name;
+    }
+
+    public String getDp_name() {
+        return dp_name;
+    }
+
+    public void setDp_name(String dp_name) {
+        this.dp_name = dp_name;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public Date getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(Date start_time) {
+        this.start_time = start_time;
+    }
+
     @Override
     public String toString() {
         return "DeviceBorrow{" +
@@ -168,4 +190,6 @@ public class DeviceBorrow {
                 ", backup='" + backup + '\'' +
                 '}';
     }
+
+
 }

@@ -16,9 +16,15 @@
     </div>
 
     <script type="text/html" id="optoolbar">
-        <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detail">查看</a>
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+
+        {{#  if(d.status === "报废"){ }}
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        {{#  } else { }}
+        <a class="layui-btn layui-btn-disabled layui-btn-xs" lay-event="del">删除</a>
+        {{#  } }}
+
 
     </script>
 
@@ -47,13 +53,37 @@
                     ,{field:'name',  title: '设备名称'}
                     ,{field:'type',  title: '类型', sort: true}
                     ,{field:'model',  title: '型号'}
-                    ,{field:'status',  title: '状态'}
                     ,{field:'inside_number', title: '内部编码'}
                     ,{field:'location', title: '存放位置', sort: true}
                     ,{field:'belong_dp_id',  title: '所属部门ID', sort: true, hide: true}
                     ,{field:'belong_dp_name',  title: '所属部门', sort: true}
                     ,{field:'create_time', title: '创建时间', sort: true}
                     ,{field:'backup', title: '备注'}
+                    ,{
+                    field:'status',
+                    title: '状态',
+                    align: 'center',
+                    templet: function (d) {
+                        //d是该行的数据
+                        if(d.status === ""){
+                            return d.status
+                        }
+                        var style = ""
+                        var size = " layui-btn-xs"
+                        if(d.status === "在库"){
+                            style = "layui-btn"
+                        }else if(d.status === "借出"){
+                            style = "layui-btn layui-btn-normal"
+                        }else if(d.status === "损坏"){
+                            style = "layui-btn layui-btn-warm"
+                        }else if(d.status === "报废"){
+                            style = "layui-btn layui-btn-danger"
+                        }else{
+                            style = "layui-btn layui-btn-primary"
+                        }
+                        return '<button type="button" class="'+ style + size +'">' + d.status + '</button>'
+                    }
+                }
                     ,{title:"操作", width:150, align:'center', toolbar: '#optoolbar'} //这里的toolbar值是模板元素的选择器
                 ]
             ]
@@ -81,6 +111,11 @@
             }
 
             if(layEvent === 'detail'){ //查看
+                if(data.status === "" || data.status === "在库"){
+                    layer.msg("该设备在库, 存放位置: " + data.location)
+                    return false
+                }
+
                 $.ajax({
                     url: "/detailsdevice/" + data.id,
                     type: "get",
@@ -89,7 +124,7 @@
                     success: function(res){
                         layer.open({
                             type: 1,
-                            title: '查看',
+                            title: '查看设备状态',
                             shadeClose: true,
                             shade: false,
                             maxmin: true, //开启最大化最小化按钮
@@ -110,6 +145,14 @@
 
 
             } else if(layEvent === 'del'){ //删除
+
+                //只有报废的设备才可以删除
+                // console.log(data)
+                if(!(data.status === "报废")){
+                    layer.msg("该设备不可删除, 强制删除请联系管理员!")
+                    return false
+                }
+
                 layer.confirm('确定要删除该设备吗?', function(index){
                     obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                     layer.close(index);

@@ -1,14 +1,16 @@
 package com.se.device.controller;
 
 import com.se.device.entity.Device;
+import com.se.device.entity.DeviceBorrow;
+import com.se.device.service.BollowService;
 import com.se.device.service.DeviceService;
 import com.se.device.utils.JsonResult;
-import org.hibernate.mapping.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,6 +27,9 @@ public class DeviceController {
 
     @Autowired
     private DeviceService deviceService;
+
+    @Autowired
+    private BollowService bollowService;
 
 
     //获取所有的device信息
@@ -123,12 +128,26 @@ public class DeviceController {
     }
 
 
-    //获取details_device页面html
+    //获取details_device页面html, device的status信息, 转借, 损坏, 报废
     @GetMapping(value = "/detailsdevice/{id}")
     public String detailsDevice(@PathVariable Integer id, Model model){
         Device device = deviceService.findOneById(id);
-
         model.addAttribute("device", device);
-        return "index/details_device";
+
+        if(device.getStatus() == null){
+            return "device/details_device";
+        }
+
+        //设备转借
+        List<DeviceBorrow> deviceBorrows = new ArrayList<>();
+        if(device.getStatus().equals("借出")){
+            deviceBorrows = bollowService.findAllByDeviceId(id);
+
+            model.addAttribute("borrow", deviceBorrows);
+            return "device/details_borrow_device";
+        }
+
+
+        return "device/details_device";
     }
 }

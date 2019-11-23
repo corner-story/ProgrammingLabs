@@ -1,7 +1,9 @@
 package com.se.device.controller;
 
 
+import com.se.device.entity.User;
 import com.se.device.service.DeviceService;
+import com.se.device.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 /*
     index中的大部分请求, 请求html页面
+    左侧导航栏请求对应的html
 
 */
 
@@ -19,6 +22,9 @@ public class IndexController {
 
     @Autowired
     private DeviceService deviceService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/index")
     public String index(Model model, HttpSession session){
@@ -50,5 +56,20 @@ public class IndexController {
     public String addDeviec(){
         return "index/add_device";
     }
+
+
+    //设备申请
+    @GetMapping("/bollowdevice")
+    public String bollowDevice(HttpSession session, Model model){
+
+        Object id = session.getAttribute("id");
+        if(id == null){
+            return "redirect:/login";
+        }
+        User user = userService.findOneById(String.valueOf(id));
+        model.addAttribute("user", user);
+        return "index/device_bollow";
+    }
+
 
 }

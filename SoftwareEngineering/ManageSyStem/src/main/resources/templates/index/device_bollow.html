@@ -1,0 +1,244 @@
+<head>
+    <style>
+        #bollow{
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-top: 30px;
+        }
+
+        #bollow-form{
+            margin: 40px;
+        }
+    </style>
+</head>
+
+<div id="bollow">
+
+    <h2>Devices bollow!</h2>
+    <div id="device_bollow">
+        <table class="layui-hide" id="devicebollow" lay-filter="device-bollow"></table>
+    </div>
+
+    <script type="text/html" id="bollowbar">
+        {{#  if(d.status === "在库"){ }}
+            <a class="layui-btn layui-btn-sm" lay-event="bollow">转借申请</a>
+        {{#  } else { }}
+            <a class="layui-btn layui-btn-disabled layui-btn-sm" lay-event="bollow">转借申请</a>
+        {{#  } }}
+
+    </script>
+
+    <div id="bollow-form">
+        <h2 style="text-align: center;margin-bottom: 20px">设备申请</h2>
+        <form class="layui-form" lay-filter="bollow">
+            <div class="layui-form-item">
+                <label class="layui-form-label">设备名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" required lay-verify="required" placeholder="请输入设备名称" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">申请人姓名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="username" required lay-verify="required" placeholder="请输入申请人姓名" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">所属部门</label>
+                <div class="layui-input-block">
+                    <input type="text" name="dpname" required lay-verify="required" placeholder="请输入所属部门" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">拟还时间</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input" id="bollow_back_time" required lay-verify="required" placeholder="请输入归还时间">
+                </div>
+            </div>
+
+
+
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">用途</label>
+                <div class="layui-input-block">
+                    <textarea name="do_what" placeholder="请输入用途" class="layui-textarea"></textarea>
+                </div>
+            </div>
+
+
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">备注</label>
+                <div class="layui-input-block">
+                    <textarea name="backup" placeholder="请输入内容" class="layui-textarea"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="bollowsubmit">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+
+</div>
+
+
+<script th:inline="javascript">
+
+    var user = [[${user}]]
+    var bollowdevice = {};
+    bollowdevice.user_id = user.id
+    bollowdevice.user_name = user.username
+    bollowdevice.dp_id = user.dp_id
+    bollowdevice.dp_name = user.dp_name
+    bollowdevice.back_time = ""
+
+    layui.use(['table', 'laydate', 'form'], function(){
+        var table = layui.table;
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        //时间范围: 从现在开始两个月
+        laydate.render({
+            elem: '#bollow_back_time' //指定元素
+            ,min:0
+            ,max:60
+        });
+
+
+        var form =layui.form
+
+        var options = {
+            elem: '#devicebollow'
+            ,url:'/devices'
+            ,method: "get"
+            ,limit: 10
+            ,limits: [10, 20, 30, 40]
+            ,loading: true
+            ,cellMinWidth: 80
+            ,page: true
+            ,cols: [
+                [
+                    {type:'checkbox'}
+                    ,{field:'id',title: 'ID', sort: true}
+                    ,{field:'name',  title: '设备名称'}
+                    ,{field:'type',  title: '类型', sort: true}
+                    ,{field:'model',  title: '型号'}
+                    ,{field:'inside_number', title: '内部编码'}
+                    ,{field:'location', title: '存放位置', sort: true}
+                    ,{field:'belong_dp_id',  title: '所属部门ID', sort: true, hide: true}
+                    ,{field:'belong_dp_name',  title: '所属部门', sort: true}
+                    ,{field:'create_time', title: '创建时间', sort: true}
+                    ,{field:'backup', title: '备注'}
+                    ,{
+                    field:'status',
+                    title: '状态',
+                    align: 'center',
+                    templet: function (d) {
+                        //d是该行的数据
+                        if(d.status === ""){
+                            return d.status
+                        }
+                        var style = ""
+                        var size = " layui-btn-sm"
+                        if(d.status === "在库"){
+                            style = "layui-btn"
+                        }else if(d.status === "借出"){
+                            style = "layui-btn layui-btn-normal"
+                        }else if(d.status === "损坏"){
+                            style = "layui-btn layui-btn-warm"
+                        }else if(d.status === "报废"){
+                            style = "layui-btn layui-btn-danger"
+                        }else{
+                            style = "layui-btn layui-btn-primary"
+                        }
+                        return '<button type="button" class="'+ style + size +'">' + d.status + '</button>'
+                    }
+                }
+                    ,{title:"操作", width:150, align:'center', toolbar: '#bollowbar'} //这里的toolbar值是模板元素的选择器
+                ]
+            ]
+            ,page: {
+                layout: ['prev', 'page', 'next', 'skip', 'count', 'limit',] //自定义分页布局
+                //,curr: 5 //设定初始在第 5 页
+                ,groups: 1 //只显示 1 个连续页码
+                ,first: false //不显示首页
+                ,last: false //不显示尾页
+            }
+
+        }
+
+        var tablens = table.render(options);
+
+
+        //监听工具条
+        table.on('tool(device-bollow)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+
+            if(tr == null){
+                return false
+            }
+
+            if(layEvent === 'bollow'){
+                if(!(data.status === "在库")){
+                    layer.msg("该设备暂时无法转借!")
+                    return false
+                }
+                //记录要借的设备id和名称
+                bollowdevice.device_id = data.id
+                bollowdevice.device_name = data.name
+
+                form.val("bollow", { // 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                    "name": bollowdevice.device_name
+                    ,"username":bollowdevice.user_name
+                    ,"dpname": bollowdevice.dp_name
+                });
+            }
+        });
+
+        //监听提交
+        form.on('submit(bollowsubmit)', function(data){
+            // console.log(data.field)
+            if(!($("#bollow_back_time").val())){
+                layer.msg("请输入拟还时间!")
+                return false
+            }
+
+            data = data.field
+            bollowdevice.back_time = $("#bollow_back_time").val()
+            bollowdevice.do_what = data.do_what
+            bollowdevice.backup = data.backup
+            // console.log(bollowdevice)
+
+            $.ajax({
+                url: "/bollow",
+                type: "post",
+                dataType: "json", //期望后端返回的数据类型
+                contentType: "application/json;charset=UTF-8",
+                data: JSON.stringify(bollowdevice),
+                async: true,
+                success: function(res){
+                    layer.msg(res.msg)
+                },
+                error: function(xhr, status, error){
+                    console.log(xhr)
+                    console.log(status)
+                    console.log(error)
+                }
+            });
+            return false;
+        });
+
+
+
+    });
+
+
+</script>

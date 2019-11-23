@@ -10,7 +10,7 @@
 
 
 <div id="add-device">
-
+    <h2 style="text-align: center; margin-bottom: 20px">购入设备</h2>
     <form class="layui-form" action="">
         <div class="layui-form-item">
             <label class="layui-form-label">设备名称</label>
@@ -130,7 +130,7 @@
             }
 
             $.ajax({
-                url: "devices",
+                url: "/devices",
                 type: "post",
                 dataType: "json", //期望后端返回的数据类型
                 contentType: "application/json;charset=UTF-8",
