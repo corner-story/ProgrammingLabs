@@ -92,7 +92,6 @@ how to use
 ## Compiler Display: visualize the execute of compiler!
 
 1. just open the CompilerDisplay/  file with IDEA and run it.
-2. open "http://127.0.0.1:8080" or [click me](http:127.0.0.1:8080)
-   
+2. open http://127.0.0.1:8080
 
-<img src="https://github.com/lambdafate/ProgrammingLabs/images/compiler.png" width="50%">
+![](https://ftp.bmp.ovh/imgs/2019/11/7a4f61ee286dbd5e.png)
