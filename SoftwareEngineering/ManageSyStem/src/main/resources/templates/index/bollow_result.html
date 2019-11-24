@@ -19,8 +19,7 @@
         {{#  if(d.authorize_result === "同意"){ }}
             {{# if(d.return_time == undefined || d.return_time == null || d.return_time == ""){ }}
                 <a class="layui-btn layui-btn-sm" lay-event="return">归还</a>
-                <a class="layui-btn layui-btn-sm layui-btn-warm" lay-event="fault">损坏上报</a>
-                <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="broken">报废上报</a>
+
             {{# }else{ }}
                 <a class="layui-btn layui-btn-sm layui-btn-normal layui-btn-disabled" lay-event="remind">已经归还</a>
             {{# } }}
@@ -136,12 +135,6 @@
                 }, function(){
 
                 });
-
-
-            }else if(layEvent === "fault"){
-
-            }else if(layEvent === "broken"){
-
             }else if(layEvent === "refuse"){
                 layer.msg("不服的话建议您去找管理员battle一波呢!")
             }else if(layEvent === "wait"){

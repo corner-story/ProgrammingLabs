@@ -28,6 +28,9 @@ public class DeviceBroken {
     @Column(name = "authorize_name")
     private String authorize_name;
 
+    @Column(name = "authorize_result")
+    private String authorize_result = "等待审核";
+
     @Column(name = "user_id")
     private Integer user_id;
 
@@ -79,6 +82,14 @@ public class DeviceBroken {
 
     public void setUser_id(Integer user_id) {
         this.user_id = user_id;
+    }
+
+    public String getAuthorize_result() {
+        return authorize_result;
+    }
+
+    public void setAuthorize_result(String authorize_result) {
+        this.authorize_result = authorize_result;
     }
 
     public String getHandle_way() {

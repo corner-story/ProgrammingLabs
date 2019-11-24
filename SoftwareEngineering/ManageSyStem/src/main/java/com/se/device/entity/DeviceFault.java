@@ -33,11 +33,11 @@ public class DeviceFault {
     @Column(name = "end_time")
     private Date end_time;
 
-    @Column(name = "leader_id")
-    private Integer leader_id;
+    @Column(name = "user_id")
+    private Integer user_id;
 
-    @Column(name = "leader_name")
-    private String leader_name;
+    @Column(name = "user_name")
+    private String user_name;
 
     @Column(name = "result", length = 600)
     private String result;
@@ -50,23 +50,18 @@ public class DeviceFault {
     @Column(name = "backup")
     private String backup;
 
+    @Column(name = "authorize_id")
+    private Integer authorize_id;
+
+    @Column(name = "authorize_name")
+    private String authorize_name;
+
+    @Column(name = "authorize_result")
+    private String authorize_result = "等待审核";
+
+
+
     public DeviceFault() {
-    }
-
-    public String getDevice_name() {
-        return device_name;
-    }
-
-    public void setDevice_name(String device_name) {
-        this.device_name = device_name;
-    }
-
-    public String getLeader_name() {
-        return leader_name;
-    }
-
-    public void setLeader_name(String leader_name) {
-        this.leader_name = leader_name;
     }
 
     public Integer getId() {
@@ -83,6 +78,14 @@ public class DeviceFault {
 
     public void setDevice_id(Integer device_id) {
         this.device_id = device_id;
+    }
+
+    public String getDevice_name() {
+        return device_name;
+    }
+
+    public void setDevice_name(String device_name) {
+        this.device_name = device_name;
     }
 
     public String getFault_state() {
@@ -109,12 +112,20 @@ public class DeviceFault {
         this.end_time = end_time;
     }
 
-    public Integer getLeader_id() {
-        return leader_id;
+    public Integer getUser_id() {
+        return user_id;
     }
 
-    public void setLeader_id(Integer leader_id) {
-        this.leader_id = leader_id;
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
     public String getResult() {
@@ -141,6 +152,30 @@ public class DeviceFault {
         this.backup = backup;
     }
 
+    public Integer getAuthorize_id() {
+        return authorize_id;
+    }
+
+    public void setAuthorize_id(Integer authorize_id) {
+        this.authorize_id = authorize_id;
+    }
+
+    public String getAuthorize_name() {
+        return authorize_name;
+    }
+
+    public void setAuthorize_name(String authorize_name) {
+        this.authorize_name = authorize_name;
+    }
+
+    public String getAuthorize_result() {
+        return authorize_result;
+    }
+
+    public void setAuthorize_result(String authorize_result) {
+        this.authorize_result = authorize_result;
+    }
+
     @Override
     public String toString() {
         return "DeviceFault{" +
@@ -150,11 +185,14 @@ public class DeviceFault {
                 ", fault_state='" + fault_state + '\'' +
                 ", begin_time=" + begin_time +
                 ", end_time=" + end_time +
-                ", leader_id=" + leader_id +
-                ", leader_name='" + leader_name + '\'' +
+                ", user_id=" + user_id +
+                ", user_name='" + user_name + '\'' +
                 ", result='" + result + '\'' +
                 ", create_time=" + create_time +
                 ", backup='" + backup + '\'' +
+                ", authorize_id=" + authorize_id +
+                ", authorize_name='" + authorize_name + '\'' +
+                ", authorize_result='" + authorize_result + '\'' +
                 '}';
     }
 }

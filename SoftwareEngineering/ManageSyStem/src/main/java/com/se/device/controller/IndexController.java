@@ -98,4 +98,33 @@ public class IndexController {
         return "index/bollow_check";
     }
 
+
+
+    //设备故障的html页面
+    @GetMapping("/devicefault")
+    public String deviceFault(HttpSession session, Model model){
+        Object id = session.getAttribute("id");
+        if(id == null){
+            return "redirect:/login";
+        }
+
+        User user = userService.findOneById(String.valueOf(id));
+        model.addAttribute("user", user);
+        return "index/device_fault";
+    }
+
+
+    //设备故障审批界面html
+    @GetMapping("/faultcheck")
+    public String fauluCheck(HttpSession session, Model model){
+        Object id = session.getAttribute("id");
+        if(id == null){
+            return "redirect:/login";
+        }
+
+        User user = userService.findOneById(String.valueOf(id));
+        model.addAttribute("user", user);
+        return "index/fault_check";
+    }
+
 }
