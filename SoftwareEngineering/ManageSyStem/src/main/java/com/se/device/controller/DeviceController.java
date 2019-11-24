@@ -140,7 +140,7 @@ public class DeviceController {
 
         //设备转借
         List<DeviceBorrow> deviceBorrows = new ArrayList<>();
-        if(device.getStatus().equals("借出")){
+        if(device.getStatus().equals("在库") || device.getStatus().equals("借出")){
             deviceBorrows = bollowService.findAllByDeviceId(id);
 
             model.addAttribute("bollows", deviceBorrows);

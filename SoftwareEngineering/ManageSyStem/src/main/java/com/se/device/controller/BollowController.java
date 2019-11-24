@@ -135,6 +135,36 @@ public class BollowController {
 
 
 
+    //设备归还
+    @RequestMapping(value = "/bollow/return", method = RequestMethod.POST)
+    @ResponseBody
+    public Object returnDevcie(@RequestParam Integer bollowid){
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("code", "200");
+
+        try{
+
+            DeviceBorrow deviceBorrow = bollowService.findOneById(bollowid);
+            Device device = deviceService.findOneById(deviceBorrow.getDevice_id());
+            Calendar calendar = Calendar.getInstance();
+            //更新device_bollow 的 return_time
+            deviceBorrow.setReturn_time(calendar.getTime());
+
+            //更新设备信息 借出-->在库
+            device.setStatus("在库");
+
+            //更新到数据库
+            bollowService.save(deviceBorrow);
+            deviceService.save(device);
+            res.put("msg", "归还成功!");
+        }catch (Exception e){
+            System.out.println(e);
+            res.put("msg", "归还失败, error: " + e.toString());
+        }
+        return res;
+    }
+
+
 
 
 }

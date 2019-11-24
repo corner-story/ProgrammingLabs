@@ -111,10 +111,10 @@
             }
 
             if(layEvent === 'detail'){ //查看
-                if(data.status === "" || data.status === "在库"){
-                    layer.msg("该设备在库, 存放位置: " + data.location)
-                    return false
-                }
+                // if(data.status === "" || data.status === "在库"){
+                //     layer.msg("该设备在库, 存放位置: " + data.location)
+                //     return false
+                // }
 
                 $.ajax({
                     url: "/detailsdevice/" + data.id,

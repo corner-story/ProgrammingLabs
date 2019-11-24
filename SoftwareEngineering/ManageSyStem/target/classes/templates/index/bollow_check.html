@@ -17,18 +17,17 @@
 
     <script type="text/html" id="bollowcheckbar">
         {{#  if(d.authorize_result == "等待审核"){ }}
-        <a class="layui-btn layui-btn-sm" lay-event="同意">同意</a>
-        <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="拒绝">拒绝</a>
-
+            <a class="layui-btn layui-btn-sm" lay-event="同意">同意</a>
+            <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="拒绝">拒绝</a>
         {{#  } else if(d.authorize_result == "同意"){ }}
-            {{# if(d.return_time == undefined || d.return_time_time == null || d.return_time == ""){ }}
+            {{# if(d.return_time == undefined || d.return_time == null || d.return_time == ""){ }}
                     <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="remind">催还</a>
             {{# }else{ }}
                     <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="remind-dis">催还</a>
             {{# } }}
 
         {{# }else{ }}
-        <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="refused">已拒绝</a>
+            <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="refused">已拒绝</a>
         {{# } }}
     </script>
 
@@ -84,7 +83,7 @@
                     title: '归还时间',
                     templet: function (d) {
                         if(d.authorize_result == "同意"){
-                            if(d.return_time == undefined || d.return_time_time == null || d.return_time == ""){
+                            if(d.return_time == undefined || d.return_time == null || d.return_time == ""){
                                 return "未归还"
                             }
                             return d.return_time
@@ -136,6 +135,7 @@
                     success: function(res){
                         console.log(res)
                         layer.msg(res.msg)
+
                         tablens.reload(options)
                     },
                     error: function(xhr, status, error){

@@ -142,7 +142,14 @@
         }
         //设备购入信息
         var info = '设备名称:' + device.name + " 购入时间: " + device.create_time + ' <i class="layui-icon"></i>'
-        lis = lis + first + device.create_time + second + info +end;
+        lis = lis + '<li class="layui-timeline-item"> <i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-timeline-axis"></i> <div class="layui-timeline-content layui-text"> <h3 class="layui-timeline-title">'
+                    + device.create_time + second + info + end
+
+        if(device.status !== "借出"){
+            var msg = '<li class="layui-timeline-item"> <i class="layui-icon layui-timeline-axis"></i> <div class="layui-timeline-content layui-text"> <h3 class="layui-timeline-title">' + 'Now' + second
+            var midcontent = '设备状态: ' + device.status
+            lis = msg + midcontent + end + lis;
+        }
 
         $("#timelines").find("ul:first").append(lis)
     }
