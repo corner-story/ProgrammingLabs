@@ -20,11 +20,16 @@
         <a class="layui-btn layui-btn-sm" lay-event="同意">同意</a>
         <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="拒绝">拒绝</a>
 
-        {{#  } else { }}
-        <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="agree">同意</a>
-        <a class="layui-btn layui-btn-sm layui-btn-danger layui-btn-disabled" lay-event="disagree">拒绝</a>
-        {{# } }}
+        {{#  } else if(d.authorize_result == "同意"){ }}
+            {{# if(d.return_time == undefined || d.return_time_time == null || d.return_time == ""){ }}
+                    <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="remind">催还</a>
+            {{# }else{ }}
+                    <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="remind-dis">催还</a>
+            {{# } }}
 
+        {{# }else{ }}
+        <a class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="refused">已拒绝</a>
+        {{# } }}
     </script>
 
 
@@ -58,8 +63,37 @@
                     ,{field:'do_what',  title: '用途'}
                     ,{field:'back_time',  title: '拟还时间', sort: true}
                     ,{field:'backup', title: '备注'}
-                    ,{field:'authorize_result', title: '审核结果'}
+                    ,{
+                        field:'authorize_result',
+                        title: '审核结果',
+                        align: 'center',
+                        templet: function (d) {
+                            var style = d.authorize_result
 
+                            if(d.authorize_result == "同意"){
+                                style = '<i class="layui-icon layui-icon-ok-circle" style="font-size: 24px; color: #009688;"></i> '
+                            }else if(d.authorize_result == "拒绝"){
+                                style = '<i class="layui-icon layui-icon-close-fill" style="font-size: 24px; color: #FF5722;"></i> '
+                            }
+                            return style
+                        }
+                    }
+
+                    ,{
+                    field:'return_time',
+                    title: '归还时间',
+                    templet: function (d) {
+                        if(d.authorize_result == "同意"){
+                            if(d.return_time == undefined || d.return_time_time == null || d.return_time == ""){
+                                return "未归还"
+                            }
+                            return d.return_time
+                        }else if(d.authorize_result == "拒绝"){
+                            return "已拒绝转借,不用归还";
+                        }
+                        return d.authorize_result
+                    }
+                }
                     ,{title:"操作", width:150, align:'center', toolbar: '#bollowcheckbar'} //这里的toolbar值是模板元素的选择器
                 ]
             ]
@@ -110,6 +144,12 @@
                         console.log(error)
                     }
                 });
+            }else if(layEvent === "remind"){
+                layer.msg("催还成功!")
+            }else if(layEvent === "remind-dis"){
+                layer.msg("该设备已经归还!")
+            }else if(layEvent === "refused"){
+                layer.msg("该设备已被拒绝转借!")
             }
 
             return false;

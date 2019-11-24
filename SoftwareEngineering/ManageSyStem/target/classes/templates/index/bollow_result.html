@@ -24,7 +24,6 @@
         <a class="layui-btn layui-btn-disabled layui-btn-sm" lay-event="refuse">转借失败</a>
         {{#  } else { }}
         <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="wait">等待审核</a>
-
         {{# } }}
 
     </script>
@@ -70,8 +69,10 @@
                                     return "未归还"
                                 }
                                 return d.return_time
+                            }else if(d.authorize_result == "拒绝"){
+                                return "转借失败,不用归还";
                             }
-                            return "转借失败,不用归还";
+                            return d.authorize_result
                         }
                     }
 
@@ -101,9 +102,29 @@
                 return false
             }
 
-            if(layEvent === 'bollowresult'){
+            if(layEvent === 'return'){
 
+                layer.confirm("确定归还? 请今天将该设备放回原处!", {
+                    btn: ['确定归还','取消'] //按钮
+                }, function(){
+                    layer.msg("归还成功!")
+
+                }, function(){
+
+                });
+
+
+            }else if(layEvent === "fault"){
+
+            }else if(layEvent === "broken"){
+
+            }else if(layEvent === "refuse"){
+                layer.msg("不服的话建议您去找管理员battle一波呢!")
+            }else if(layEvent === "wait"){
+                layer.msg("我们尽快给您发货哦, 请您耐心等待呢!")
             }
+
+            return false
         });
 
     });
