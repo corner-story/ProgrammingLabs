@@ -1,0 +1,150 @@
+<head>
+    <style>
+        #dictcheck{
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-top: 30px;
+        }
+        #test9{
+            margin: 100px;
+        }
+    </style>
+</head>
+
+<div id="dictcheck">
+
+    <div id="dict-check">
+        <div class="layui-tab layui-tab-card">
+            <ul class="layui-tab-title">
+                <li class="layui-this">用户管理</li>
+                <li>部门管理</li>
+                <li>角色-权限管理</li>
+            </ul>
+            <div class="layui-tab-content">
+
+                <div class="layui-tab-item layui-show">
+                    <div id="">
+                        <table class="layui-hide" id="dict-user" lay-filter="dict-user"></table>
+                    </div>
+                </div>
+
+
+
+                <div class="layui-tab-item">
+
+                    <div id="test9" class="demo-tree demo-tree-box" style=""></div>
+                </div>
+
+                <div class="layui-tab-item">
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<script th:inline="javascript">
+
+
+    layui.use(['table', 'tree'], function(){
+        var table = layui.table;
+        var tree = layui.tree;
+
+        //用户管理
+        var options1 = {
+            elem: '#dict-user'
+            ,url:'/system/users'
+            ,method: "get"
+            ,limit: 6
+            ,limits: [6, 10, 20, 30, 40]
+            ,loading: true
+            ,cellMinWidth: 80
+            ,page: true
+            ,cols: [
+                [
+                    {type:'checkbox', hide: true}
+                    ,{field:'id',title: 'ID',sort: true}
+                    ,{field:'username',title: '用户名',sort: true}
+                    ,{field:'password',title: '密码',sort: true, templet:(d)=>{ return d.password}}
+                    ,{field:'role_name',  title: '用户角色'}
+                    ,{field:'dp_name', title: '所属部门'}
+                    ,{field:'create_time',  title: '创建时间'}
+                    ,{field:'backup',  title: '备注'}
+                    ,{title:"操作", width:250, align:'center', toolbar: '#dictcheckbar'} //这里的toolbar值是模板元素的选择器
+                ]
+            ]
+            ,page: {
+                layout: ['prev', 'page', 'next', 'skip', 'count', 'limit',] //自定义分页布局
+                //,curr: 5 //设定初始在第 5 页
+                ,groups: 1 //只显示 1 个连续页码
+                ,first: false //不显示首页
+                ,last: false //不显示尾页
+            }
+
+        }
+        var tablens = table.render(options1);
+
+
+        var data1 = [{
+            title: '江西'
+            ,id: 1
+            ,children: [{
+                title: '南昌'
+                ,id: 1000
+                ,children: [{
+                    title: '青山湖区'
+                    ,id: 10001
+                },{
+                    title: '高新区'
+                    ,id: 10002
+                }]
+            },{
+                title: '九江'
+                ,id: 1001
+            },{
+                title: '赣州'
+                ,id: 1002
+            }]
+        },{
+            title: '广西'
+            ,id: 2
+            ,children: [{
+                title: '南宁'
+                ,id: 2000
+            },{
+                title: '桂林'
+                ,id: 2001
+            }]
+        },{
+            title: '陕西'
+            ,id: 3
+            ,children: [{
+                title: '西安'
+                ,id: 3000
+            },{
+                title: '延安'
+                ,id: 3001
+            }]
+        }]
+
+        //部门管理
+        //渲染
+        //开启节点操作图标
+        tree.render({
+            elem: '#test9'
+            ,data: data1
+            ,edit: ['add', 'update', 'del'] //操作节点的图标
+            ,click: function(obj){
+                layer.msg(JSON.stringify(obj.data));
+            }
+        });
+
+    });
+
+
+</script>

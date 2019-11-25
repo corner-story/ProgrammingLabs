@@ -5,16 +5,18 @@ package com.se.device.controller;
 */
 
 import com.se.device.entity.Department;
+import com.se.device.entity.DeviceBorrow;
 import com.se.device.entity.Role;
+import com.se.device.entity.User;
 import com.se.device.service.DepartmentService;
 import com.se.device.service.RoleService;
+import com.se.device.service.UserService;
+import com.se.device.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,10 +31,9 @@ public class DictController {
     @Autowired
     private RoleService roleService;
 
-    @GetMapping("/users")
-    public String users(){
-        return "dict/users";
-    }
+    @Autowired
+    private UserService userService;
+
 
     @GetMapping("/roles")
     public String roles(){
@@ -72,6 +73,30 @@ public class DictController {
         res.put("data", roles);
         res.put("msg", "操作成功");
         return res;
+    }
+
+
+
+    //获取数据字典的html
+    @GetMapping("/dict")
+    public String getDict(){
+        return "dict/data_dict";
+    }
+
+
+    //获取 user表
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResult getAllUsers(@RequestParam int page, @RequestParam int limit, HttpSession session){
+
+        String count = String.valueOf(userService.count());
+        int begin = (page-1)*limit;
+        int end = limit;
+        List<User> data = userService.findAllToPage(begin, end);
+        JsonResult<List<User>> jsonResult = new JsonResult(data);
+        jsonResult.setCount(count);
+        jsonResult.setCode("0");
+        return jsonResult;
     }
 
 

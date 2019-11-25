@@ -1,5 +1,6 @@
 package com.se.device.service;
 
+import com.se.device.entity.DeviceBorrow;
 import com.se.device.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -22,5 +23,10 @@ public interface UserService extends JpaRepository<User, Integer> {
     @Modifying
     @Query(value = "insert into user(username, password) values(?1, ?2)", nativeQuery = true)
     public void insertUser(String username, String password);
+
+
+
+    @Query(value = "select * from user order by create_time desc, id desc limit ?1, ?2", nativeQuery = true)
+    public List<User> findAllToPage(int page, int limit);
 
 }
