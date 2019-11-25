@@ -5,7 +5,7 @@
             margin-right: 20px;
             margin-top: 30px;
         }
-        #test9{
+        #dps-tree{
             margin: 100px;
         }
     </style>
@@ -28,15 +28,13 @@
                     </div>
                 </div>
 
-
-
                 <div class="layui-tab-item">
 
-                    <div id="test9" class="demo-tree demo-tree-box" style=""></div>
+                    <div id="dps-tree"></div>
                 </div>
 
                 <div class="layui-tab-item">
-
+                    <h2>角色与权限页面</h2>
                 </div>
 
 
@@ -48,12 +46,13 @@
 </div>
 
 
-<script th:inline="javascript">
+<script>
 
 
-    layui.use(['table', 'tree'], function(){
+    layui.use(['table', 'tree', 'form'], function(){
         var table = layui.table;
         var tree = layui.tree;
+        var form = layui.form;
 
         //用户管理
         var options1 = {
@@ -75,7 +74,15 @@
                     ,{field:'dp_name', title: '所属部门'}
                     ,{field:'create_time',  title: '创建时间'}
                     ,{field:'backup',  title: '备注'}
-                    ,{title:"操作", width:250, align:'center', toolbar: '#dictcheckbar'} //这里的toolbar值是模板元素的选择器
+                    ,{
+                        title:"操作", width:250, align:'center',
+                        templet: (d)=>{
+                            if(d.status == "true"){
+                                return '<input type="checkbox" name="'+ d.id +'" checked="" lay-skin="switch" lay-filter="switch-status" title="开关" lay-text="ON|OFF">'
+                            }
+                            return '<input type="checkbox" name="'+ d.id +'" lay-skin="switch" lay-filter="switch-status" title="开关" lay-text="ON|OFF">'
+                        }
+                    }
                 ]
             ]
             ,page: {
@@ -87,62 +94,65 @@
             }
 
         }
-        var tablens = table.render(options1);
+        var tablens1 = table.render(options1);
 
 
-        var data1 = [{
-            title: '江西'
-            ,id: 1
-            ,children: [{
-                title: '南昌'
-                ,id: 1000
-                ,children: [{
-                    title: '青山湖区'
-                    ,id: 10001
-                },{
-                    title: '高新区'
-                    ,id: 10002
-                }]
-            },{
-                title: '九江'
-                ,id: 1001
-            },{
-                title: '赣州'
-                ,id: 1002
-            }]
-        },{
-            title: '广西'
-            ,id: 2
-            ,children: [{
-                title: '南宁'
-                ,id: 2000
-            },{
-                title: '桂林'
-                ,id: 2001
-            }]
-        },{
-            title: '陕西'
-            ,id: 3
-            ,children: [{
-                title: '西安'
-                ,id: 3000
-            },{
-                title: '延安'
-                ,id: 3001
-            }]
-        }]
+        //监听user-status开关
+        form.on('switch(switch-status)', function(data){
+            var status = this.checked ? 'true' : 'false'
+            var id = $(this).attr("name")
+            var msg = {
+                id: id,
+                status: status
+            }
+
+            $.ajax({
+                url: "/system/user/status",
+                type: "post",
+                dataType: "json", //期望后端返回的数据类型
+                data: msg,
+                async: true,
+                success: function(res){
+                    layer.msg(res.msg)
+
+                    tablens1.reload(options1)
+                },
+                error: function(xhr, status, error){
+                    console.log(xhr)
+                    console.log(status)
+                    console.log(error)
+                }
+            });
+
+            return false
+        });
+
+
+
+
 
         //部门管理
         //渲染
-        //开启节点操作图标
-        tree.render({
-            elem: '#test9'
-            ,data: data1
-            ,edit: ['add', 'update', 'del'] //操作节点的图标
-            ,click: function(obj){
-                layer.msg(JSON.stringify(obj.data));
-            }
+        var inst1 = tree.render({
+            elem: '#dps-tree'  //绑定元素
+            ,data: [{
+                title: '江西' //一级菜单
+                ,children: [{
+                    title: '南昌' //二级菜单
+                    ,children: [{
+                        title: '高新区' //三级菜单
+                        //…… //以此类推，可无限层级
+                    }]
+                }]
+            },{
+                title: '陕西' //一级菜单
+                ,children: [{
+                    title: '西安' //二级菜单
+                }]
+            }]
         });
+
+
 
     });
 

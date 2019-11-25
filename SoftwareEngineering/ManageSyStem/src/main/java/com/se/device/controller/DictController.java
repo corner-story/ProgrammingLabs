@@ -35,6 +35,7 @@ public class DictController {
     private UserService userService;
 
 
+
     @GetMapping("/roles")
     public String roles(){
         return "dict/roles";
@@ -50,6 +51,24 @@ public class DictController {
         return "dict/authority";
     }
 
+
+    @PostMapping("/user/status")
+    @ResponseBody
+    public Object switchStatus(@RequestParam String id, @RequestParam String status){
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("code", "200");
+        try{
+            User user = userService.findOneById(id);
+            user.setStatus(status);
+
+            userService.save(user);
+            res.put("msg", "操作成功!");
+        }catch (Exception e){
+            System.out.println(e);
+            res.put("msg", "操作失败, error: " + e.toString());
+        }
+        return res;
+    }
 
 
     @PostMapping("/dps")

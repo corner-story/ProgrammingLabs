@@ -41,6 +41,11 @@ public class User {
     @Column(name = "backup")
     private String backup;
 
+
+    @Column(name = "status")
+    private String status = "true";
+
+
     public User() {
     }
 
@@ -114,6 +119,14 @@ public class User {
 
     public void setBackup(String backup) {
         this.backup = backup;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
