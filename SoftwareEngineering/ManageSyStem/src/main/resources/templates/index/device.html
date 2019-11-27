@@ -12,6 +12,33 @@
 
     <h2>Devices</h2>
     <div id="device_main">
+
+        <form class="layui-form">
+            <div class="layui-inline">
+                <label class="layui-form-label">设备信息</label>
+                <div class="layui-input-inline">
+                    <input type="tel" name="info" autocomplete="off"
+                                                    placeholder="名称/部门" class="layui-input">
+                </div>
+
+            </div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">购入时间</label>
+                <div class="layui-input-inline" style="width: 150px;">
+                    <input type="text" name="begin_min" id="begin_time" placeholder="begin time" autocomplete="off" class="layui-input">
+                </div>
+                -
+                <div class="layui-input-inline" style="width: 150px;">
+                    <input type="text" name="end_max" id="end_time" placeholder="end time" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-input-inline " style="width: 90px">
+                <button class="layui-btn" id="search-device" data-type="reload" lay-submit lay-filter="search-device">搜索</button>
+            </div>
+        </form>
+
         <table class="layui-hide" id="devices" lay-filter="device-filter"></table>
     </div>
 
@@ -24,9 +51,16 @@
         {{#  } else { }}
         <a class="layui-btn layui-btn-disabled layui-btn-xs" lay-event="del">删除</a>
         {{#  } }}
-
-
     </script>
+
+
+    <script type="text/html" id="device-left-bar">
+        <div class="layui-btn-container">
+
+        </div>
+    </script>
+
+
 
 </div>
 
@@ -34,8 +68,10 @@
 <script>
 
 
-    layui.use(['table', 'layer'], function(){
+    layui.use(['table', 'layer', 'laydate', 'form'], function(){
         var table = layui.table;
+        var laydate = layui.laydate;
+        var form = layui.form;
 
         var options = {
             elem: '#devices'
@@ -46,6 +82,8 @@
             ,loading: true
             ,cellMinWidth: 80
             ,page: true
+            ,toolbar: '#device-left-bar' //开启头部工具栏，并为其绑定左侧模板
+            ,defaultToolbar: ['filter', 'exports', 'print', { title: '提示',layEvent: 'LAYTABLE_TIPS',icon: 'layui-icon-tips'}]
             ,cols: [
                 [
                     {type:'checkbox'}
@@ -98,6 +136,14 @@
         }
 
         var tablens = table.render(options);
+
+        //搜索框
+        laydate.render({
+            elem: '#begin_time'
+        });
+        laydate.render({
+            elem: '#end_time'
+        });
 
 
         //监听工具条
@@ -208,11 +254,31 @@
                 });
 
 
-            } else if(layEvent === 'LAYTABLE_TIPS'){
-
-                layer.alert('Hi，头部工具栏扩展的右侧图标。');
             }
         });
+
+
+
+        //头工具栏事件
+        table.on('toolbar(device-filter)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            if(obj.event === 'search-device'){
+
+                layer.msg("search")
+
+            }else if(obj.event === 'LAYTABLE_TIPS'){
+                layer.msg('Hi，Device\' table toolbar!');
+            }
+        });
+
+
+        //搜索框点击事件
+        form.on("submit(search-device)", (data)=>{
+            var msg = data.field
+
+            tablens.reload(options)
+            return false
+        })
 
     });
 

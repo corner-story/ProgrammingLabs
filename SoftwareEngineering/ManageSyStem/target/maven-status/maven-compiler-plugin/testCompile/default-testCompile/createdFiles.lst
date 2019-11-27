@@ -1,0 +1,5 @@
+com\se\device\entity\DeviceCRUDTest.class
+com\se\device\entity\EntityTest.class
+com\se\device\DeviceApplicationTests.class
+com\se\device\entity\UserTest.class
+com\se\device\entity\DeviceTest.class

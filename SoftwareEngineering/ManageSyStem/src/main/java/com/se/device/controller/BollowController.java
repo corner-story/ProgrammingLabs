@@ -1,7 +1,5 @@
 package com.se.device.controller;
 
-
-
 import com.se.device.entity.Device;
 import com.se.device.entity.DeviceBorrow;
 import com.se.device.entity.DeviceBroken;
