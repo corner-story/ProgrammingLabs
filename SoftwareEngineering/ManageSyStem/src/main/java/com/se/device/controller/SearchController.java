@@ -4,8 +4,6 @@ package com.se.device.controller;
 import com.se.device.entity.Device;
 import com.se.device.service.DeviceService;
 import com.se.device.utils.JsonResult;
-import org.hibernate.SQLQuery;
-import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,20 +28,33 @@ public class SearchController {
     @RequestMapping("/search/devices")
     @ResponseBody
     public Object searchDevice(@RequestParam int page, @RequestParam int limit, @RequestParam String info, @RequestParam String begin_time, @RequestParam String end_time){
-        String sql = "select * from device where id=1;";
-        List<Device> data = deviceService.findAllBySql(sql);
-        JsonResult<Object> jsonResult = new JsonResult(data);
-        jsonResult.setCount("20");
-        jsonResult.setCode("0");
 
+        int begin = (page-1)*limit;
+        int end = limit;
 
-        Query query = entityManager.createNativeQuery("select * from device", Device.class);
-
-        for (Object item : query.getResultList()) {
-            Device obj = (Device) item;
-            System.out.println(obj.getName());
+        StringBuilder sb = new StringBuilder("select * from device where 1=1 ");
+        if(info != null && info != ""){
+            sb.append(" and (name like '%").append(info).append("%' or location like '%").append(info).append("%' ");
+            sb.append(" or belong_dp_name like '%").append(info).append("%')");
+        }
+        if(begin_time != null && begin_time != ""){
+            sb.append(" and create_time >= '").append(begin_time).append("'");
+        }
+        if(end_time != null && end_time != ""){
+            sb.append(" and create_time <= '").append(end_time).append("'");
         }
 
+        //分页和order by
+        String count = sb.toString();
+        sb.append(" order by create_time desc, id desc limit ").append(begin).append(", ").append(end);
+
+        Query query = entityManager.createNativeQuery(sb.toString(), Device.class);
+        Query queryCount = entityManager.createNativeQuery(count, Device.class);
+
+        JsonResult<Object> jsonResult = new JsonResult(query.getResultList());
+        jsonResult.setCount(String.valueOf(queryCount.getResultList().size()));
+        jsonResult.setCode("0");
+        entityManager.close();
         return jsonResult;
     }
 
