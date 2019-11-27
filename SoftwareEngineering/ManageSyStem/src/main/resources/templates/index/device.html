@@ -26,11 +26,11 @@
             <div class="layui-inline">
                 <label class="layui-form-label">购入时间</label>
                 <div class="layui-input-inline" style="width: 150px;">
-                    <input type="text" name="begin_min" id="begin_time" placeholder="begin time" autocomplete="off" class="layui-input">
+                    <input type="text" name="begin_time" id="begin_time" placeholder="begin time" autocomplete="off" class="layui-input">
                 </div>
                 -
                 <div class="layui-input-inline" style="width: 150px;">
-                    <input type="text" name="end_max" id="end_time" placeholder="end time" autocomplete="off" class="layui-input">
+                    <input type="text" name="end_time" id="end_time" placeholder="end time" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
@@ -263,7 +263,6 @@
         table.on('toolbar(device-filter)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);
             if(obj.event === 'search-device'){
-
                 layer.msg("search")
 
             }else if(obj.event === 'LAYTABLE_TIPS'){
@@ -275,7 +274,20 @@
         //搜索框点击事件
         form.on("submit(search-device)", (data)=>{
             var msg = data.field
+            console.log(msg)
 
+            var info = msg.info
+            var begin_time = msg.begin_time
+            var end_time = msg.end_time
+
+            if(info === "" && begin_time === "" && end_time === ""){
+                options.url = "/devices"
+            }else{
+                options.url = "/search/devices"
+                options.where = msg
+            }
+
+            layer.msg(options.url)
             tablens.reload(options)
             return false
         })

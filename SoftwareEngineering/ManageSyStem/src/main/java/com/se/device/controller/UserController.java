@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 @Controller
 @RequestMapping("/self")
-public class SelfController {
+public class UserController {
 
 
     @Autowired
@@ -49,6 +49,28 @@ public class SelfController {
             res.put("msg", "修改失败, 请联系管理员!");
         }
         return res;
+    }
+
+
+
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    @ResponseBody
+    public Object addUser(@RequestBody User user){
+        HashMap<String, Object> res = new HashMap<>();
+        res.put("code", "200");
+        try{
+            userService.save(user);
+            res.put("msg", "添加成功!");
+        }catch (Exception e){
+            System.out.println(e);
+            res.put("msg", "添加失败, error: " + e.toString());
+        }
+        return res;
+    }
+
+    @GetMapping("/user")
+    public String addUserHtml(){
+        return "index/add_user";
     }
 
 }

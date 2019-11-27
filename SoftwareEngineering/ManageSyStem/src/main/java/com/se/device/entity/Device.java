@@ -53,6 +53,20 @@ public class Device {
     public Device() {
     }
 
+
+    public Device(String name, String model, String type, Integer inside_number, Integer belong_dp_id, String belong_dp_name, String location, String status, Date create_time, String backup) {
+        this.name = name;
+        this.model = model;
+        this.type = type;
+        this.inside_number = inside_number;
+        this.belong_dp_id = belong_dp_id;
+        this.belong_dp_name = belong_dp_name;
+        this.location = location;
+        this.status = status;
+        this.create_time = create_time;
+        this.backup = backup;
+    }
+
     public String getBelong_dp_name() {
         return belong_dp_name;
     }

@@ -1,0 +1,163 @@
+<head>
+    <style>
+        #user{
+            margin: 40px;
+        }
+    </style>
+</head>
+
+
+<div id="user">
+
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" id="username" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="password" name="password" id="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">所属部门</label>
+            <div class="layui-input-block">
+                <select name="dp_id" lay-verify="dps" id="dps">
+                    <option value="0">请选择设备所属部门</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">所属角色</label>
+            <div class="layui-input-block">
+                <select name="role_id" lay-verify="dps" id="roles">
+                    <option value="0">请选择所属角色</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea name="backup" id="backup" placeholder="请输入简介或备注" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">添加这个臭弟弟</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+
+
+<script>
+
+    layui.use('form', function(){
+        var form = layui.form;
+        form.render();
+
+        //部门
+        $.ajax({
+            url: "/system/dps",
+            type: "post",
+            dataType: "json", //期望后端返回的数据类型
+            async: true,
+            success: function(res){
+                console.log(res)
+                var options = ""
+                for(var i=0; i< res.data.length; i++){
+                    options = options + '<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>'
+                }
+
+                $("#dps").append(options)
+                //重新render
+                form.render()
+            },
+            error: function(xhr, status, error){
+                console.log(xhr)
+                console.log(status)
+                console.log(error)
+            }
+        });
+        //角色
+        $.ajax({
+            url: "/system/roles",
+            type: "post",
+            dataType: "json", //期望后端返回的数据类型
+            async: true,
+            success: function(res){
+                console.log(res)
+                var options = ""
+                for(var i=0; i< res.data.length; i++){
+                    options = options + '<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>'
+                }
+
+                $("#roles").append(options)
+                //重新render
+                form.render()
+            },
+            error: function(xhr, status, error){
+                console.log(xhr)
+                console.log(status)
+                console.log(error)
+            }
+        });
+
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+
+            var new_user = data.field
+            new_user.dp_name = $("#dps").find("option:selected").text()
+            new_user.role_name = $("#roles").find("option:selected").text()
+            new_user.status = "true"
+
+
+            //检查device的部门信息
+            if(new_user.dp_id === "" || new_user.dp_id === "0"){
+                layer.msg("请选择所属部门!")
+                return false
+            }
+
+            //检查user的role信息
+            if(new_user.role_id === "" || new_user.role_id === "0"){
+                layer.msg("请选择所属角色!")
+                return false
+            }
+            // console.log(new_user);
+            $.ajax({
+                url: "/self/user",
+                type: "post",
+                dataType: "json", //期望后端返回的数据类型
+                contentType: "application/json;charset=UTF-8",
+                data: JSON.stringify(new_user),
+                async: true,
+                success: function(res){
+
+                    layer.msg(res.msg)
+                },
+                error: function(xhr, status, error){
+                    console.log(xhr)
+                    console.log(status)
+                    console.log(error)
+                }
+            });
+            return false;
+        });
+    });
+</script>

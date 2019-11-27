@@ -8,6 +8,7 @@
         #dps-tree{
             margin: 100px;
         }
+
     </style>
 </head>
 
@@ -23,7 +24,8 @@
             <div class="layui-tab-content">
 
                 <div class="layui-tab-item layui-show">
-                    <div id="">
+                    <div id="content">
+                        <button type="button" class="layui-btn layui-btn-sm" id="add-user"><i class="layui-icon"></i>添加用户</button>
                         <table class="layui-hide" id="dict-user" lay-filter="dict-user"></table>
                     </div>
                 </div>
@@ -96,7 +98,6 @@
         }
         var tablens1 = table.render(options1);
 
-
         //监听user-status开关
         form.on('switch(switch-status)', function(data){
             var status = this.checked ? 'true' : 'false'
@@ -127,6 +128,39 @@
             return false
         });
 
+        //添加用户
+        $("#add-user").click(function () {
+            $.ajax({
+                url: "/self/user",
+                type: "get",
+                dataType: "html", //期望后端返回的数据类型
+                async: true,
+                success: function(res){
+                    layer.open({
+                        type: 1,
+                        title: '添加用户',
+                        shadeClose: true,
+                        shade: false,
+                        maxmin: true, //开启最大化最小化按钮
+                        area: '700px',
+                        anim:1,
+                        content: res,
+                        end: function () {
+                            //编辑弹窗被关闭, 重新渲染table
+                            console.log("重新渲染user table")
+                            tablens1.reload(options1)
+                            return
+
+                        }
+                    });
+                },
+                error: function(xhr, status, error){
+                    console.log(xhr)
+                    console.log(status)
+                    console.log(error)
+                }
+            });
+        })
 
 
 

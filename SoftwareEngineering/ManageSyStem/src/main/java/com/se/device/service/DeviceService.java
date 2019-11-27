@@ -15,4 +15,8 @@ public interface DeviceService extends JpaRepository<Device, Integer> {
     @Query(value = "select * from device where id=?1", nativeQuery = true)
     public Device findOneById(int id);
 
+
+    @Query(value = "select * from device", nativeQuery = true)
+    public List<Device> findAllBySql(String sql);
+
 }
