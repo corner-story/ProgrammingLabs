@@ -13,7 +13,8 @@ C:\Users\Administrator\Desktop\新建文件夹 (3)\ProgrammingLabs\SoftwareEngin
 C:\Users\Administrator\Desktop\新建文件夹 (3)\ProgrammingLabs\SoftwareEngineering\ManageSyStem\src\main\java\com\se\device\entity\Device.java
 C:\Users\Administrator\Desktop\新建文件夹 (3)\ProgrammingLabs\SoftwareEngineering\ManageSyStem\src\main\java\com\se\device\entity\DeviceFault.java
 C:\Users\Administrator\Desktop\新建文件夹 (3)\ProgrammingLabs\SoftwareEngineering\ManageSyStem\src\main\java\com\se\device\service\BrokenService.java
-C:\Users\Administrator\Desktop\新建文件夹 (3)\ProgrammingLabs\SoftwareEngineering\ManageSyStem\src\main\java\com\se\device\controller\SelfController.java
+C:\Users\Administrator\Desktop\新建文件夹 (3)\ProgrammingLabs\SoftwareEngineering\ManageSyStem\src\main\java\com\se\device\controller\SearchController.java
+C:\Users\Administrator\Desktop\新建文件夹 (3)\ProgrammingLabs\SoftwareEngineering\ManageSyStem\src\main\java\com\se\device\controller\UserController.java
 C:\Users\Administrator\Desktop\新建文件夹 (3)\ProgrammingLabs\SoftwareEngineering\ManageSyStem\src\main\java\com\se\device\service\FaultService.java
 C:\Users\Administrator\Desktop\新建文件夹 (3)\ProgrammingLabs\SoftwareEngineering\ManageSyStem\src\main\java\com\se\device\entity\Department.java
 C:\Users\Administrator\Desktop\新建文件夹 (3)\ProgrammingLabs\SoftwareEngineering\ManageSyStem\src\main\java\com\se\device\controller\DeviceController.java

@@ -60,7 +60,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">所属部门</label>
             <div class="layui-input-block">
-                <select name="belong_dp_id" lay-verify="dps" id="dps">
+                <select name="belong_dp_id" lay-verify="device-dps" id="device-dps">
                     <option value="0">请选择设备所属部门</option>
 
                 </select>
@@ -78,7 +78,7 @@
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button class="layui-btn" lay-submit lay-filter="add-device-form">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
@@ -106,7 +106,7 @@
                     options = options + '<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>'
                 }
 
-                $("#dps").append(options)
+                $("#device-dps").append(options)
                 //重新render
                 form.render()
             },
@@ -118,10 +118,10 @@
         });
 
         //监听提交
-        form.on('submit(formDemo)', function(data){
+        form.on('submit(add-device-form)', function(data){
 
             var device = data.field
-            device.belong_dp_name = $("#dps").find("option:selected").text()
+            device.belong_dp_name = $("#device-dps").find("option:selected").text()
 
             //检查device的部门信息
             if(device.belong_dp_id === "" || device.belong_dp_id === "0"){
