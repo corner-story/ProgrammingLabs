@@ -39,6 +39,7 @@ public class IndexController {
             return "redirect:/login";
         }
         model.addAttribute("username", username.toString());
+        model.addAttribute("rolename", session.getAttribute("rolename").toString());
         return "index/index";
     }
 

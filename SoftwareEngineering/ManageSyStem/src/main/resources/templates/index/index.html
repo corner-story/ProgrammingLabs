@@ -8,7 +8,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/assets/global.css}"/>
 
 </head>
+<div></div>
 <body class="layui-layout-body">
+
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
         <div class="layui-logo">设备管理系统</div>
@@ -64,7 +66,7 @@
                             </a>
                         </dd>
 
-                        <dd title="添加设备">
+                        <dd title="添加设备" class="admin-required">
                             <a href="javascript:;" data-url="/adddevice">
                                 <i class="layui-icon" data-icon=""></i>
                                 <cite>添加设备</cite>
@@ -109,7 +111,7 @@
 
 
                 <!--设备审批-->
-                <li class="layui-nav-item">
+                <li class="layui-nav-item admin-required">
                     <a href="javascript:;" data-url="#">
                         <i class="fa fa-cubes" aria-hidden="true" data-icon="fa-cubes"></i>
                         <cite>设备审批</cite>
@@ -139,7 +141,7 @@
 
 
                 <!--系统管理-->
-                <li class="layui-nav-item">
+                <li class="layui-nav-item admin-required">
                     <a href="javascript:;" data-url="#">
                         <i class="fa fa-cubes" aria-hidden="true" data-icon="fa-cubes"></i>
                         <cite>系统管理</cite>
@@ -297,7 +299,7 @@
 <script type="text/javascript">
     <!--左侧菜单和上面导航条的相关设置-->
     $("#navigation").on('click', ' li i', function(){
-        console.log(this)
+        // console.log(this)
         var layid = $(this).parent().attr("lay-id")
         active.tabDelete(layid)
     })
@@ -343,10 +345,17 @@
     <!--一些点击事件绑定-->
 
 </script>
-<script type="text/javascript">
+<script th:inline="javascript">
+
 
     $(document).ready(function(){
         layer.msg("Hello, admin!")
+        var rolename = [[${rolename}]]
+
+        //根据角色判断
+        if(rolename !== "管理员"){
+            $(".admin-required").hide()
+        }
 
 
     })
