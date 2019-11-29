@@ -1,7 +1,5 @@
 package com.se.device.controller;
 
-
-
 import com.se.device.entity.User;
 import com.se.device.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
