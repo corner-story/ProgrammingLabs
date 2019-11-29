@@ -126,6 +126,11 @@
 
                 $("#roles").append(options)
                 $("#roles").val(user.role_id)
+
+                if(user.role_name !== "管理员"){
+                    $("#dps").attr("disabled", "disabled");
+                    $("#roles").attr("disabled", "disabled");
+                }
                 //重新render
                 form.render()
             },
