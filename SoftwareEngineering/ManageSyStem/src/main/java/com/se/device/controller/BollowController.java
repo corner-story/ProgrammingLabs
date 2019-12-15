@@ -204,6 +204,10 @@ public class BollowController {
 
                 //获取当前对应的device
                 Device device = deviceService.findOneById(datum.getDevice_id());
+
+                if(device == null){
+                    continue;
+                }
                 String status = device.getStatus();
                 bl.put("status", status);
 

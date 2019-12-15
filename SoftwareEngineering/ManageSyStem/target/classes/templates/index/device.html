@@ -44,13 +44,11 @@
 
     <script type="text/html" id="optoolbar">
         <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detail">查看</a>
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 
-        {{#  if(d.status === "报废"){ }}
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-        {{#  } else { }}
-        <a class="layui-btn layui-btn-disabled layui-btn-xs" lay-event="del">删除</a>
-        {{#  } }}
+
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+
+
     </script>
 
 
@@ -65,13 +63,58 @@
 </div>
 
 
-<script>
+<script th:inline="javascript">
 
+    var rolename = [[${rolename}]]
 
     layui.use(['table', 'layer', 'laydate', 'form'], function(){
         var table = layui.table;
         var laydate = layui.laydate;
         var form = layui.form;
+        let colms = [
+            {type:'checkbox'}
+            ,{field:'id',title: 'ID', sort: true}
+            ,{field:'name',  title: '设备名称'}
+            ,{field:'type',  title: '类型', sort: true}
+            ,{field:'model',  title: '型号'}
+            ,{field:'inside_number', title: '内部编码'}
+            ,{field:'location', title: '存放位置', sort: true}
+            ,{field:'belong_dp_id',  title: '所属部门ID', sort: true, hide: true}
+            ,{field:'belong_dp_name',  title: '所属部门', sort: true}
+            ,{field:'create_time', title: '创建时间', sort: true}
+            ,{field:'backup', title: '备注'}
+            ,{
+                field:'status',
+                title: '状态',
+                align: 'center',
+                templet: function (d) {
+                    //d是该行的数据
+                    if(d.status === ""){
+                        return d.status
+                    }
+                    var style = ""
+                    var size = " layui-btn-xs"
+                    if(d.status === "在库"){
+                        style = "layui-btn"
+                    }else if(d.status === "借出"){
+                        style = "layui-btn layui-btn-normal"
+                    }else if(d.status === "损坏"){
+                        style = "layui-btn layui-btn-warm"
+                    }else if(d.status === "报废"){
+                        style = "layui-btn layui-btn-danger"
+                    }else{
+                        style = "layui-btn layui-btn-primary"
+                    }
+                    return '<button type="button" class="'+ style + size +'">' + d.status + '</button>'
+                }
+            }
+        ]
+
+        if(rolename === "管理员"){
+            colms[colms.length] = {title:"操作", width:150, align:'center', toolbar: '#optoolbar'} //这里的toolbar值是模板元素的选择器
+
+        }
+
 
         var options = {
             elem: '#devices'
@@ -85,45 +128,7 @@
             ,toolbar: '#device-left-bar' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { title: '提示',layEvent: 'LAYTABLE_TIPS',icon: 'layui-icon-tips'}]
             ,cols: [
-                [
-                    {type:'checkbox'}
-                    ,{field:'id',title: 'ID', sort: true}
-                    ,{field:'name',  title: '设备名称'}
-                    ,{field:'type',  title: '类型', sort: true}
-                    ,{field:'model',  title: '型号'}
-                    ,{field:'inside_number', title: '内部编码'}
-                    ,{field:'location', title: '存放位置', sort: true}
-                    ,{field:'belong_dp_id',  title: '所属部门ID', sort: true, hide: true}
-                    ,{field:'belong_dp_name',  title: '所属部门', sort: true}
-                    ,{field:'create_time', title: '创建时间', sort: true}
-                    ,{field:'backup', title: '备注'}
-                    ,{
-                    field:'status',
-                    title: '状态',
-                    align: 'center',
-                    templet: function (d) {
-                        //d是该行的数据
-                        if(d.status === ""){
-                            return d.status
-                        }
-                        var style = ""
-                        var size = " layui-btn-xs"
-                        if(d.status === "在库"){
-                            style = "layui-btn"
-                        }else if(d.status === "借出"){
-                            style = "layui-btn layui-btn-normal"
-                        }else if(d.status === "损坏"){
-                            style = "layui-btn layui-btn-warm"
-                        }else if(d.status === "报废"){
-                            style = "layui-btn layui-btn-danger"
-                        }else{
-                            style = "layui-btn layui-btn-primary"
-                        }
-                        return '<button type="button" class="'+ style + size +'">' + d.status + '</button>'
-                    }
-                }
-                    ,{title:"操作", width:150, align:'center', toolbar: '#optoolbar'} //这里的toolbar值是模板元素的选择器
-                ]
+                colms
             ]
             ,page: {
                 layout: ['prev', 'page', 'next', 'skip', 'count', 'limit',] //自定义分页布局

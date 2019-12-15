@@ -3,7 +3,9 @@ package com.se.device.controller;
 import com.se.device.entity.Device;
 import com.se.device.entity.DeviceBorrow;
 import com.se.device.service.BollowService;
+import com.se.device.service.BrokenService;
 import com.se.device.service.DeviceService;
+import com.se.device.service.FaultService;
 import com.se.device.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,7 @@ public class DeviceController {
 
     @Autowired
     private BollowService bollowService;
+
 
 
     //获取所有的device信息

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.util.*;
@@ -55,7 +57,7 @@ public class LoginController {
 
     @PostMapping("/login")
     @ResponseBody
-    public JsonResult<HashMap> login(@RequestBody UserBean userBean, HttpSession session){
+    public JsonResult<HashMap> login(@RequestBody UserBean userBean, HttpSession session, HttpServletResponse response){
         HashMap<String, String> res = new HashMap<>();
         JsonResult<HashMap> jsonResult = new JsonResult<>();
 
@@ -79,6 +81,7 @@ public class LoginController {
             session.setAttribute("dpid", user.get(0).getDp_id());
             session.setAttribute("rolename", user.get(0).getRole_name());
             session.setAttribute("dpname", user.get(0).getDp_name());
+
         }
 
         jsonResult.setData(res);

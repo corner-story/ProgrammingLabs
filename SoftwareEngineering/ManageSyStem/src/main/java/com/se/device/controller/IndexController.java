@@ -11,8 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 import javax.servlet.http.HttpSession;
-import java.util.List;
+
 
 /*
     index中的大部分请求, 请求html页面
@@ -52,7 +53,8 @@ public class IndexController {
 
     //访问device.html
     @GetMapping("/device")
-    public String devices(){
+    public String devices(Model model, HttpSession session){
+        model.addAttribute("rolename", session.getAttribute("rolename"));
         return "index/device";
     }
 
