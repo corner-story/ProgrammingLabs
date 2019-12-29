@@ -1,0 +1,26 @@
+/*
+    测试 if else
+*/
+
+int main(){
+    int test := 0x10;
+
+    if(test > 5){
+        if(test > 10){
+            printf("测试值 > 10 ");
+        }else{
+            printf("测试值 > 5 && 测试值 <= 10 ");
+        }
+    }else{
+        if(test <= 0){
+            printf("测试值 <= 0 ");
+        }else{
+            printf("测试值 > 0 && 测试值 <= 5 ");
+        }
+    }
+    printf("测试值为:");
+    printf(test);
+
+}
+
+

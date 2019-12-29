@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>a little compiler!</title>
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.5/css/layui.css">
+
+    <style>
+        #sourcebox {
+            margin: 40px 200px;
+        }
+
+        .layui-textarea {
+            height: 400px;
+        }
+    </style>
+
+</head>
+<body class="layui-layout-body">
+
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <a class="layui-logo" href="https://github.com/lambdafate/ProgrammingLabs/tree/master/compiler" target="_blank" title="github: a little compiler!">A little Compiler!</a>
+            <ul class="layui-nav layui-layout-left" id="nav-top">
+                <li class="layui-nav-item"><a href="javascript:;" value="1">词法分析</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" value="2">语法分析</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" value="3">获取AST</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" value="4">获取Bytecode</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" value="5">在虚拟机中运行</a></li>
+
+            </ul>
+
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">Testcase</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" onclick="testcase('10')">Hello, World!</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('0')">赋值测试</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('1')">if-else测试</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('2')">while测试</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('3')">for赋值</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('4')">判断条件测试</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('5')">数据类型测试</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('6')">一个小例子</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('7')">continue-break测试</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('8')">function-return测试</a></dd>
+                        <dd><a href="javascript:;" onclick="testcase('9')">递归-what it can do!</a></dd>
+
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">About</a></li>
+            </ul>
+
+        </div>
+
+
+
+    </div>
+
+    <div class="layui-layout-body">
+        <form class="layui-form layui-form-pane" action="">
+            <div class="layui-form-item layui-form-text" id="sourcebox">
+                <label class="layui-form-label">Source Code</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入代码" class="layui-textarea" style="font-size: 16px;" id="source"></textarea>
+                </div>
+            </div>
+        </form>
+        <div id="result">
+
+        </div>
+    </div>
+
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://www.layuicdn.com/layer-v3.1.1/layer.js"></script>
+<script src="https://www.layuicdn.com/layui-v2.5.5/layui.js"></script>
+
+<script type="text/javascript">
+    //生成从minNum到maxNum的随机数
+    var randomNum = (minNum,maxNum) => {
+        return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10);
+    }
+
+    var layopen = (title, content, anim=randomNum(0,6)) => {
+        var width = (window.screen.width / 2 ) + "px"
+        var height = (window.screen.height / 2) + "px"
+        layer.open({
+            type: 1 //Page层类型
+            ,area: [width, height]
+            ,title: title
+            ,shade: 0.6 //遮罩透明度
+            ,maxmin: true //允许全屏最小化
+            ,anim: anim //0-6的动画形式，-1不开启
+            ,content: content
+        });
+    }
+
+    function testcase(id){
+        var url = "/testcase/" + id
+        $.ajax({
+            url: url,
+            type: "get",
+            dataType: "json",
+            async: true,
+            success: function(res){
+                console.log(res)
+                layer.msg("request success: " + url)
+                $("#source").val(res.data)
+            },
+            error: function(e){
+
+                console.log(e)
+                layer.msg("request testcase("+url+"): 发生错误, 请检查网络!")
+            }
+        })
+    }
+</script>
+
+
+<script type="text/javascript">
+    var tokenizecall = (res, info) => {
+        if(res.error !== ""){
+            layer.msg(res.error);
+            return false;
+        }
+
+        var tokens = res.data
+
+        var result = "";
+        tokens.forEach((token) => {
+            result = result + JSON.stringify(token) + "<br>"
+        });
+        result = "<div>" + result + "</div>"
+
+        layopen(info.title, result)
+    }
+
+    var parsercall = (res, info) => {
+        if(res.error !== ""){
+            layer.msg(res.error)
+            return false
+        }
+        layer.msg("parse successful!")
+    }
+
+
+    var astcall = (res, info) => {
+        if(res.error !== ""){
+            layer.msg(res.error);
+            return false;
+        }
+
+        var tokens = res.data
+
+        var result = "";
+        tokens.forEach((token) => {
+            result = result + JSON.stringify(token) + "<br>"
+        });
+        result = "<div>" + result + "</div>"
+
+        layopen(info.title, result)
+    }
+
+    var bytecodecall = (res, info) => {
+        if(res.error !== ""){
+            layer.msg(res.error);
+            return false;
+        }
+
+        var tokens = res.data
+
+        var result = "";
+        tokens.forEach((token) => {
+            result = result + JSON.stringify(token) + "<br>"
+        });
+        result = "<div>" + result + "</div>"
+
+        layopen(info.title, result)
+    }
+
+    var runcall = (res, info) => {
+        if(res.error !== ""){
+            layer.msg(res.error);
+            return false
+        }
+        result = "<div>" + res.data.replace(/\n/g, "<br>") + "</div>"
+        layopen(info.title, result)
+    }
+
+
+    var mapurl = {
+        "1": {url:"/api/tokens", title:"词法分析", callfunc: tokenizecall},
+        "2": {url:"/api/ast", title: "语法分析", callfunc: parsercall},
+        "3": {url:"/api/ast", title: "获取AST", callfunc:astcall},
+        "4": {url:"/api/bytecode", title: "获取字节码", callfunc: bytecodecall},
+        "5": {url:"/api/run", title: "在虚拟机中运行", callfunc: runcall}
+    }
+
+</script>
+
+<script>
+
+    var getresult = (requestid, data) => {
+        var info = mapurl[requestid]
+        var url = info.url
+        $.ajax({
+            url: url,
+            type: "post",
+            data, data,
+            dataType: "json",
+            async: true,
+            success: function(res){
+
+                info.callfunc(res, info)
+
+            },
+            error: function(e){
+                console.log(e)
+                layer.msg("发生错误, 请检查网络!")
+            }
+        })
+    }
+    
+    layui.use("element", function(){
+
+    })
+
+
+    //顶部导航栏的点击事件
+    $("#nav-top").on("click", "li a", function(data){
+        var requestid = $(this).attr("value")
+
+        var data = $("#source").val()
+        if(data == null || data == ""){
+            layer.msg("请输入代码!")
+            return false
+        }
+        getresult(requestid, {"source": data})
+        // getresult(url, {"source": data})
+    })
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        testcase("10")
+        var content = "<br><center>a little compiler: 一个基于栈式虚拟机的little compiler！</center>"
+        layopen("Hello, little Compiler!", content, 4)
+    })
+</script>
+</html>
