@@ -11,11 +11,11 @@ int main(int argc, char *argv[]){
         assert(mkfifo(fifo, 0777) != -1);
     }    
     
-    int test1_fd = open("./test1", O_RDONLY);
+    int test1_fd = open("./test1", O_CREAT | O_RDONLY, 0777);
     assert(test1_fd != -1);
 
     int fifo_fd = open(fifo, O_WRONLY);
-    assert(fifo_fd);
+    assert(fifo_fd != -1);
 
     char buffer[128];
     int bytes = 0;
