@@ -1,8 +1,8 @@
 import socket 
 import sys
 
-HOST = "127.0.0.1"
-PORT = 6666
+HOST = "39.107.83.159"
+PORT = 8888
 
 if len(sys.argv) > 1:
     HOST = sys.argv[1]
@@ -11,5 +11,5 @@ if len(sys.argv) > 2:
 
 socket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 
-socket.sendto(bytes("hello, i'am udp client!\n", encoding="utf8"), (HOST, PORT))
+socket.sendto("hello, i'am udp client!\n".encode("utf8"), (HOST, PORT))
 
