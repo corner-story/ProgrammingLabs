@@ -2,3 +2,4 @@
 *.mvn
 *.class
 **/out/
+*.out
