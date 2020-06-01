@@ -45,6 +45,7 @@ int main(int argc, char *argv[]){
         pid_t pid = fork();
         if(pid == 0){
             signal(SIGCHLD, SIG_DFL);
+            signal(SIGINT, SIG_DFL);
             request_handler(cfd);
             exit(0);
         }
